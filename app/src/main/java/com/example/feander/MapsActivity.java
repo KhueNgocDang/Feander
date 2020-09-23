@@ -12,6 +12,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -77,6 +79,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             }
+    }
+
+    public void onClick(View v)
+    {
+        if (v.getId() == R.id.F_B)
+        {
+            EditText tf_location = findViewById(R.id.StartLocation);
+            String location = tf_location.getText().toString();
+            List<Address> addressList = null;
+            MarkerOptions markerOptions = new MarkerOptions();
+
+            if(!location.equals(""))
+            {
+                Geocoder geocoder = new Geocoder(this);
+                try {
+                    addressList = geocoder.getFromLocationName(location, 3);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                for(int i = 0; i<addressList.size();i++)
+                {
+                    Address currAddress = addressList.get(i);
+                    LatLng latLng = new LatLng(currAddress.getLatitude(),currAddress.getLongitude());
+                    markerOptions.position(latLng);
+                    markerOptions.title("Search result");
+                    mMap.addMarker(markerOptions);
+
+                }
+            }
+        }
     }
 
     @Override
