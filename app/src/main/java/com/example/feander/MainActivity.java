@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView storelist;
-
+    private Button BtnMove;
     private FirestoreRecyclerAdapter adapter;
 
     @Override
@@ -30,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         storelist = findViewById(R.id.FirestoreList);
+
+        //Button for moving to map activity
+        BtnMove = findViewById(R.id.D_Button);
+        BtnMove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                moveToMapActivity();
+            }
+        });
 
         //Query from firebase firestore
         Query query = firebaseFirestore.collection("Location");
@@ -73,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void moveToMapActivity(){
+
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
     }
 
     @Override
