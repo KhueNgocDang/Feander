@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.feander.MainActivity;
 import com.example.feander.R;
 import com.example.feander.SignInAndUp.SignUp_Activity;
 import com.example.feander.SignInAndUp.ui.login.LoginViewModel;
@@ -117,6 +118,8 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
