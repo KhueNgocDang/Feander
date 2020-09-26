@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.feander.R;
 import com.example.feander.SignInAndUp.SignIn_Activity;
+import com.example.feander.SignInAndUp.ui.login.LoginActivity;
 
 public class Splash_Activity extends AppCompatActivity {
 final int SPLASH_TIME = 2000;
@@ -19,7 +20,7 @@ final int SPLASH_TIME = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Splash_Activity.this, SignIn_Activity.class);
+                Intent intent = new Intent(Splash_Activity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
