@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        Query query = locationRef;
+        Query query = locationRef.orderBy("Name", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<LocationModel> options = new FirestoreRecyclerOptions.Builder<LocationModel>()
                 .setQuery(query, LocationModel.class)
@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.FirestoreList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-
     }
 
     @Override
