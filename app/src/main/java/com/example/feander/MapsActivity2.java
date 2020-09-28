@@ -32,15 +32,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         Intent intent = getIntent();
-        String lng = intent.getStringExtra("longitude");
-        String lat = intent.getStringExtra("latitude");
+        Double lng = intent.getDoubleExtra("longitude",0);
+        Double lat = intent.getDoubleExtra("latitude",0);
 
-        //double longitude = Double.parseDouble(lng);
-        //double latitude = Double.parseDouble(lat);
-
-        // Add a marker in Sydney and move the camera
-        //LatLng latLng = new LatLng(latitude, longitude);
-        LatLng latLng = getIntent().getExtras().getParcelable("latlng");
+        LatLng latLng = new LatLng(lat,lng);
         mMap.addMarker(new MarkerOptions().position(latLng).title("Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }

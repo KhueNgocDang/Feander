@@ -6,17 +6,17 @@ import com.google.android.gms.maps.model.LatLng;
 public class LocationModel {
     private String name;
     private LatLng latLng;
-    private String latitude;
-    private String longitude;
+    private String Latitude;
+    private String Longitude;
 
     private LocationModel(){}
 
-    private LocationModel(String name, LatLng latLng, String latitude, String longitude)
+    private LocationModel(String name, LatLng latLng, String Latitude, String Longitude)
     {
         this.name = name;
         this.latLng = latLng;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.Latitude = Latitude;
+        this.Longitude = Longitude;
     }
 
     public String getName() {
@@ -36,18 +36,18 @@ public class LocationModel {
     }
 
     public String getLatitude() {
-        return latitude;
+        return Latitude;
     }
 
     public void setLatitude(String latitude) {
-        this.latitude = latitude;
+        this.Latitude = latitude;
     }
 
     public String getLongitude() {
-        return longitude;
+        return Longitude;
     }
 
     public void setLongitude(String longitude) {
-        this.longitude = longitude;
+        this.Longitude = longitude;
     }
 }
