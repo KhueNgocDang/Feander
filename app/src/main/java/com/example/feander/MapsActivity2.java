@@ -35,11 +35,12 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         String lng = intent.getStringExtra("longitude");
         String lat = intent.getStringExtra("latitude");
 
-        double longitude = Double.parseDouble(lng);
-        double latitude = Double.parseDouble(lat);
+        //double longitude = Double.parseDouble(lng);
+        //double latitude = Double.parseDouble(lat);
 
         // Add a marker in Sydney and move the camera
-        LatLng latLng = new LatLng(latitude, longitude);
+        //LatLng latLng = new LatLng(latitude, longitude);
+        LatLng latLng = getIntent().getExtras().getParcelable("latlng");
         mMap.addMarker(new MarkerOptions().position(latLng).title("Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }

@@ -51,12 +51,14 @@ public class MainActivity extends AppCompatActivity  {
                 //Double longitude = Double.parseDouble(location.getLongitude()) ;
                 //Double latitude = Double.parseDouble(location.getLatitude());
 
+                LatLng latLng = location.getLatLng();
                 String longitude = location.getLongitude() ;
                 String latitude = location.getLatitude();
 
                 Intent intent = new Intent(MainActivity.this, MapsActivity2.class);
                 intent.putExtra("latitude",latitude);
                 intent.putExtra("longitude",longitude);
+                intent.putExtra("latlng",latLng);
                 startActivity(intent);
             }
         });

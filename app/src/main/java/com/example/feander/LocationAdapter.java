@@ -22,6 +22,7 @@ public class LocationAdapter extends FirestoreRecyclerAdapter<LocationModel, Loc
     @Override
     protected void onBindViewHolder(@NonNull LocationHolder holder, int position, @NonNull LocationModel model) {
         holder.list_name.setText(model.getName());
+        holder.latLng.setText(model.getLatLng()+"");
     }
 
     @NonNull
@@ -34,10 +35,12 @@ public class LocationAdapter extends FirestoreRecyclerAdapter<LocationModel, Loc
 
     class LocationHolder extends RecyclerView.ViewHolder{
         TextView list_name;
+        TextView latLng;
 
         public LocationHolder(@NonNull View itemView) {
             super(itemView);
             list_name = itemView.findViewById(R.id.list_name);
+            latLng = itemView.findViewById(R.id.latLng);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
