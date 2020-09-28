@@ -1,17 +1,22 @@
 package com.example.feander.SignInAndUp.ui.login;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Patterns;
 
+import com.example.feander.MainActivity;
 import com.example.feander.R;
 import com.example.feander.SignInAndUp.data.LoginRepository;
 import com.example.feander.SignInAndUp.data.Result;
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
 
 public class LoginViewModel extends ViewModel {
+    private AppCompatActivity callingActivity;
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
@@ -36,6 +41,8 @@ public class LoginViewModel extends ViewModel {
         if (result instanceof Result.Success) {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            Intent intent = new Intent(getCallingActivity(), MainActivity.class);
+            getCallingActivity().startActivity(intent);
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
@@ -66,5 +73,13 @@ public class LoginViewModel extends ViewModel {
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 5;
+    }
+
+    public void setCallingActivity(AppCompatActivity callingActivity) {
+        this.callingActivity = callingActivity;
+    }
+
+    public AppCompatActivity getCallingActivity() {
+        return callingActivity;
     }
 }
