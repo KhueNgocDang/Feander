@@ -37,6 +37,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
         LatLng latLng = new LatLng(lat,lng);
         mMap.addMarker(new MarkerOptions().position(latLng).title("Location"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
     }
 }
