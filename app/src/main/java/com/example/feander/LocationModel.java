@@ -8,15 +8,18 @@ public class LocationModel {
     private LatLng latLng;
     private String Latitude;
     private String Longitude;
+    private String location;
 
-    private LocationModel(){}
+    private LocationModel(){
+    }
 
-    private LocationModel(String name, LatLng latLng, String Latitude, String Longitude)
+    private LocationModel(String name, LatLng latLng, String Latitude, String Longitude, String location)
     {
         this.name = name;
         this.latLng = latLng;
         this.Latitude = Latitude;
         this.Longitude = Longitude;
+        this.location = location;
     }
 
     public String getName() {
@@ -49,5 +52,13 @@ public class LocationModel {
 
     public void setLongitude(String longitude) {
         this.Longitude = longitude;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
