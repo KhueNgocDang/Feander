@@ -2,10 +2,11 @@ package com.example.feander;
 
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.firestore.GeoPoint;
 
 public class LocationModel {
     private String name;
-    private LatLng latLng;
+    private GeoPoint latLng;
     private String Latitude;
     private String Longitude;
     private String location;
@@ -13,7 +14,7 @@ public class LocationModel {
     private LocationModel(){
     }
 
-    private LocationModel(String name, LatLng latLng, String Latitude, String Longitude, String location)
+    private LocationModel(String name, GeoPoint latLng, String Latitude, String Longitude, String location)
     {
         this.name = name;
         this.latLng = latLng;
@@ -30,11 +31,11 @@ public class LocationModel {
         this.name = name;
     }
 
-    public LatLng getLatLng() {
+    public GeoPoint getLatLng() {
         return latLng;
     }
 
-    public void setLatLng(LatLng latLng) {
+    public void setLatLng(GeoPoint latLng) {
         this.latLng = latLng;
     }
 
