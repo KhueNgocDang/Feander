@@ -44,21 +44,21 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new LocationAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                LocationModel location = documentSnapshot.toObject(LocationModel.class);
-                Double longitude = Double.parseDouble(location.getLongitude()) ;
-                Double latitude = Double.parseDouble(location.getLatitude());
-
-                //LatLng latLng = location.getLatLng();
-
-                Intent intent = new Intent(MainActivity.this, MapsActivity2.class);
-                intent.putExtra("latitude",latitude);
-                intent.putExtra("longitude",longitude);
-                startActivity(intent);
-            }
-        });
+//        adapter.setOnItemClickListener(new LocationAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+//                LocationModel location = documentSnapshot.toObject(LocationModel.class);
+//                Double longitude = Double.parseDouble(location.getLongitude()) ;
+//                Double latitude = Double.parseDouble(location.getLatitude());
+//
+//                //LatLng latLng = location.getLatLng();
+//
+//                Intent intent = new Intent(MainActivity.this, MapsActivity2.class);
+//                intent.putExtra("latitude",latitude);
+//                intent.putExtra("longitude",longitude);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
