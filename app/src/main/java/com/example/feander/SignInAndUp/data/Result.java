@@ -40,7 +40,8 @@ public class Result<T> {
         public Error(Exception error) {
             this.error = error;
         }
-
+        public Error() {
+        }
         public Exception getError() {
             return this.error;
         }
