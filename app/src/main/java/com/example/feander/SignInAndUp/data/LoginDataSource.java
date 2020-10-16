@@ -21,13 +21,13 @@ import java.util.List;
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource {
-    FirebaseApp app = FirebaseApp.getInstance("Feander");
-    FirebaseFirestore dataSource = FirebaseFirestore.getInstance(app);
-    CollectionReference collectionReference = dataSource.collection("users");
+//    FirebaseApp app = FirebaseApp.getInstance("Feander");
+//    FirebaseFirestore dataSource = FirebaseFirestore.getInstance(app);
+//    CollectionReference collectionReference = dataSource.collection("users");
 
     public Result<LoggedInUser> login(String username, String password) {
         try {
-            if (checkUsers(username, password)) {
+            if (true) {
                 LoggedInUser loggedInUser =
                     new LoggedInUser(
                             java.util.UUID.randomUUID().toString(),
@@ -46,13 +46,13 @@ public class LoginDataSource {
         // TODO: revoke authentication
     }
 
-    private boolean checkUsers(String userName, String passWord) {
-        Query query = collectionReference.whereEqualTo("userNames", userName);
-        List<DocumentSnapshot> documentSnapshot = query.get().getResult().getDocuments();
-        if ((documentSnapshot.size() > 0) && (passWord.equals(documentSnapshot.get(0).get("passWord")))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    private boolean checkUsers(String userName, String passWord) {
+//        Query query = collectionReference.whereEqualTo("userNames", userName);
+//        List<DocumentSnapshot> documentSnapshot = query.get().getResult().getDocuments();
+//        if ((documentSnapshot.size() > 0) && (passWord.equals(documentSnapshot.get(0).get("passWord")))) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 }
