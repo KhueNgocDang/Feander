@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "747793671095",
+    "firebase_url": "https://feander-91f8f.firebaseio.com",
+    "project_id": "feander-91f8f",
+    "storage_bucket": "feander-91f8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747793671095:android:621fe1650e913c4acebe32",
+        "android_client_info": {
+          "package_name": "com.example.feander"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747793671095-1e0o4hqfmnkboeq4kju9vhockf07d0ld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.feander",
+            "certificate_hash": "e65b12ecb55814ca5900d6a0cff1dc989ae03a9c"
+          }
+        },
+        {
+          "client_id": "747793671095-qb7ekkjfsmntfdm50rafrg3ni2nqrnta.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlIf_f1_FA9LwGywediK3wl2_Z1sWNQV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747793671095-qb7ekkjfsmntfdm50rafrg3ni2nqrnta.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
