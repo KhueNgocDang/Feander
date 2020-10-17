@@ -1,16 +1,13 @@
 package com.example.feander;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,7 +17,6 @@ public class MainActivity extends AppCompatActivity  {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference locationRef = db.collection("Location");
-
     private LocationAdapter adapter;
 
     @Override
@@ -48,6 +44,7 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 LocationModel location = documentSnapshot.toObject(LocationModel.class);
+                assert location != null;
                 Double longitude = location.getLatLng().getLongitude() ;
                 Double latitude = location.getLatLng().getLatitude();
                 String name = location.getName();
