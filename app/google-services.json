@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "747793671095-1e0o4hqfmnkboeq4kju9vhockf07d0ld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.feander",
+            "certificate_hash": "e65b12ecb55814ca5900d6a0cff1dc989ae03a9c"
+          }
+        },
+        {
           "client_id": "747793671095-qb7ekkjfsmntfdm50rafrg3ni2nqrnta.apps.googleusercontent.com",
           "client_type": 3
         }
