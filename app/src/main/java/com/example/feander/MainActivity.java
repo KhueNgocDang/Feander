@@ -50,12 +50,15 @@ public class MainActivity extends AppCompatActivity  {
                 LocationModel location = documentSnapshot.toObject(LocationModel.class);
                 Double longitude = location.getLatLng().getLongitude() ;
                 Double latitude = location.getLatLng().getLatitude();
+                String name = location.getName();
+                String desc= location.getDesc();
+                //String
 
-               //LatLng latLng = location.getLatLng();
-
-                Intent intent = new Intent(MainActivity.this, MapsActivity2.class);
-               intent.putExtra("latitude",latitude);
-               intent.putExtra("longitude",longitude);
+                Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
+                intent.putExtra("name",name);
+                intent.putExtra("desc",desc);
+                intent.putExtra("latitude",latitude);
+                intent.putExtra("longitude",longitude);
               startActivity(intent);
           }
        });
