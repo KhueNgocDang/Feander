@@ -1,5 +1,7 @@
 package com.example.feander.SignInAndUp.data;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
@@ -21,20 +23,19 @@ import java.util.List;
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource {
-//    FirebaseApp app = FirebaseApp.getInstance("Feander");
-//    FirebaseFirestore dataSource = FirebaseFirestore.getInstance(app);
-//    CollectionReference collectionReference = dataSource.collection("users");
+    FirebaseFirestore dataSource = FirebaseFirestore.getInstance();
+    boolean loginSuccess = false;
 
     public Result<LoggedInUser> login(String username, String password) {
         try {
-            if (true) {
+            if (checkUsers(username, password)) {
                 LoggedInUser loggedInUser =
-                    new LoggedInUser(
-                            java.util.UUID.randomUUID().toString(),
-                            username);
+                        new LoggedInUser(
+                                java.util.UUID.randomUUID().toString(),
+                                username);
 
-            return new Result.Success<>(loggedInUser);
-            }else {
+                return new Result.Success<>(loggedInUser);
+            } else {
                 return new Result.Error();
             }
         } catch (Exception e) {
@@ -46,13 +47,25 @@ public class LoginDataSource {
         // TODO: revoke authentication
     }
 
-//    private boolean checkUsers(String userName, String passWord) {
-//        Query query = collectionReference.whereEqualTo("userNames", userName);
-//        List<DocumentSnapshot> documentSnapshot = query.get().getResult().getDocuments();
-//        if ((documentSnapshot.size() > 0) && (passWord.equals(documentSnapshot.get(0).get("passWord")))) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    private boolean checkUsers(String userName, final String passWord) {
+        dataSource.collection("users").whereEqualTo("userNames", userName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if ((task.isSuccessful()) && (task.getResult().size() > 0)) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("PassWord", document.getId() + " => " + document.getData());
+                                if (document.get("passWord").equals(passWord)) {
+                                    loginSuccess = true;
+                                } else loginSuccess = false;
+                            }
+                        } else {
+                            Log.w("PassWord", "Error getting documents.", task.getException());
+                            loginSuccess = false;
+                        }
+                    }
+                });
+        return loginSuccess;
+    }
 }
