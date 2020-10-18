@@ -1,7 +1,5 @@
 package com.example.feander;
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +12,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.io.IOException;
-import java.util.List;
 
 public class LocationAdapter extends FirestoreRecyclerAdapter<LocationModel, LocationAdapter.LocationHolder> {
     private OnItemClickListener listener;
-    private Geocoder geocoder ;
 
     public LocationAdapter(@NonNull FirestoreRecyclerOptions<LocationModel> options) {
         super(options);
@@ -28,10 +23,8 @@ public class LocationAdapter extends FirestoreRecyclerAdapter<LocationModel, Loc
     @Override
     //Getting info from database
     protected void onBindViewHolder(@NonNull LocationHolder holder, int position, @NonNull LocationModel model) {
-
         holder.list_name.setText(model.getName());
         holder.location.setText(model.getLocation());
-
         }
 
 
