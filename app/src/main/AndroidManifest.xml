@@ -19,7 +19,6 @@
             android:name=".DetailedActivity"
             android:label="@string/title_activity_detailed"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MainActivity2" />
         <activity
             android:name=".MapsActivity2"
             android:label="@string/title_activity_maps2" />

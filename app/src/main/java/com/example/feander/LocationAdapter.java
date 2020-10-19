@@ -32,7 +32,7 @@ public class LocationAdapter extends FirestoreRecyclerAdapter<LocationModel, Loc
     @Override
     public LocationHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view =
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.list_location_single, parent, false);
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
         return new LocationHolder(view);
     }
 
@@ -42,8 +42,8 @@ public class LocationAdapter extends FirestoreRecyclerAdapter<LocationModel, Loc
 
         public LocationHolder(@NonNull View itemView) {
             super(itemView);
-            list_name = itemView.findViewById(R.id.list_name);
-            location = itemView.findViewById(R.id.location);
+            list_name = itemView.findViewById(R.id.location_name);
+            location = itemView.findViewById(R.id.location_address);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
