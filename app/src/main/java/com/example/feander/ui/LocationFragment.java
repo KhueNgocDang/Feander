@@ -15,20 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.feander.LocationAdapter;
 import com.example.feander.LocationModel;
-import com.example.feander.MainActivity;
 import com.example.feander.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListFragment extends Fragment {
+public class LocationFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private LocationAdapter adapter;
@@ -38,7 +37,7 @@ public class ListFragment extends Fragment {
 
     public List<LocationModel> locationList;
 
-    public ListFragment() {
+    public LocationFragment() {
         // Required empty public constructor
     }
 
@@ -52,35 +51,37 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        db.collection("Location").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot queryDocumentSnapshot: queryDocumentSnapshots){
-                    LocationModel model = queryDocumentSnapshot.toObject(LocationModel.class);
-                    locationList.add(model);
-                }
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("Error","onFailure" + e.getMessage());
-            }
-        });
+        recyclerView = view.findViewById(R.id.FirestoreList);
+        Task<QuerySnapshot> querySnapshotTask = db.collection("Location").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
+                            LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
+                            locationList.add(locationModel);
+                        }
+                        adapter = new LocationAdapter(getContext(), locationList);
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+
+                        recyclerView.setLayoutManager(linearLayoutManager);
+
+                        recyclerView.setAdapter(adapter);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG","onFailure" +e.getMessage());
+                    }
+                });
         return  view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = (getActivity()).findViewById(R.id.FirestoreList);
-        adapter = new LocationAdapter(getContext(), locationList);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
-
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        recyclerView.setAdapter(adapter);
     }
 
 }

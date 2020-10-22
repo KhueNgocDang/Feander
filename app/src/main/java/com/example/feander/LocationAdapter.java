@@ -31,7 +31,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     @Override
     public void onBindViewHolder(@NonNull LocationHolder holder, int position) {
         LocationModel model = locationModelList.get(position);
-
         holder.list_name.setText(model.getName());
         holder.location.setText(model.getLocation());
     }
