@@ -1,75 +1,87 @@
 package com.example.feander;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.example.feander.ui.MapFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity  {
 
+    Fragment fragment = null;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference locationRef = db.collection("Location");
-    private LocationAdapter adapter;
+
+    public List<LocationModel> locationModelList = new ArrayList<>();
+
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        setUpRecyclerView();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, new ListFragment(), ListFragment.class.getSimpleName())
+                .commit();
+
+        bottomNavigationView = findViewById(R.id.bottom_bar);
+        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
     }
 
-    private void setUpRecyclerView() {
-        Query query = locationRef.orderBy("name", Query.Direction.ASCENDING);
-
-        FirestoreRecyclerOptions<LocationModel> options = new FirestoreRecyclerOptions.Builder<LocationModel>()
-                .setQuery(query, LocationModel.class)
-                .build();
-
-        adapter = new LocationAdapter(options);
-
-        RecyclerView recyclerView = findViewById(R.id.FirestoreList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new LocationAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                LocationModel location = documentSnapshot.toObject(LocationModel.class);
-                assert location != null;
-                Double longitude = location.getLatLng().getLongitude() ;
-                Double latitude = location.getLatLng().getLatitude();
-                String name = location.getName();
-                String desc= location.getDesc();
-                //String
-
-                Intent intent = new Intent(MainActivity.this, DetailedActivity.class);
-                intent.putExtra("name",name);
-                intent.putExtra("desc",desc);
-                intent.putExtra("latitude",latitude);
-                intent.putExtra("longitude",longitude);
-              startActivity(intent);
-          }
-       });
-    }
-
+    private final BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new
+            BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.list_location:
+                            fragment = new ListFragment();
+                            break;
+                        case R.id.map_location:
+                            fragment = new MapFragment();
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                    return true;
+                }
+            };
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-        adapter.startListening();
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
+        db.collection("Location").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (DocumentSnapshot documentSnapshot: task.getResult()){
+                                locationModelList.add(documentSnapshot.toObject(LocationModel.class));
+                            }
+                            Log.d("TAG", locationModelList.toString());
+                        }else
+                            Log.d("TAG","Error getting documents:", task.getException());
+                    }
+                });
+
     }
 }

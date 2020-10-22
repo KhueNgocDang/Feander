@@ -23,6 +23,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -33,7 +42,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //Use location manager to manage location
     LocationManager locationManager;
     LocationListener locationListener;
+
     private static final int REQUEST_LOCATION_PERMISSION = 1;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference locationRef = db.collection("Location");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
