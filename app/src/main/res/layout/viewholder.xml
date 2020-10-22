@@ -27,7 +27,6 @@
                 android:layout_marginEnd="80dp"
                 android:layout_marginRight="80dp"
                 android:layout_marginBottom="32dp"
-                android:text="Dia chi"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +42,6 @@
                 android:layout_marginStart="36dp"
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="16dp"
-                android:text="Ten"
                 app:layout_constraintStart_toEndOf="@+id/location_image"
                 app:layout_constraintTop_toTopOf="parent" />
 

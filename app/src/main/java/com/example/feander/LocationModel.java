@@ -8,10 +8,10 @@ public class LocationModel {
     private String location;
     private String desc;
 
-    private LocationModel(){
+    public LocationModel(){
     }
 
-    private LocationModel(String name, GeoPoint latLng,  String location, String desc)
+    public LocationModel(String name, GeoPoint latLng, String location, String desc)
     {
         this.name = name;
         this.latLng = latLng;
