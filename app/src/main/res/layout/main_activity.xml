@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_menu" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="403dp"
         android:layout_height="604dp"
