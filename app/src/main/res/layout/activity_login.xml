@@ -12,11 +12,12 @@
         android:layout_height="match_parent"
         android:background="@color/cardview_light_background"
         >
+
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="152dp"
+            android:layout_marginTop="120dp"
             android:background="@drawable/button_background"
             android:text="Đăng nhập"
             android:textColor="@color/textColor"
@@ -124,7 +125,7 @@
             android:onClick="openSignUp"
             android:text="Đăng ký"
             android:textColor="@color/textColor"
-            android:textSize="23dp"
+            android:textSize="23sp"
 
             app:layout_constraintBaseline_toBaselineOf="@+id/dangnhap"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -140,7 +141,7 @@
             android:layout_height="wrap_content"
             android:text="Đăng nhập"
             android:textColor="@color/textColor"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -156,9 +157,23 @@
             android:layout_marginTop="44dp"
             android:text="Quên mật khẩu?"
             android:textColor="@color/textColor"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/password"
             app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:textColor="@color/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xem với tư cách khách"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button"
+            android:onClick="openMain"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
