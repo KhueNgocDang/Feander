@@ -38,13 +38,13 @@ public class Splash_Activity extends AppCompatActivity {
                     Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
                     intent.putExtra("userName", user);
                     startActivity(intent);
-                }else {
+                } else {
                     Intent intent = new Intent(Splash_Activity.this, LoginActivity.class);
                     startActivity(intent);
                 }
             }
         }, SPLASH_TIME);
-
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private String checkUserLoggin() {
