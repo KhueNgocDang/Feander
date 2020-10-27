@@ -16,10 +16,12 @@ import java.util.List;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationHolder> {
     private Context context;
     private List<LocationModel> locationModelList;
+    private OnLocationListener onLocationListener;
 
-    public LocationAdapter(Context context, List<LocationModel> locationModelList) {
+    public LocationAdapter(Context context, List<LocationModel> locationModelList,OnLocationListener onLocationListener) {
         this.context = context;
         this.locationModelList = locationModelList;
+        this.onLocationListener = onLocationListener;
     }
 
     @NonNull
@@ -27,7 +29,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     public LocationHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view =
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
-        return new LocationHolder(view);
+        return new LocationHolder(view, onLocationListener);
     }
 
     @Override
@@ -42,14 +44,27 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         return locationModelList.size();
     }
 
-    class LocationHolder extends RecyclerView.ViewHolder{
+    class LocationHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView list_name;
         TextView location;
+        OnLocationListener onLocationListener;
 
-        public LocationHolder(@NonNull View itemView) {
+        public LocationHolder(@NonNull View itemView, OnLocationListener onLocationListener) {
             super(itemView);
             list_name = itemView.findViewById(R.id.location_name);
             location = itemView.findViewById(R.id.location_address);
+            this.onLocationListener = onLocationListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onLocationListener.onLocationClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnLocationListener{
+        void onLocationClick(int position);
     }
 }

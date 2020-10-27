@@ -1,5 +1,6 @@
 package com.example.feander.ui.MainActivityFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.feander.DetailedActivity;
 import com.example.feander.Location.LocationAdapter;
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
@@ -27,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationFragment extends Fragment {
+public class LocationFragment extends Fragment implements LocationAdapter.OnLocationListener {
 
     private RecyclerView recyclerView;
     private LocationAdapter adapter;
@@ -51,7 +53,7 @@ public class LocationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-
+        adapter = new LocationAdapter(getContext(), locationList, this);
         recyclerView = view.findViewById(R.id.FirestoreList);
         Task<QuerySnapshot> querySnapshotTask = db.collection("Location").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -61,8 +63,6 @@ public class LocationFragment extends Fragment {
                             LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
                             locationList.add(locationModel);
                         }
-                        adapter = new LocationAdapter(getContext(), locationList);
-
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
 
                         recyclerView.setLayoutManager(linearLayoutManager);
@@ -84,4 +84,11 @@ public class LocationFragment extends Fragment {
 
     }
 
+    @Override
+    public void onLocationClick(int position) {
+        locationList.get(position);
+
+        Intent intent = new Intent(getContext(), DetailedActivity.class);
+        startActivity(intent);
+    }
 }
