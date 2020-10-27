@@ -1,4 +1,4 @@
-package com.example.feander.ui;
+package com.example.feander.ui.MainActivityFragment;
 
 import android.os.Bundle;
 

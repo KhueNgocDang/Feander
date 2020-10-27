@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/search_location"
+        android:id="@+id/location_desc"
         android:icon="@android:drawable/ic_search_category_default"
-        android:title="Tim kiem" />
+        android:title="Tìm kiếm" />
     <item
         android:title="Danh sách"
         android:icon="@drawable/list_image"
-        android:id="@+id/list_location"/>
+        android:id="@+id/location_info"/>
     <item
         android:title="Bản đồ"
         android:icon="@drawable/map_image"

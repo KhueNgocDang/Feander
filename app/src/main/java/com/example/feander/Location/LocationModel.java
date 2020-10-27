@@ -1,4 +1,4 @@
-package com.example.feander;
+package com.example.feander.Location;
 
 import com.google.firebase.firestore.GeoPoint;
 

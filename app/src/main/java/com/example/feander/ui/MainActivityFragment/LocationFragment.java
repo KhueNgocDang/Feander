@@ -1,4 +1,4 @@
-package com.example.feander.ui;
+package com.example.feander.ui.MainActivityFragment;
 
 import android.os.Bundle;
 
@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.feander.LocationAdapter;
-import com.example.feander.LocationModel;
+import com.example.feander.Location.LocationAdapter;
+import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
