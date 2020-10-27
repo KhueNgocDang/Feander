@@ -53,7 +53,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        adapter = new LocationAdapter(getContext(), locationList, this);
+
         recyclerView = view.findViewById(R.id.FirestoreList);
         Task<QuerySnapshot> querySnapshotTask = db.collection("Location").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -75,6 +75,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
                         Log.d("TAG","onFailure" +e.getMessage());
                     }
                 });
+        adapter = new LocationAdapter(getContext(), locationList, this);
         return  view;
     }
 

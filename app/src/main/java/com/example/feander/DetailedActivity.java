@@ -19,6 +19,7 @@ public class DetailedActivity extends AppCompatActivity {
         String loc_name = intent.getStringExtra("name");
 
         TextView name = findViewById(R.id.name);
+/*
 
         Button button = findViewById(R.id.search);
         button.setOnClickListener(new View.OnClickListener() {
@@ -31,7 +32,8 @@ public class DetailedActivity extends AppCompatActivity {
                 startActivity(intent_2);
             }
         });
+*/
 
-        name.setText(loc_name);
+//        name.setText(loc_name);
     }
 }
