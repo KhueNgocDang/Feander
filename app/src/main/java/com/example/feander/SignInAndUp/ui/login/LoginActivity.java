@@ -2,10 +2,13 @@ package com.example.feander.SignInAndUp.ui.login;
 
 import android.app.Activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -28,6 +31,8 @@ import com.example.feander.R;
 import com.example.feander.SignInAndUp.SignUp_Activity;
 import com.example.feander.SignInAndUp.ui.login.LoginViewModel;
 import com.example.feander.SignInAndUp.ui.login.LoginViewModelFactory;
+
+import java.io.FileOutputStream;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -119,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginViewModel.setCallingActivity(LoginActivity.this);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+
             }
         });
     }
@@ -132,13 +138,16 @@ public class LoginActivity extends AppCompatActivity {
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
+
     public void openSignUp(View view) {
         Intent intent = new Intent(this, SignUp_Activity.class);
         startActivity(intent);
 
     }
+
     public void openMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
 }

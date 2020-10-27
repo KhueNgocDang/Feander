@@ -42,6 +42,7 @@ public class LoginViewModel extends ViewModel {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
             Intent intent = new Intent(getCallingActivity(), MainActivity.class);
+            intent.putExtra("userName", data.getDisplayName());
             getCallingActivity().startActivity(intent);
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
