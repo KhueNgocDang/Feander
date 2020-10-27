@@ -44,7 +44,7 @@ public class Splash_Activity extends AppCompatActivity {
                 }
             }
         }, SPLASH_TIME);
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private String checkUserLoggin() {
