@@ -20,7 +20,7 @@
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".DetailedActivity"
+            android:name=".DetailedActivity.DetailedActivity"
             android:label="@string/title_activity_detailed"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

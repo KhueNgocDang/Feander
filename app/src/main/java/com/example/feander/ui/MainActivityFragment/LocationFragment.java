@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.feander.DetailedActivity;
+import com.example.feander.DetailedActivity.DetailedActivity;
 import com.example.feander.Location.LocationAdapter;
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
@@ -88,8 +88,8 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     @Override
     public void onLocationClick(int position) {
         locationList.get(position);
-
         Intent intent = new Intent(getContext(), DetailedActivity.class);
+        intent.putExtra("Location",locationList.get(position));
         startActivity(intent);
     }
 }
