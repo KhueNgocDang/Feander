@@ -19,13 +19,18 @@ import com.example.feander.R;
 import com.example.feander.ui.MainActivityFragment.LocationFragment;
 import com.example.feander.ui.MainActivityFragment.MapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.GeoPoint;
 
 public class DetailedActivity extends AppCompatActivity {
 
     Fragment fragment = null;
     //Create new Fragment for Detailed description and Detailed info for location
-    Fragment detailed_desc = new DetailedDescriptionFragment();
-    Fragment detailed_info = new DetailedInfoFragment();
+    DetailedDescriptionFragment detailed_desc = new DetailedDescriptionFragment();
+    DetailedInfoFragment detailed_info = new DetailedInfoFragment();
+    String loc_name;
+    String loc_desc;
+    String loc_location;
+    GeoPoint loc_latLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +39,16 @@ public class DetailedActivity extends AppCompatActivity {
         //Get intent from MainActivity
         Intent intent = getIntent();
         LocationModel locationModel = intent.getParcelableExtra("Location");
-        String loc_name = locationModel.getName();
+        loc_name = locationModel.getName();
+        loc_desc = locationModel.getDesc();
+        loc_location = locationModel.getLocation();
+        loc_latLng = locationModel.getLatLng();
         TextView detailed_name = findViewById(R.id.detailed_name);
         detailed_name.setText(loc_name);
-        //Set bundle, and put Parcel into bundle
-        Bundle location_bundle = new Bundle();
-        location_bundle.putParcelable("Location",intent);
-        //Set desc and info
-        detailed_desc.setArguments(location_bundle);
-        detailed_info.setArguments(location_bundle);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.DetailedLocationFragContainer, detailed_desc)
+                .add(R.id.DetailedLocationFragContainer,
+                        detailed_desc.newInstance(loc_name))
                 .commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.DetailedLocationNav);
@@ -58,13 +61,16 @@ public class DetailedActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.location_desc:
-                            fragment = detailed_desc;
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.DetailedLocationFragContainer,
+                                            detailed_desc.newInstance(loc_desc))
+                                    .commit();
                             break;
                         case R.id.location_info:
                             fragment = detailed_info;
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.DetailedLocationFragContainer, fragment).commit();
                     return true;
                 }
             };

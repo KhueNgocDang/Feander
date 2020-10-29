@@ -1,29 +1,57 @@
 package com.example.feander.DetailedActivity.DetailedFragments;
 
-import android.app.Activity;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
+import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link DetailedDescriptionFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class DetailedDescriptionFragment extends Fragment {
 
-    @Nullable
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+
+    public DetailedDescriptionFragment() {
+        // Required empty public constructor
+    }
+
+    // TODO: Rename and change types and number of parameters
+    public static DetailedDescriptionFragment newInstance(String desc) {
+        DetailedDescriptionFragment fragment = new DetailedDescriptionFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, desc);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParam1 = getArguments().getString(ARG_PARAM1);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detailed_description, container, false);
-        String desc = getArguments().getString("Location");
-        TextView detailed_desc = view.findViewById(R.id.detailed_desc);
-        detailed_desc.setText(desc);
+        TextView desc = view.findViewById(R.id.textView);
+        desc.setText(mParam1);
         return view;
     }
 }
