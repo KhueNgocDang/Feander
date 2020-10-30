@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.feander.ui.LocationFragment;
-import com.example.feander.ui.MapFragment;
+import com.example.feander.ui.MainActivityFragment.LocationFragment;
+import com.example.feander.ui.MainActivityFragment.MapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity  {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity  {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
-                        case R.id.list_location:
+                        case R.id.location_info:
                             fragment = new LocationFragment();
                             break;
                         case R.id.map_location:

@@ -1,5 +1,6 @@
-package com.example.feander.ui;
+package com.example.feander.ui.MainActivityFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,9 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.feander.LocationAdapter;
-import com.example.feander.LocationModel;
+import com.example.feander.DetailedActivity.DetailedActivity;
+import com.example.feander.Location.LocationAdapter;
+import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationFragment extends Fragment {
+public class LocationFragment extends Fragment implements LocationAdapter.OnLocationListener {
 
     private RecyclerView recyclerView;
     private LocationAdapter adapter;
@@ -61,8 +63,6 @@ public class LocationFragment extends Fragment {
                             LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
                             locationList.add(locationModel);
                         }
-                        adapter = new LocationAdapter(getContext(), locationList);
-
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
 
                         recyclerView.setLayoutManager(linearLayoutManager);
@@ -75,6 +75,7 @@ public class LocationFragment extends Fragment {
                         Log.d("TAG","onFailure" +e.getMessage());
                     }
                 });
+        adapter = new LocationAdapter(getContext(), locationList, this);
         return  view;
     }
 
@@ -84,4 +85,11 @@ public class LocationFragment extends Fragment {
 
     }
 
+    @Override
+    public void onLocationClick(int position) {
+        locationList.get(position);
+        Intent intent = new Intent(getContext(), DetailedActivity.class);
+        intent.putExtra("Location",locationList.get(position));
+        startActivity(intent);
+    }
 }
