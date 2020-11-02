@@ -82,9 +82,9 @@ public class LocationModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeString(location);
-        dest.writeString(desc);
         dest.writeDouble(latLng.getLatitude());
         dest.writeDouble(latLng.getLongitude());
+        dest.writeString(location);
+        dest.writeString(desc);
     }
 }

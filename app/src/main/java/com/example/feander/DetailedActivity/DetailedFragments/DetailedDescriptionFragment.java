@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
+import com.example.feander.ui.MainActivityFragment.LocationFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,19 +23,22 @@ public class DetailedDescriptionFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
+    public static DetailedDescriptionFragment fragment;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private LocationModel mParam1;
 
     public DetailedDescriptionFragment() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static DetailedDescriptionFragment newInstance(String desc) {
-        DetailedDescriptionFragment fragment = new DetailedDescriptionFragment();
+    public static DetailedDescriptionFragment newInstance(LocationModel locationModel) {
+        if(fragment==null){
+            fragment = new DetailedDescriptionFragment();
+        }
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, desc);
+        args.putParcelable(ARG_PARAM1, locationModel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,7 +46,9 @@ public class DetailedDescriptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mParam1 = getArguments().getString(ARG_PARAM1);
+        Bundle bundle = this.getArguments();
+        mParam1 = bundle.getParcelable(ARG_PARAM1);
+
     }
 
     @Override
@@ -51,7 +57,8 @@ public class DetailedDescriptionFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detailed_description, container, false);
         TextView desc = view.findViewById(R.id.textView);
-        desc.setText(mParam1);
+        desc.setText("Mô tả:"+mParam1.getDesc());
+
         return view;
     }
 }
