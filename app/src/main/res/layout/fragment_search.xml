@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.937" />
 
     <Button
-        android:id="@+id/Tea"
+        android:id="@+id/button_tea"
         android:layout_width="123dp"
         android:layout_height="95dp"
         android:layout_marginStart="86dp"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/Shop"
+        android:id="@+id/button_shop"
         android:layout_width="123dp"
         android:layout_height="95dp"
         android:layout_marginEnd="86dp"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/search_frag_banner"
         android:layout_width="0dp"
         android:layout_height="178dp"
         android:layout_marginTop="36dp"
