@@ -1,6 +1,7 @@
 package com.example.feander.DetailedActivity.DetailedFragments;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -10,9 +11,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.feander.Location.LocationModel;
+import com.example.feander.MapsActivity;
 import com.example.feander.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -28,9 +31,7 @@ public class DetailedInfoFragment extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     public static DetailedInfoFragment fragment;
-    private MapView mMapView;
 
     // TODO: Rename and change types of parameters
     private LocationModel mParam1;
@@ -67,9 +68,16 @@ public class DetailedInfoFragment extends Fragment  {
         TextView location = view.findViewById(R.id.detailed_location);
 
         location.setText("Địa chỉ:"+mParam1.getLocation());
+        final Intent intent = new Intent(getContext(), MapsActivity.class);
+        intent.putExtra("Location",mParam1);
 
-        mMapView = view.findViewById(R.id.location_mapview);
-        //initGoogleMap(savedInstanceState);
+        Button direction_button = view.findViewById(R.id.direction_button);
+        direction_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
