@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,17 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.feander.R;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationHolder> {
+public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationHolder> implements Filterable {
     private Context context;
     private List<LocationModel> locationModelList;
+    private List<LocationModel> locationModelListFull;
     private OnLocationListener onLocationListener;
 
     public LocationAdapter(Context context, List<LocationModel> locationModelList,OnLocationListener onLocationListener) {
         this.context = context;
         this.locationModelList = locationModelList;
         this.onLocationListener = onLocationListener;
+        this.locationModelListFull = locationModelList;
     }
 
     @NonNull
@@ -63,6 +69,36 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
             onLocationListener.onLocationClick(getAdapterPosition());
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return location_Filter;
+    }
+    private Filter location_Filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<LocationModel> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(locationModelListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (LocationModel locationModel : locationModelListFull) {
+                    if (locationModel.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(locationModel);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            locationModelList.clear();
+            locationModelList.addAll((List<LocationModel>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public interface OnLocationListener{
         void onLocationClick(int position);

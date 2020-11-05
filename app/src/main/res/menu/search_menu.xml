@@ -4,8 +4,9 @@
 
     <item
         android:id="@+id/action_search"
-        android:title="Description" />
-    <item
-        android:id="@+id/location_info"
-        android:title="Info" />
+        android:icon="@drawable/ic_search"
+        android:title="Tìm kiếm"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always"
+        />
 </menu>

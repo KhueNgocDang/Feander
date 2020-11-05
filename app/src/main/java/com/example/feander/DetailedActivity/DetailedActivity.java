@@ -51,7 +51,7 @@ public class DetailedActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.location_search:
+                            case R.id.action_search:
                                 getSupportFragmentManager().beginTransaction().detach(detailed_info).commit();
 
                                 getSupportFragmentManager()

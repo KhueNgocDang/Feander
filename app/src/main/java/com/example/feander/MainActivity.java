@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity  {
                                 getSupportFragmentManager().beginTransaction().detach(searchFragment).commit();
                                 getSupportFragmentManager().beginTransaction().attach(mapFragment).commit();
                                 break;
-                            case R.id.location_search:
+                            case R.id.action_search:
                                 getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
                                 getSupportFragmentManager().beginTransaction().detach(mapFragment).commit();
                                 getSupportFragmentManager().beginTransaction().attach(searchFragment).commit();

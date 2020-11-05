@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,12 +18,7 @@ import com.example.feander.Location.LocationAdapter;
 import com.example.feander.Location.LocationModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -32,30 +26,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
 
 public class SearchActivity extends AppCompatActivity implements LocationAdapter.OnLocationListener{
 
     private RecyclerView recyclerView;
     private LocationAdapter adapter;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference locationRef = db.collection("Location");
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<LocationModel> locationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recyclerView = findViewById(R.id.FirestoreList);
+        setContentView(R.layout.activity_search);
+
+        recyclerView = findViewById(R.id.recyclerView);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        Task<QuerySnapshot> querySnapshotTask = db.collection("Location").get()
+         db.collection("Location").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -71,7 +62,32 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
                         Log.d("TAG","onFailure" +e.getMessage());
                     }
                 });
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         adapter = new LocationAdapter(this, locationList, this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.search_menu,menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
     }
 
     @Override
