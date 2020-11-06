@@ -26,8 +26,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     public LocationAdapter(Context context, List<LocationModel> locationModelList,OnLocationListener onLocationListener) {
         this.context = context;
         this.locationModelList = locationModelList;
-        this.onLocationListener = onLocationListener;
         this.locationModelListFull = locationModelList;
+        this.onLocationListener = onLocationListener;
     }
 
     @NonNull
@@ -77,25 +77,26 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     private Filter location_Filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<LocationModel> filteredList = new ArrayList<>();
+            FilterResults results = new FilterResults();
+
             if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(locationModelListFull);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (LocationModel locationModel : locationModelListFull) {
-                    if (locationModel.getName().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(locationModel);
+                results.values = locationModelListFull;
+            }
+            else {
+                String filterPattern = constraint.toString().toLowerCase();
+                List<LocationModel> filteredList = new ArrayList<>();
+                for (LocationModel item : locationModelListFull) {
+                    if (item.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
                     }
                 }
+                results.values = filteredList;
             }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
             return results;
         }
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            locationModelList.clear();
-            locationModelList.addAll((List<LocationModel>) results.values);
+            locationModelList = (List<LocationModel>) results.values;
             notifyDataSetChanged();
         }
     };
