@@ -35,7 +35,6 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     private LocationAdapter adapter;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference locationRef = db.collection("Location");
 
     public List<LocationModel> locationList;
 

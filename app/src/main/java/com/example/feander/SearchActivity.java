@@ -77,7 +77,8 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String newText) {
+                adapter.getFilter().filter(newText);
                 return false;
             }
 

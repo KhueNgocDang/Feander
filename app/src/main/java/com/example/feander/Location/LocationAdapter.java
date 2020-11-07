@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.feander.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationHolder> implements Filterable {

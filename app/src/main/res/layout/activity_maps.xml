@@ -12,34 +12,11 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="175dp"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
         tools:context=".MapsActivity" />
-
-    <Button
-        android:id="@+id/F_B"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="Search"
-        map:layout_constraintBottom_toTopOf="@+id/map"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.95"
-        map:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/StartLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textCapSentences"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
