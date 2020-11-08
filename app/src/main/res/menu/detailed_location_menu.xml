@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/action_search"
-        android:title="Description" />
+        android:title="Info" />
     <item
         android:id="@+id/location_info"
-        android:title="Info" />
+        android:title="On Map" />
 </menu>

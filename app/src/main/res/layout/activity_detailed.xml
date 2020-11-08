@@ -9,8 +9,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/DetailedLocationNav"
-        android:layout_width="405dp"
+        android:layout_width="0dp"
         android:layout_height="53dp"
+        app:itemBackground="@drawable/fui_idp_button_background_phone"
         app:layout_constraintBottom_toTopOf="@+id/DetailedLocationFragContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

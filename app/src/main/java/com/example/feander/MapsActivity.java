@@ -48,7 +48,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationListener locationListener;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public List<LocationModel> locationList;
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
 

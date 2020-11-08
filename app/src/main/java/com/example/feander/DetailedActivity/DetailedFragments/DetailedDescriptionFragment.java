@@ -57,7 +57,7 @@ public class DetailedDescriptionFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detailed_description, container, false);
         TextView desc = view.findViewById(R.id.textView);
-        desc.setText("Mô tả:"+mParam1.getDesc());
+        desc.setText("Mô tả:"+mParam1.getDesc()+'\n'+"Địa chỉ:"+mParam1.getLocation());
 
         return view;
     }
