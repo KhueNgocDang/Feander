@@ -2,16 +2,9 @@ package com.example.feander.DetailedActivity.DetailedFragments;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,46 +18,38 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.IOException;
-import java.util.List;
 
 public class DetailedInfoFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
     public static DetailedInfoFragment fragment;
 
     private LocationModel mParam1;
     LatLng latLng;
-
+    LatLng current_position;
     GoogleMap mMap;
 
     public DetailedInfoFragment() {
         // Required empty public constructor
     }
 
-    public static DetailedInfoFragment newInstance(LocationModel locationModel) {
+    public static DetailedInfoFragment newInstance(LocationModel locationModel,double latitude, double longitude) {
         if (fragment == null) {
             fragment = new DetailedInfoFragment();
         }
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARAM1, locationModel);
+        args.putDouble(ARG_PARAM2, latitude);
+        args.putDouble(ARG_PARAM3, longitude);
         fragment.setArguments(args);
         return fragment;
     }
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
@@ -72,6 +57,8 @@ public class DetailedInfoFragment extends Fragment {
             googleMap.addMarker(new MarkerOptions().position(latLng)
                     .title(mParam1.getName())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            googleMap.addMarker(new MarkerOptions().position(current_position)
+                    .title("Vị trí hiện tại"));
             googleMap.setMaxZoomPreference(20);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14.0f));
         }
@@ -81,6 +68,7 @@ public class DetailedInfoFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
+        current_position = new LatLng(bundle.getDouble(ARG_PARAM2),bundle.getDouble(ARG_PARAM3));
         mParam1 = bundle.getParcelable(ARG_PARAM1);
     }
 
