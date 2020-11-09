@@ -111,7 +111,7 @@ public class LocationModel implements Parcelable {
                     * Math.cos(deg2rad(theta));
             dist = Math.acos(dist);
             dist = rad2deg(dist);
-            dist = dist * 60 * 1.1515;
+            dist = dist * 60 * 1.1515 * 1.609344 *1000;
         this.distance = dist;
         }
 

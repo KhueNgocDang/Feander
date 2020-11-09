@@ -42,7 +42,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         LocationModel model = locationModelList.get(position);
         holder.list_name.setText(model.getName());
         holder.location.setText(model.getLocation());
-        holder.distance.setText((int) model.getDistance() + "km");
+        holder.distance.setText((int) model.getDistance() + "m");
     }
 
     @Override

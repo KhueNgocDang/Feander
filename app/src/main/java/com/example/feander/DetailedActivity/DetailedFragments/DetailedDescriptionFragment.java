@@ -58,7 +58,7 @@ public class DetailedDescriptionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detailed_description, container, false);
         TextView desc = view.findViewById(R.id.textView);
         desc.setText("Mô tả:"+mParam1.getDesc()+'\n'+'\n'+"Địa chỉ:"+mParam1.getLocation()
-                +'\n'+'\n'+"Khoảng cách:"+mParam1.getDistance());
+                +'\n'+'\n'+"Khoảng cách:"+mParam1.getDistance()+"m");
 
         return view;
     }

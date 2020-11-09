@@ -30,6 +30,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,13 +62,6 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -91,6 +86,16 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
                             locationModel.setDistance(latLng);
                             locationList.add(locationModel);
                         }
+                        Collections.sort(locationList, new Comparator<LocationModel>() {
+                            @Override
+                            public int compare(LocationModel o1, LocationModel o2) {
+                                if(o1.getDistance()<o2.getDistance())
+                                    return -1;
+                                else if(o2.getDistance()<o1.getDistance())
+                                    return 1;
+                                return 0;
+                            }
+                        });
                         recyclerView.setAdapter(adapter);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
