@@ -42,6 +42,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         LocationModel model = locationModelList.get(position);
         holder.list_name.setText(model.getName());
         holder.location.setText(model.getLocation());
+        holder.distance.setText((int) model.getDistance() + "km");
     }
 
     @Override
@@ -52,12 +53,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     class LocationHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView list_name;
         TextView location;
+        TextView distance;
         OnLocationListener onLocationListener;
 
         public LocationHolder(@NonNull View itemView, OnLocationListener onLocationListener) {
             super(itemView);
             list_name = itemView.findViewById(R.id.location_name);
             location = itemView.findViewById(R.id.location_address);
+            distance = itemView.findViewById(R.id.location_distance);
             this.onLocationListener = onLocationListener;
 
             itemView.setOnClickListener(this);

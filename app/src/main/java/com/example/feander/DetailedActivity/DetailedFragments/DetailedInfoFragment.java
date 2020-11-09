@@ -34,13 +34,10 @@ import java.util.List;
 public class DetailedInfoFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     public static DetailedInfoFragment fragment;
-    private static final int REQUEST_LOCATION_PERMISSION = 1;
 
     private LocationModel mParam1;
     LatLng latLng;
-    LocationManager locationManager;
-    LocationListener locationListener;
-    Marker marker;
+
     GoogleMap mMap;
 
     public DetailedInfoFragment() {
@@ -85,35 +82,6 @@ public class DetailedInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         mParam1 = bundle.getParcelable(ARG_PARAM1);
-
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
-        }
-        else {
-            locationListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    Geocoder geocoder = new Geocoder(getActivity());
-                    try {
-                        List<Address> addresses =
-                                geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        String loc = addresses.get(0).getLocality() + ":" + addresses.get(0).getCountryName();
-                        LatLng current_location = new LatLng(location.getLatitude(), location.getLongitude());
-                        if(marker==null)
-                        {
-                            marker = mMap.addMarker(new MarkerOptions().position(current_location).title(loc));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        }
     }
 
     @Nullable

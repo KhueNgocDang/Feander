@@ -1,6 +1,11 @@
 package com.example.feander;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -10,12 +15,14 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.feander.DetailedActivity.DetailedActivity;
 import com.example.feander.Location.LocationAdapter;
 import com.example.feander.Location.LocationModel;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,13 +41,42 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
     private LocationAdapter adapter;
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    Location location;
+    LatLng latLng;
     public List<LocationModel> locationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        double latitude = 0;
+        double longitude = 0;
+        boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (network_enabled) {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            if(location!=null){
+                latitude  = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+            latLng = new LatLng(latitude,longitude);
+        }
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -52,6 +88,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
                             LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
+                            locationModel.setDistance(latLng);
                             locationList.add(locationModel);
                         }
                         recyclerView.setAdapter(adapter);

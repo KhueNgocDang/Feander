@@ -3,6 +3,7 @@ package com.example.feander.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.firestore.GeoPoint;
 
 public class LocationModel implements Parcelable {
@@ -10,16 +11,18 @@ public class LocationModel implements Parcelable {
     private GeoPoint latLng;
     private String location;
     private String desc;
+    private double distance;
 
     public LocationModel(){
     }
 
-    public LocationModel(String name, GeoPoint latLng, String location, String desc)
+    public LocationModel(String name, GeoPoint latLng, String location, String desc, double distance)
     {
         this.name = name;
         this.latLng = latLng;
         this.location = location;
         this.desc = desc;
+        this.distance =distance;
     }
 
     public LocationModel(Parcel in) {
@@ -29,6 +32,7 @@ public class LocationModel implements Parcelable {
         latLng = new GeoPoint(lat,lng);
         location = in.readString();
         desc = in.readString();
+        distance = in.readDouble();
     }
 
     public String getName() {
@@ -86,5 +90,36 @@ public class LocationModel implements Parcelable {
         dest.writeDouble(latLng.getLongitude());
         dest.writeString(location);
         dest.writeString(desc);
+        dest.writeDouble(distance);
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(LatLng curr_latLng) {
+        //private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double lat1 = curr_latLng.latitude;
+        double lon1 = curr_latLng.longitude;
+        double lat2 = this.getLatLng().getLatitude();
+        double lon2 = this.getLatLng().getLongitude();
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))
+                    * Math.sin(deg2rad(lat2))
+                    + Math.cos(deg2rad(lat1))
+                    * Math.cos(deg2rad(lat2))
+                    * Math.cos(deg2rad(theta));
+            dist = Math.acos(dist);
+            dist = rad2deg(dist);
+            dist = dist * 60 * 1.1515;
+        this.distance = dist;
+        }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
     }
 }
