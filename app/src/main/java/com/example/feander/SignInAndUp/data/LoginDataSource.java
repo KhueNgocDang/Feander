@@ -47,7 +47,6 @@ public class LoginDataSource {
                         new LoggedInUser(
                                 java.util.UUID.randomUUID().toString(),
                                 username);
-                storeLoggedInUser(username);
                 return new Result.Success<LoggedInUser>(loggedInUser);
             } else {
                 return new Result.Error(new UncorrectPassWordException());
@@ -60,7 +59,6 @@ public class LoginDataSource {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void logout() {
-        storeLoggedInUser("");
     }
     private boolean checkUsers(String userName, final String passWord) {
         dataSource.collection("users").whereEqualTo("userNames", userName)
@@ -83,12 +81,5 @@ public class LoginDataSource {
                 });
         return loginSuccess;
     }
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void storeLoggedInUser(String fileContents) {
-        try (@SuppressLint("RestrictedApi") FileOutputStream fos = new ContextWrapper(LoginActivity.class).openFileOutput(fileName, Context.MODE_PRIVATE)) {
-            fos.write(fileContents.getBytes());
-        } catch (Exception e) {
-            Log.e("Luu thong tin", "that bai");
-        }
-    }
+
 }
