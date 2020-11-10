@@ -6,10 +6,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.example.feander.MainActivity;
 import com.example.feander.R;
@@ -17,12 +21,15 @@ import com.example.feander.SignInAndUp.data.LoginRepository;
 import com.example.feander.SignInAndUp.data.Result;
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
 
+import java.io.FileOutputStream;
+
 public class LoginViewModel extends ViewModel {
     private AppCompatActivity callingActivity;
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
+    final String fileName = "user";
 
     LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
@@ -44,6 +51,7 @@ public class LoginViewModel extends ViewModel {
         if (result instanceof Result.Success) {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            storeLoggedInUser(username);
             Intent intent = new Intent(getCallingActivity(), MainActivity.class);
             intent.putExtra("userName", data.getDisplayName());
             getCallingActivity().startActivity(intent);
@@ -85,5 +93,13 @@ public class LoginViewModel extends ViewModel {
 
     public AppCompatActivity getCallingActivity() {
         return callingActivity;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void storeLoggedInUser(String fileContents) {
+        try (@SuppressLint("RestrictedApi") FileOutputStream fos = getCallingActivity().getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+        } catch (Exception e) {
+            Log.d("loggedinuser", "that bai");
+        }
     }
 }

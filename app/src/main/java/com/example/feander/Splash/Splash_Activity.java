@@ -37,6 +37,8 @@ public class Splash_Activity extends AppCompatActivity {
                 if (user != null) {
                     Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
                     intent.putExtra("userName", user);
+                    Toast.makeText(getApplicationContext(), "Xin chao " + user, Toast.LENGTH_LONG).show();
+                    finish();
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(Splash_Activity.this, LoginActivity.class);
@@ -70,8 +72,7 @@ public class Splash_Activity extends AppCompatActivity {
 //            File file = new File(getApplicationContext().getFilesDir(), fileName);
 //            Toast.makeText(this, "Da tao file", Toast.LENGTH_LONG).show();
         }
-        if (line != null) return contents;
-        else return null;
+        return  contents;
     }
 
 }
