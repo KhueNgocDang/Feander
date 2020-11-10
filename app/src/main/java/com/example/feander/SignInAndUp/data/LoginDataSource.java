@@ -2,6 +2,7 @@ package com.example.feander.SignInAndUp.data;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
@@ -10,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
+import com.example.feander.SignInAndUp.data.model.UncorrectPassWordException;
+import com.example.feander.SignInAndUp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -26,7 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+//import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -47,7 +50,7 @@ public class LoginDataSource {
                 storeLoggedInUser(username);
                 return new Result.Success<LoggedInUser>(loggedInUser);
             } else {
-                return new Result.Error();
+                return new Result.Error(new UncorrectPassWordException());
             }
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
@@ -82,11 +85,10 @@ public class LoginDataSource {
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void storeLoggedInUser(String fileContents) {
-        try (@SuppressLint("RestrictedApi") FileOutputStream fos = getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE)) {
+        try (@SuppressLint("RestrictedApi") FileOutputStream fos = new ContextWrapper(LoginActivity.class).openFileOutput(fileName, Context.MODE_PRIVATE)) {
             fos.write(fileContents.getBytes());
         } catch (Exception e) {
             Log.e("Luu thong tin", "that bai");
         }
-
     }
 }

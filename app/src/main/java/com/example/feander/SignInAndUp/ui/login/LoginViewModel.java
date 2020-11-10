@@ -1,5 +1,6 @@
 package com.example.feander.SignInAndUp.ui.login;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Patterns;
 
 import com.example.feander.MainActivity;
@@ -34,6 +36,7 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
         Result<LoggedInUser> result = loginRepository.login(username, password);

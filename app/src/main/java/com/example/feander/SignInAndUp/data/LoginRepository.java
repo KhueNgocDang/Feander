@@ -1,5 +1,9 @@
 package com.example.feander.SignInAndUp.data;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
 
 /**
@@ -32,6 +36,7 @@ public class LoginRepository {
         return user != null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void logout() {
         user = null;
         dataSource.logout();
@@ -44,6 +49,7 @@ public class LoginRepository {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public Result<LoggedInUser> login(String username, String password) {
         // handle login
         Result<LoggedInUser> result = dataSource.login(username, password);
