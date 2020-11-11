@@ -29,10 +29,10 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
-    final String fileName = "user";
 
     LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
+        this.loginRepository.setLoginViewModel(this);
     }
 
     LiveData<LoginFormState> getLoginFormState() {
@@ -44,20 +44,21 @@ public class LoginViewModel extends ViewModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void login(String username, String password) {
+    public MutableLiveData<Result> login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        MutableLiveData<Result> resultLive = loginRepository.login(username, password);
 
-        if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-            storeLoggedInUser(username);
-            Intent intent = new Intent(getCallingActivity(), MainActivity.class);
-            intent.putExtra("userName", data.getDisplayName());
-            getCallingActivity().startActivity(intent);
-        } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
-        }
+//        if (result instanceof Result.Success) {
+//            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+//            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+//            storeLoggedInUser(username);
+//            Intent intent = new Intent(getCallingActivity(), MainActivity.class);
+//            intent.putExtra("userName", data.getDisplayName());
+//            getCallingActivity().startActivity(intent);
+//        } else {
+//            loginResult.setValue(new LoginResult(R.string.login_failed));
+//        }
+        return resultLive;
     }
 
     public void loginDataChanged(String username, String password) {
@@ -94,12 +95,12 @@ public class LoginViewModel extends ViewModel {
     public AppCompatActivity getCallingActivity() {
         return callingActivity;
     }
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void storeLoggedInUser(String fileContents) {
-        try (@SuppressLint("RestrictedApi") FileOutputStream fos = getCallingActivity().getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE)) {
-            fos.write(fileContents.getBytes());
-        } catch (Exception e) {
-            Log.d("loggedinuser", "that bai");
-        }
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    private void storeLoggedInUser(String fileContents) {
+//        try (@SuppressLint("RestrictedApi") FileOutputStream fos = getCallingActivity().getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE)) {
+//            fos.write(fileContents.getBytes());
+//        } catch (Exception e) {
+//            Log.d("loggedinuser", "that bai");
+//        }
+//    }
 }

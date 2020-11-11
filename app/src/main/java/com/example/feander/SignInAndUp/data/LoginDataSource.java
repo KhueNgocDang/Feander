@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
 import com.example.feander.SignInAndUp.data.model.UncorrectPassWordException;
@@ -36,23 +37,26 @@ import java.util.List;
  */
 public class LoginDataSource {
     FirebaseFirestore dataSource = FirebaseFirestore.getInstance();
-    boolean loginSuccess = false;
-    final String fileName = "user";
+    private MutableLiveData<Result> resultLive = new MutableLiveData<>();
+    private Result loginResult = new Result.WaitingCheckUser();
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public Result<LoggedInUser> login(String username, String password) {
+    public MutableLiveData<Result> login(String username, String password) {
         try {
-            if (checkUsers(username, password)) {
-                LoggedInUser loggedInUser =
-                        new LoggedInUser(
-                                java.util.UUID.randomUUID().toString(),
-                                username);
-                return new Result.Success<LoggedInUser>(loggedInUser);
-            } else {
-                return new Result.Error(new UncorrectPassWordException());
-            }
+//            if (checkUsers(username, password)) {
+//                LoggedInUser loggedInUser =
+//                        new LoggedInUser(
+//                                java.util.UUID.randomUUID().toString(),
+//                                username);
+//                return new Result.Success<LoggedInUser>(loggedInUser);
+//            } else {
+//                return new Result.Error(new UncorrectPassWordException());
+//            }
+            return checkUsers(username, password);
+
         } catch (Exception e) {
-            return new Result.Error(new IOException("Error logging in", e));
+            resultLive.setValue(new Result.Error(new IOException("Error logging in", e)));
+            return resultLive;
         }
     }
 
@@ -60,7 +64,26 @@ public class LoginDataSource {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void logout() {
     }
-    private boolean checkUsers(String userName, final String passWord) {
+    private MutableLiveData<Result> checkUsers(final String userName, final String passWord) {
+//        dataSource.collection("users").whereEqualTo("userNames", userName)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if ((task.isSuccessful()) && (task.getResult().size() > 0)) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.d("PassWord", document.getId() + " => " + document.getData());
+//                                if (document.get("passWord").equals(passWord)) {
+//                                    loginSuccess = true;
+//                                } else loginSuccess = false;
+//                            }
+//                        } else {
+//                            Log.w("PassWord", "Error getting documents.", task.getException());
+//                            loginSuccess = false;
+//                        }
+//                    }
+//                });
+//        return loginSuccess;
         dataSource.collection("users").whereEqualTo("userNames", userName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -70,16 +93,25 @@ public class LoginDataSource {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("PassWord", document.getId() + " => " + document.getData());
                                 if (document.get("passWord").equals(passWord)) {
-                                    loginSuccess = true;
-                                } else loginSuccess = false;
+                                    LoggedInUser loggedInUser =
+                                            new LoggedInUser(
+                                                    java.util.UUID.randomUUID().toString(),
+                                                    userName);
+//                                    loginResult = new Result.Success<LoggedInUser>(loggedInUser);
+                                    resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
+                                } else {
+//                                    loginResult = new Result.Error(new UncorrectPassWordException());
+                                    resultLive.setValue(new Result.Error(new UncorrectPassWordException()));
+                                }
                             }
                         } else {
                             Log.w("PassWord", "Error getting documents.", task.getException());
-                            loginSuccess = false;
+//                            loginResult = new Result.Error(new Exception("Error logging in", task.getException()));
+                            resultLive.setValue(loginResult);
                         }
                     }
                 });
-        return loginSuccess;
+        return resultLive ;
     }
 
 }

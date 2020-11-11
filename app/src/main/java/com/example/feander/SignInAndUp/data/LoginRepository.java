@@ -1,10 +1,21 @@
 package com.example.feander.SignInAndUp.data;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
+import com.example.feander.SignInAndUp.ui.login.LoginActivity;
+import com.example.feander.SignInAndUp.ui.login.LoginViewModel;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -15,6 +26,8 @@ public class LoginRepository {
     private static volatile LoginRepository instance;
 
     private LoginDataSource dataSource;
+    final String fileName = "user";
+    private LoginViewModel loginViewModel;
 
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
@@ -50,12 +63,43 @@ public class LoginRepository {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public Result<LoggedInUser> login(String username, String password) {
+    public MutableLiveData<Result> login(String username, String password) {
         // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
-        if (result instanceof Result.Success) {
-            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
+//        Result<LoggedInUser> result = dataSource.login(username, password);
+//        if (result instanceof Result.Success) {
+//            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
+//        }
+//        return result;
+        final MutableLiveData<Result> resultLive = dataSource.login(username, password);
+        resultLive.observeForever(new Observer<Result>() {
+            @Override
+            public void onChanged(Result result) {
+                if (result instanceof Result.Success) {
+                    LoggedInUser loggedInUser = ((Result.Success<LoggedInUser>) result).getData();
+                    setLoggedInUser(loggedInUser);
+                    storeLoggedInUser(loggedInUser.getDisplayName());
+                    resultLive.removeObserver(this);
+                } else if (result instanceof Result.Error) {
+                    resultLive.removeObserver(this);
+                }
+            }
+        });
+
+        //        if (resultLive.getValue() instanceof Result.Success) {
+//            setLoggedInUser(((Result.Success<LoggedInUser>) resultLive.getValue()).getData());
+//        }
+        return resultLive;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void storeLoggedInUser(String fileContents) {
+        try (@SuppressLint("RestrictedApi") FileOutputStream fos = loginViewModel.getCallingActivity().openFileOutput(fileName, Context.MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+        } catch (Exception e) {
+            Log.d("loggedinuser", "that bai");
         }
-        return result;
+    }
+    public void setLoginViewModel(LoginViewModel loginViewModel) {
+        this.loginViewModel = loginViewModel;
     }
 }

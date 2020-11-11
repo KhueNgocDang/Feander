@@ -16,6 +16,8 @@ public class Result<T> {
         } else if (this instanceof Result.Error) {
             Result.Error error = (Result.Error) this;
             return "Error[exception=" + error.getError().toString() + "]";
+        }else if(this instanceof Result.WaitingCheckUser){
+            return "Waiting check user";
         }
         return "";
     }
@@ -30,6 +32,10 @@ public class Result<T> {
 
         public T getData() {
             return this.data;
+        }
+    }
+    public static final class WaitingCheckUser extends Result{
+        public WaitingCheckUser(){
         }
     }
 

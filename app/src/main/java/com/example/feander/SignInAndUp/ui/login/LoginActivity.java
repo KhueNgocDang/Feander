@@ -3,6 +3,7 @@ package com.example.feander.SignInAndUp.ui.login;
 import android.app.Activity;
 
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -29,6 +30,8 @@ import android.widget.Toast;
 import com.example.feander.MainActivity;
 import com.example.feander.R;
 import com.example.feander.SignInAndUp.SignUp_Activity;
+import com.example.feander.SignInAndUp.data.Result;
+import com.example.feander.SignInAndUp.data.model.LoggedInUser;
 import com.example.feander.SignInAndUp.ui.login.LoginViewModel;
 import com.example.feander.SignInAndUp.ui.login.LoginViewModelFactory;
 
@@ -66,25 +69,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-//                finish();
-            }
-        });
+//        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
+//            @Override
+//            public void onChanged(@Nullable LoginResult loginResult) {
+//                if (loginResult == null) {
+//                    return;
+//                }
+//                loadingProgressBar.setVisibility(View.GONE);
+//                if (loginResult.getError() != null) {
+//                    showLoginFailed(loginResult.getError());
+//                }
+//                if (loginResult.getSuccess() != null) {
+//                    updateUiWithUser(loginResult.getSuccess());
+//                }
+//                setResult(Activity.RESULT_OK);
+//
+//                //Complete and destroy login activity once successful
+////                finish();
+//            }
+//        });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
@@ -124,14 +127,27 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.setCallingActivity(LoginActivity.this);
-                loginViewModel.login(usernameEditText.getText().toString(),
+                final MutableLiveData<Result> resultLive = loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                resultLive.observeForever(new Observer<Result>() {
+                    @Override
+                    public void onChanged(Result result) {
+                        if (result instanceof Result.Success) {
+                            updateUiWithUser(((Result.Success<LoggedInUser>) result).getData());
+                            resultLive.removeObserver(this);
+                            openMain(null);
+                        } else if (result instanceof Result.Error) {
+                            resultLive.removeObserver(this);
+                        }
+                        loadingProgressBar.setVisibility(View.GONE);
+                    }
+                });
 
             }
         });
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
+    private void updateUiWithUser(LoggedInUser model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
@@ -150,6 +166,6 @@ public class LoginActivity extends AppCompatActivity {
     public void openMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
 
+    }
 }
