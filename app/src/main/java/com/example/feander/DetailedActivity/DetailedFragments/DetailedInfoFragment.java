@@ -12,13 +12,19 @@ import android.view.ViewGroup;
 
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DetailedInfoFragment extends Fragment {
@@ -31,6 +37,8 @@ public class DetailedInfoFragment extends Fragment {
     LatLng latLng;
     LatLng current_position;
     GoogleMap mMap;
+    Marker location_marker;
+    Marker user_marker;
 
     public DetailedInfoFragment() {
         // Required empty public constructor
@@ -53,14 +61,37 @@ public class DetailedInfoFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
+            List<Marker> markersList = new ArrayList<Marker>();
             latLng = new LatLng(mParam1.getLatLng().getLatitude(), mParam1.getLatLng().getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(latLng)
+
+            location_marker = googleMap.addMarker(new MarkerOptions().position(latLng)
                     .title(mParam1.getName())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-            googleMap.addMarker(new MarkerOptions().position(current_position)
+            user_marker = googleMap.addMarker(new MarkerOptions().position(current_position)
                     .title("Vị trí hiện tại"));
-            googleMap.setMaxZoomPreference(20);
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14.0f));
+
+            markersList.add(location_marker);
+            markersList.add(user_marker);
+
+
+            //get the latLngbuilder from the marker list
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (Marker m : markersList) {
+                builder.include(m.getPosition());
+            }
+
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (Math.min(width, height)*0.2);
+
+            //Create bounds here
+            LatLngBounds bounds = builder.build();
+
+            //Create camera with bounds
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width,height,padding);
+
+            googleMap.moveCamera(cu);
+
         }
     };
 
