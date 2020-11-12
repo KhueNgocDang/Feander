@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DetailedInfoFragment extends Fragment {
@@ -54,16 +52,38 @@ public class DetailedInfoFragment extends Fragment {
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
             latLng = new LatLng(mParam1.getLatLng().getLatitude(), mParam1.getLatLng().getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(latLng)
+
+            //Create your Markers List
+            List<Marker> markersList = new ArrayList<Marker>();
+
+            Marker location_marker = googleMap.addMarker(new MarkerOptions().position(latLng)
                     .title(mParam1.getName())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-            googleMap.addMarker(new MarkerOptions().position(current_position)
+
+            Marker user_marker = googleMap.addMarker(new MarkerOptions().position(current_position)
                     .title("Vị trí hiện tại"));
-            googleMap.setMaxZoomPreference(20);
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14.0f));
+
+            //Add them to your list
+            markersList.add(location_marker);
+            markersList.add(user_marker);
+
+
+            //get the latLngbuilder from the marker list
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (Marker m : markersList) {
+                builder.include(m.getPosition());
+            }
+
+            //Bounds padding here
+            int padding = 50;
+
+            //Create bounds here
+            LatLngBounds bounds = builder.build();
+
+            //Create camera with bounds
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
         }
     };
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
