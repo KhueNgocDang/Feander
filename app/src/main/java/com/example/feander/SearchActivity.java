@@ -1,11 +1,6 @@
 package com.example.feander;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -15,7 +10,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,8 +37,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
     private LocationAdapter adapter;
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    Location location;
-    LatLng latLng;
+    LatLng current_location;
     public List<LocationModel> locationList = new ArrayList<>();
 
     @Override
@@ -52,26 +45,8 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        double latitude = 0;
-        double longitude = 0;
-        boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        if (network_enabled) {
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-            if(location!=null){
-                latitude  = location.getLatitude();
-                longitude = location.getLongitude();
-            }
-            latLng = new LatLng(latitude,longitude);
-        }
+        Intent intent = getIntent();
+        current_location = intent.getParcelableExtra("current_location");
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -83,7 +58,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
                             LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
-                            locationModel.setDistance(latLng);
+                            locationModel.setDistance(current_location);
                             locationList.add(locationModel);
                         }
                         Collections.sort(locationList, new Comparator<LocationModel>() {
@@ -138,6 +113,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
         locationList.get(position);
         Intent intent = new Intent(this, DetailedActivity.class);
         intent.putExtra("Location",locationList.get(position));
+        intent.putExtra("current_location", current_location);
         startActivity(intent);
     }
 }

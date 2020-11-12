@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         new LocationFragment();
         final LocationFragment locationFragment = LocationFragment.newInstance(latitude,longitude);
 
-        final SearchFragment searchFragment = new SearchFragment();
+        new SearchFragment();
+        final SearchFragment searchFragment = SearchFragment.newInstance(latitude,longitude);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, locationFragment)
@@ -72,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         final Intent map_intent = new Intent(this,MapsActivity.class);
-
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_bar);
         BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new

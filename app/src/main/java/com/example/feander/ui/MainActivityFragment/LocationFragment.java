@@ -123,6 +123,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
         locationList.get(position);
         Intent intent = new Intent(getContext(), DetailedActivity.class);
         intent.putExtra("Location",locationList.get(position));
+        intent.putExtra("current_location", current_location);
         startActivity(intent);
     }
 }

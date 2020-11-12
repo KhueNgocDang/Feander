@@ -13,18 +13,38 @@ import android.widget.SearchView;
 
 import com.example.feander.R;
 import com.example.feander.SearchActivity;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
+
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    public static SearchFragment fragment;
+    private LatLng current_location;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
+    public static SearchFragment newInstance(double latitude, double longitude) {
+        if(fragment==null){
+            fragment = new SearchFragment();
+        }
+        Bundle args = new Bundle();
+        args.putDouble(ARG_PARAM1, latitude);
+        args.putDouble(ARG_PARAM2, longitude);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+        Bundle bundle = this.getArguments();
+        assert bundle != null;
+        current_location = new LatLng(bundle.getDouble(ARG_PARAM1),bundle.getDouble(ARG_PARAM2));
     }
 
     @Override
@@ -33,6 +53,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         final Intent intent = new Intent(getContext(), SearchActivity.class);
+        intent.putExtra("current_location",current_location);
 
         SearchView searchView = view.findViewById(R.id.SearchViewSearchFrag);
         searchView.setOnClickListener(new View.OnClickListener() {

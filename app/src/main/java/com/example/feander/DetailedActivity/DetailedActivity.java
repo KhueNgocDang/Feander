@@ -1,16 +1,10 @@
 package com.example.feander.DetailedActivity;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -24,45 +18,26 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DetailedActivity extends AppCompatActivity {
 
-    LatLng latLng;
-    Location location;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
-        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        double latitude = 0;
-        double longitude = 0;
-        boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        if (network_enabled) {
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-            if(location!=null){
-                latitude  = location.getLatitude();
-                longitude = location.getLongitude();
-            }
-        }
-
         //Get intent from MainActivity
         Intent intent = getIntent();
         final LocationModel locationModel = intent.getParcelableExtra("Location");
+        final LatLng current_location = intent.getParcelableExtra("current_location");
 
         TextView detailed_name = findViewById(R.id.detailed_name);
         detailed_name.setText(locationModel.getName());
 
         new DetailedDescriptionFragment();
-        final DetailedDescriptionFragment detailed_desc = DetailedDescriptionFragment.newInstance(locationModel);
+        final DetailedDescriptionFragment detailed_desc =
+                DetailedDescriptionFragment.newInstance(locationModel);
         new DetailedInfoFragment();
-        final DetailedInfoFragment detailed_info = DetailedInfoFragment.newInstance(locationModel,latitude,longitude);
+        final DetailedInfoFragment detailed_info =
+                DetailedInfoFragment.newInstance
+                        (locationModel,current_location.latitude,current_location.longitude);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.DetailedLocationFragContainer,
