@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.feander.R;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,10 +86,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
                 results.values = locationModelListFull;
             }
             else {
-                String filterPattern = constraint.toString().toLowerCase();
+                String filterPattern = Normalizer.normalize(constraint.toString().toLowerCase(), Normalizer.Form.NFD) ;
                 List<LocationModel> filteredList = new ArrayList<>();
                 for (LocationModel item : locationModelListFull) {
-                    if (item.getName().toLowerCase().contains(filterPattern)) {
+                    String name = Normalizer.normalize(item.getName().toLowerCase().trim(), Normalizer.Form.NFD);
+                    String location = Normalizer.normalize(item.getLocation().toLowerCase().trim(), Normalizer.Form.NFD);
+                    if (name.contains(filterPattern)||location.contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
