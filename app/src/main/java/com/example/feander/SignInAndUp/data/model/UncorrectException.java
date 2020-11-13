@@ -2,10 +2,10 @@ package com.example.feander.SignInAndUp.data.model;
 
 import androidx.annotation.NonNull;
 
-public class UncorrectPassWordException extends Exception {
+public class UncorrectException extends Exception {
     @NonNull
     @Override
     public String toString() {
-        return "Uncorrect PassWord";
+        return "Tài khoản hoặc mật khẩu không đúng";
     }
 }
