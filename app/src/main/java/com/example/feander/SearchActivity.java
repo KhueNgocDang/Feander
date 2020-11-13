@@ -44,7 +44,6 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     Location location;
-    LatLng latLng;
     public List<LocationModel> locationList = new ArrayList<>();
 
     @Override
@@ -52,7 +51,10 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        final Intent get_intent = getIntent();
+        final LatLng latLng = get_intent.getParcelableExtra("current_location");
+
+        /*LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         double latitude = 0;
         double longitude = 0;
         boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -71,7 +73,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
                 longitude = location.getLongitude();
             }
             latLng = new LatLng(latitude,longitude);
-        }
+        }*/
 
         recyclerView = findViewById(R.id.recyclerView);
 
