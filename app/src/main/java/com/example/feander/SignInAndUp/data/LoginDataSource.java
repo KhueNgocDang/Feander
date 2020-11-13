@@ -1,34 +1,21 @@
 package com.example.feander.SignInAndUp.data;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
-import com.example.feander.SignInAndUp.data.model.UncorrectPassWordException;
-import com.example.feander.SignInAndUp.ui.login.LoginActivity;
+import com.example.feander.SignInAndUp.data.model.UncorrectException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 //import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
@@ -38,7 +25,7 @@ import java.util.List;
 public class LoginDataSource {
     FirebaseFirestore dataSource = FirebaseFirestore.getInstance();
     private MutableLiveData<Result> resultLive = new MutableLiveData<>();
-    private Result loginResult = new Result.WaitingCheckUser();
+//    private Result loginResult;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public MutableLiveData<Result> login(String username, String password) {
@@ -55,7 +42,7 @@ public class LoginDataSource {
             return checkUsers(username, password);
 
         } catch (Exception e) {
-            resultLive.setValue(new Result.Error(new IOException("Error logging in", e)));
+            resultLive.setValue(new Result.Error(new IOException("Lỗi vào ra khi đăng nhập", e)));
             return resultLive;
         }
     }
@@ -101,13 +88,12 @@ public class LoginDataSource {
                                     resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
                                 } else {
 //                                    loginResult = new Result.Error(new UncorrectPassWordException());
-                                    resultLive.setValue(new Result.Error(new UncorrectPassWordException()));
+                                    resultLive.setValue(new Result.Error(new UncorrectException()));
                                 }
                             }
                         } else {
-                            Log.w("PassWord", "Error getting documents.", task.getException());
-//                            loginResult = new Result.Error(new Exception("Error logging in", task.getException()));
-                            resultLive.setValue(loginResult);
+                            Log.w("PassWord", "Lỗi khi đọc các bản ghi", task.getException());
+                            resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng nhập", task.getException())));
                         }
                     }
                 });

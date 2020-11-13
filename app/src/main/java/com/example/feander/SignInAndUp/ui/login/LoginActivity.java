@@ -132,14 +132,17 @@ public class LoginActivity extends AppCompatActivity {
                 resultLive.observeForever(new Observer<Result>() {
                     @Override
                     public void onChanged(Result result) {
+                        loadingProgressBar.setVisibility(View.GONE);
                         if (result instanceof Result.Success) {
                             updateUiWithUser(((Result.Success<LoggedInUser>) result).getData());
                             resultLive.removeObserver(this);
                             openMain(null);
+                            finish();
                         } else if (result instanceof Result.Error) {
                             resultLive.removeObserver(this);
+                            showLoginFailed(((Result.Error) result).getError().toString());
+                            resultLive.setValue(null);
                         }
-                        loadingProgressBar.setVisibility(View.GONE);
                     }
                 });
 
@@ -153,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    private void showLoginFailed(String errorString) {
+        Toast.makeText(getApplicationContext(), errorString,Toast.LENGTH_LONG).show();
     }
 
     public void openSignUp(View view) {
