@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         final LocationFragment locationFragment = LocationFragment.newInstance(latitude,longitude);
 
-        final SearchFragment searchFragment = new SearchFragment();
+        final SearchFragment searchFragment = SearchFragment.newInstance(latitude,longitude);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, locationFragment)
