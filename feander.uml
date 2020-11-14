@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.example.feander</OriginalElement>
+  <nodes>
+    <node x="277.0060267857143" y="450.0">com.example.feander.ui.MainActivityFragment.SearchFragment</node>
+    <node x="662.9226934523809" y="450.0">com.example.feander.MapsActivity</node>
+    <node x="115.09635416666669" y="220.0">com.example.feander.DetailedActivity.DetailedActivity</node>
+    <node x="32.5" y="120.0">com.example.feander.DetailedActivity.DetailedFragments.DetailedInfoFragment</node>
+    <node x="580.4226934523809" y="530.0">com.example.feander.MainActivity</node>
+    <node x="646.7058779761905" y="0.0">com.example.feander.Location.LocationAdapter.OnLocationListener</node>
+    <node x="627.172693452381" y="220.0">com.example.feander.Location.LocationAdapter</node>
+    <node x="277.0060267857143" y="370.0">com.example.feander.SearchActivity</node>
+    <node x="732.672693452381" y="120.0">com.example.feander.Location.LocationAdapter.LocationHolder</node>
+    <node x="344.41488095238117" y="0.0">com.example.feander.Location.LocationModel</node>
+    <node x="260.5" y="120.0">com.example.feander.DetailedActivity.DetailedFragments.DetailedDescriptionFragment</node>
+    <node x="564.4226934523809" y="370.0">com.example.feander.ui.MainActivityFragment.LocationFragment</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.feander.SearchActivity" target="com.example.feander.Location.LocationAdapter.OnLocationListener">
+      <point x="13.333333333333314" y="-15.0" />
+      <point x="370.33936011904757" y="300.0" />
+      <point x="590.0" y="300.0" />
+      <point x="590.0" y="90.0" />
+      <point x="660.4201636904763" y="90.0" />
+      <point x="-82.28571428571428" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.ui.MainActivityFragment.LocationFragment" target="com.example.feander.Location.LocationAdapter">
+      <point x="14.666666666666629" y="-15.0" />
+      <point x="667.0893601190476" y="330.0" />
+      <point x="732.172693452381" y="330.0" />
+      <point x="21.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.MainActivity" target="com.example.feander.MapsActivity">
+      <point x="48.0" y="-15.0" />
+      <point x="700.4226934523809" y="505.0" />
+      <point x="734.9226934523809" y="505.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.Location.LocationAdapter" target="com.example.feander.Location.LocationModel">
+      <point x="-74.66666666666669" y="-15.0" />
+      <point x="636.5060267857143" y="200.0" />
+      <point x="557.0" y="200.0" />
+      <point x="557.0" y="70.0" />
+      <point x="464.7482142857144" y="70.0" />
+      <point x="44.33333333333326" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.MainActivity" target="com.example.feander.ui.MainActivityFragment.LocationFragment">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.MainActivity" target="com.example.feander.ui.MainActivityFragment.SearchFragment">
+      <point x="-48.0" y="-15.0" />
+      <point x="604.4226934523809" y="505.0" />
+      <point x="357.0060267857143" y="505.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.SearchActivity" target="com.example.feander.Location.LocationModel">
+      <point x="-40.0" y="-15.0" />
+      <point x="317.0060267857143" y="340.0" />
+      <point x="11.0" y="340.0" />
+      <point x="11.0" y="60.0" />
+      <point x="363.41488095238117" y="60.0" />
+      <point x="-57.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.SearchActivity" target="com.example.feander.DetailedActivity.DetailedActivity">
+      <point x="-13.333333333333343" y="-15.0" />
+      <point x="343.67269345238094" y="330.0" />
+      <point x="159.09635416666669" y="330.0" />
+      <point x="-44.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.Location.LocationAdapter" target="com.example.feander.Location.LocationAdapter.OnLocationListener">
+      <point x="18.666666666666657" y="-15.0" />
+      <point x="729.8393601190477" y="200.0" />
+      <point x="722.172693452381" y="200.0" />
+      <point x="722.172693452381" y="100.0" />
+      <point x="742.7058779761905" y="100.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.SearchActivity" target="com.example.feander.Location.LocationAdapter">
+      <point x="40.0" y="-15.0" />
+      <point x="397.0060267857143" y="310.0" />
+      <point x="648.172693452381" y="310.0" />
+      <point x="-63.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.Location.LocationAdapter" target="com.example.feander.Location.LocationAdapter.LocationHolder">
+      <point x="37.333333333333314" y="-15.0" />
+      <point x="748.5060267857143" y="200.0" />
+      <point x="759.3393601190477" y="200.0" />
+      <point x="-53.333333333333336" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.ui.MainActivityFragment.SearchFragment" target="com.example.feander.SearchActivity">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.ui.MainActivityFragment.LocationFragment" target="com.example.feander.Location.LocationAdapter.OnLocationListener">
+      <point x="73.33333333333337" y="-15.0" />
+      <point x="725.7560267857143" y="350.0" />
+      <point x="903.172693452381" y="350.0" />
+      <point x="903.172693452381" y="90.0" />
+      <point x="824.9915922619048" y="90.0" />
+      <point x="82.28571428571428" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.DetailedActivity.DetailedActivity" target="com.example.feander.DetailedActivity.DetailedFragments.DetailedInfoFragment">
+      <point x="-35.200000000000045" y="-15.0" />
+      <point x="167.89635416666664" y="190.0" />
+      <point x="84.5" y="190.0" />
+      <point x="-52.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.Location.LocationAdapter.LocationHolder" target="com.example.feander.Location.LocationAdapter.OnLocationListener">
+      <point x="-40.0" y="-15.0" />
+      <point x="772.672693452381" y="100.0" />
+      <point x="770.134449404762" y="100.0" />
+      <point x="27.428571428571445" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.DetailedActivity.DetailedFragments.DetailedDescriptionFragment" target="com.example.feander.Location.LocationModel">
+      <point x="-66.0" y="-15.0" />
+      <point x="326.5" y="100.0" />
+      <point x="414.0815476190478" y="100.0" />
+      <point x="-6.333333333333371" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.Location.LocationAdapter.LocationHolder" target="com.example.feander.Location.LocationAdapter">
+      <point x="53.333333333333314" y="15.0" />
+      <point x="866.0060267857143" y="200.0" />
+      <point x="785.8393601190477" y="200.0" />
+      <point x="74.66666666666669" y="-15.0" />
+    </edge>
+    <edge source="com.example.feander.ui.MainActivityFragment.LocationFragment" target="com.example.feander.Location.LocationModel">
+      <point x="-14.666666666666629" y="-15.0" />
+      <point x="637.7560267857143" y="270.0" />
+      <point x="546.0" y="270.0" />
+      <point x="546.0" y="80.0" />
+      <point x="452.0815476190478" y="80.0" />
+      <point x="31.66666666666663" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.Location.LocationAdapter.OnLocationListener" target="com.example.feander.Location.LocationAdapter">
+      <point x="-54.85714285714283" y="15.0" />
+      <point x="687.8487351190477" y="100.0" />
+      <point x="663.922693452381" y="100.0" />
+      <point x="663.922693452381" y="170.0" />
+      <point x="692.5060267857143" y="170.0" />
+      <point x="-18.666666666666686" y="-15.0" />
+    </edge>
+    <edge source="com.example.feander.DetailedActivity.DetailedActivity" target="com.example.feander.Location.LocationModel">
+      <point x="-70.39999999999998" y="-15.0" />
+      <point x="132.6963541666667" y="200.0" />
+      <point x="22.0" y="200.0" />
+      <point x="22.0" y="70.0" />
+      <point x="376.0815476190478" y="70.0" />
+      <point x="-44.333333333333314" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.DetailedActivity.DetailedActivity" target="com.example.feander.DetailedActivity.DetailedFragments.DetailedDescriptionFragment">
+      <point x="35.200000000000045" y="-15.0" />
+      <point x="238.29635416666673" y="190.0" />
+      <point x="326.5" y="190.0" />
+      <point x="-66.0" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.DetailedActivity.DetailedFragments.DetailedInfoFragment" target="com.example.feander.Location.LocationModel">
+      <point x="-52.0" y="-15.0" />
+      <point x="84.5" y="80.0" />
+      <point x="388.7482142857144" y="80.0" />
+      <point x="-31.666666666666686" y="15.0" />
+    </edge>
+    <edge source="com.example.feander.ui.MainActivityFragment.LocationFragment" target="com.example.feander.DetailedActivity.DetailedActivity">
+      <point x="-73.33333333333326" y="-15.0" />
+      <point x="579.0893601190477" y="290.0" />
+      <point x="247.09635416666669" y="290.0" />
+      <point x="44.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="442.0" y="286.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
