@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_search:
                                 getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
                                 getSupportFragmentManager().beginTransaction().attach(searchFragment).commit();
+                                break;
+                            case R.id.LogOut:
                         }
                         return true;
                     }
