@@ -16,7 +16,6 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
     private AppCompatActivity callingActivity;
 
     private MutableLiveData<State> state = new MutableLiveData<>();
-    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private Repository repository;
 
     ViewModel(Repository repository) {
@@ -28,9 +27,6 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
         return state;
     }
 
-    LiveData<LoginResult> getLoginResult() {
-        return loginResult;
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public MutableLiveData<Result> login(String username, String password) {
@@ -62,7 +58,6 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
 
     public MutableLiveData<Result> signUp(String username, String password, String phoneNumbers) {
         return repository.signUp(username, password, phoneNumbers);
-
         // can be launched in a separate asynchronous job
     }
 

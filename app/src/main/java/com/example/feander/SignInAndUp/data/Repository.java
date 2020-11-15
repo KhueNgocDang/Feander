@@ -117,7 +117,7 @@ public class Repository {
         try{
             File file = new File(context.getFilesDir(), fileName);
             file.delete();
-        }catch (Exception e){
+        }catch (Exception e) {
             Log.d("delete loggedinuser", "that bai");
 
         }

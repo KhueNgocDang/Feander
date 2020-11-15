@@ -17,5 +17,6 @@
     <item
         android:id="@+id/LogOut"
         android:onClick="logOut"
+        android:icon="@drawable/log_out_icon"
         android:title="Đăng xuất" />
 </menu>
