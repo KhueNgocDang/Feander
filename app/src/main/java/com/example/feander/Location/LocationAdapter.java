@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -103,6 +104,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         protected void publishResults(CharSequence constraint, FilterResults results) {
             locationModelList = (List<LocationModel>) results.values;
             notifyDataSetChanged();
+            if (locationModelList.isEmpty()){
+                CharSequence text = "Không có kết quả phù hợp";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
         }
     };
 

@@ -54,27 +54,6 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
         final Intent get_intent = getIntent();
         final LatLng latLng = get_intent.getParcelableExtra("current_location");
 
-        /*LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        double latitude = 0;
-        double longitude = 0;
-        boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        if (network_enabled) {
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-            if(location!=null){
-                latitude  = location.getLatitude();
-                longitude = location.getLongitude();
-            }
-            latLng = new LatLng(latitude,longitude);
-        }*/
-
         recyclerView = findViewById(R.id.recyclerView);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
