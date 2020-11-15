@@ -1,0 +1,1206 @@
+Index: app/src/main/res/layout/activity_sign_up_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:fillViewport=\"true\"\r\n    tools:context=\".SignInAndUp.SignUp_Activity\">\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:background=\"@color/cardview_light_background\">\r\n\r\n        <Button\r\n            android:id=\"@+id/button\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"60dp\"\r\n            android:background=\"@drawable/button_background\"\r\n            android:text=\"Đăng ký\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textSize=\"23dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/username2\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/username2\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"35dp\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Số điện thoại\"\r\n            android:inputType=\"textPersonName\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textColorHint=\"@color/textColor\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/password\"\r\n            app:layout_constraintHorizontal_bias=\"1.0\"\r\n            app:layout_constraintStart_toStartOf=\"@id/password\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/password\"\r\n            app:layout_constraintWidth_percent=\"0.7\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/username\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"8dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:layout_marginEnd=\"8dp\"\r\n            android:layout_marginBottom=\"8dp\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Tài khoản\"\r\n            android:inputType=\"textPersonName\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textColorHint=\"@color/textColor\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.803\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.419\"\r\n            app:layout_constraintWidth_percent=\"0.7\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/password\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"35dp\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Mật khẩu\"\r\n            android:inputType=\"textPassword\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textColorHint=\"@color/textColor\"\r\n\r\n            app:layout_constraintEnd_toEndOf=\"@+id/username\"\r\n            app:layout_constraintHorizontal_bias=\"0.0\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/username\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/username\" />\r\n\r\n        <ImageView\r\n            android:id=\"@+id/user_icon\"\r\n            android:layout_width=\"48dp\"\r\n            android:layout_height=\"42dp\"\r\n            android:layout_marginEnd=\"8dp\"\r\n            android:layout_marginRight=\"8dp\"\r\n            android:layout_marginBottom=\"8dp\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/username\"\r\n            app:layout_constraintEnd_toStartOf=\"@+id/username\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/username\"\r\n            app:layout_constraintVertical_bias=\"0.408\"\r\n            app:srcCompat=\"@drawable/user_icon\" />\r\n\r\n\r\n        <ImageView\r\n            android:id=\"@+id/password_icon\"\r\n            android:layout_width=\"47dp\"\r\n            android:layout_height=\"48dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/password\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/user_icon\"\r\n            app:layout_constraintHorizontal_bias=\"0.0\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/user_icon\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/password\"\r\n            app:srcCompat=\"@drawable/password\" />\r\n\r\n        <ImageView\r\n            android:id=\"@+id/tea_logo\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"8dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:layout_marginEnd=\"8dp\"\r\n            android:layout_marginBottom=\"8dp\"\r\n            app:layout_constraintBottom_toTopOf=\"@+id/username\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.497\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.228\"\r\n            app:srcCompat=\"@drawable/tea_logo\" />\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imageView\"\r\n            android:layout_width=\"48dp\"\r\n            android:layout_height=\"47dp\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/username2\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/password_icon\"\r\n            app:layout_constraintHorizontal_bias=\"0.0\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/password_icon\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/username2\"\r\n            app:srcCompat=\"@drawable/phone_icon\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/dangky\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Đăng ký\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textSize=\"25dp\"\r\n            android:textStyle=\"bold\"\r\n\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.866\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.317\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/dangnhap\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:onClick=\"openSignIn\"\r\n            android:text=\"Đăng nhập\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textSize=\"23dp\"\r\n            app:layout_constraintBaseline_toBaselineOf=\"@+id/dangky\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.135\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.338\" />\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</ScrollView>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_sign_up_.xml	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/res/layout/activity_sign_up_.xml	(date 1605452600518)
+@@ -5,13 +5,25 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:fillViewport="true"
+-    tools:context=".SignInAndUp.SignUp_Activity">
++    tools:context=".SignInAndUp.ui.loginsignup.SignUp_Activity">
+ 
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:background="@color/cardview_light_background">
+ 
++        <ProgressBar
++            android:id="@+id/progressBar"
++            style="?android:attr/progressBarStyle"
++            android:layout_width="30dp"
++            android:visibility="gone"
++            android:layout_height="30dp"
++            app:layout_constraintTop_toTopOf="@+id/button"
++            app:layout_constraintBottom_toBottomOf="@+id/button"
++            app:layout_constraintStart_toStartOf="@id/button"
++            app:layout_constraintEnd_toEndOf="@id/button"
++            />
++
+         <Button
+             android:id="@+id/button"
+             android:layout_width="wrap_content"
+@@ -23,10 +35,10 @@
+             android:textSize="23dp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toBottomOf="@+id/username2" />
++            app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+ 
+         <EditText
+-            android:id="@+id/username2"
++            android:id="@+id/phoneNumber"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="35dp"
+@@ -124,13 +136,15 @@
+             android:id="@+id/imageView"
+             android:layout_width="48dp"
+             android:layout_height="47dp"
+-            app:layout_constraintBottom_toBottomOf="@+id/username2"
++            app:layout_constraintBottom_toBottomOf="@+id/phoneNumber"
+             app:layout_constraintEnd_toEndOf="@+id/password_icon"
+             app:layout_constraintHorizontal_bias="0.0"
+             app:layout_constraintStart_toStartOf="@+id/password_icon"
+-            app:layout_constraintTop_toTopOf="@+id/username2"
++            app:layout_constraintTop_toTopOf="@+id/phoneNumber"
+             app:srcCompat="@drawable/phone_icon" />
+ 
++
++
+         <TextView
+             android:id="@+id/dangky"
+             android:layout_width="wrap_content"
+@@ -162,6 +176,5 @@
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintVertical_bias="0.338" />
+-
+     </androidx.constraintlayout.widget.ConstraintLayout>
+ </ScrollView>
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.feander\">\r\n\r\n    <!--\r\n         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use\r\n         Google Maps Android API v2, but you must specify either coarse or fine\r\n         location permissions for the \"MyLocation\" functionality.\r\n    -->\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"com.google.android.providers.gsf.permission.READ_GSERVICES\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@drawable/tea_logo\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@drawable/tea_logo\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\">\r\n\r\n        <!--\r\n             The API key for Google Maps-based APIs is defined as a string resource.\r\n             (See the file \"res/values/google_maps_api.xml\").\r\n             Note that the API key is linked to the encryption key used to sign the APK.\r\n             You need a different API key for each encryption key, including the release key that is used to\r\n             sign the APK for publishing.\r\n             You can define the keys for the debug and release targets in src/debug/ and src/release/.\r\n        -->\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"@string/google_maps_key\" />\r\n\r\n        <activity\r\n            android:name=\".SearchActivity\"\r\n            android:label=\"@string/title_activity_search\" />\r\n        <activity\r\n            android:name=\".DetailedActivity.DetailedActivity\"\r\n            android:label=\"@string/title_activity_detailed\" />\r\n        <activity\r\n            android:name=\".SignInAndUp.ui.login.LoginActivity\"\r\n            android:label=\"@string/title_activity_login\" />\r\n        <activity android:name=\".MainActivity\">\r\n        </activity>\r\n        <activity android:name=\".Splash.Splash_Activity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".MapsActivity\"\r\n            android:label=\"@string/title_activity_maps\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/AndroidManifest.xml	(date 1605452600545)
+@@ -40,9 +40,10 @@
+             android:name=".DetailedActivity.DetailedActivity"
+             android:label="@string/title_activity_detailed" />
+         <activity
+-            android:name=".SignInAndUp.ui.login.LoginActivity"
++            android:name=".SignInAndUp.ui.loginsignup.LoginActivity"
+             android:label="@string/title_activity_login" />
+-        <activity android:name=".MainActivity">
++        <activity android:name=".MainActivity"/>
++        <activity android:name=".SignInAndUp.ui.loginsignup.SignUp_Activity">
+         </activity>
+         <activity android:name=".Splash.Splash_Activity">
+             <intent-filter>
+Index: app/src/main/java/com/example/feander/SignInAndUp/SignIn_Activity.java
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/SignIn_Activity.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/SignIn_Activity.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
+@@ -1,27 +0,0 @@
+-package com.example.feander.SignInAndUp;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.view.View;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-import com.example.feander.R;
+-
+-public class SignIn_Activity extends AppCompatActivity {
+-
+-    @Override
+-    protected void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_sign_in);
+-
+-    }
+-
+-    public void openSignUp(View view) {
+-        Intent intent = new Intent(this, SignUp_Activity.class);
+-        startActivity(intent);
+-
+-    }
+-
+-
+-}
+Index: app/src/main/res/layout/activity_sign_in.xml
+===================================================================
+--- app/src/main/res/layout/activity_sign_in.xml	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/res/layout/activity_sign_in.xml	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
+@@ -1,142 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:fillViewport="true"
+-    tools:context=".SignInAndUp.SignIn_Activity">
+-
+-    <androidx.constraintlayout.widget.ConstraintLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:background="@drawable/app_background">
+-
+-        <EditText
+-            android:id="@+id/username"
+-            android:layout_width="0dp"
+-            android:layout_height="wrap_content"
+-            android:layout_marginStart="8dp"
+-            android:layout_marginTop="8dp"
+-            android:layout_marginEnd="8dp"
+-            android:layout_marginBottom="8dp"
+-            android:ems="10"
+-            android:hint="Tài khoản"
+-            android:inputType="textPersonName"
+-            app:layout_constraintBottom_toBottomOf="parent"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintHorizontal_bias="0.728"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toTopOf="parent"
+-            app:layout_constraintVertical_bias="0.446"
+-            app:layout_constraintWidth_percent="0.7" />
+-
+-        <TextView
+-            android:id="@+id/dangky"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="8dp"
+-            android:onClick="openSignUp"
+-            android:text="Đăng ký"
+-            android:textSize="23dp"
+-            app:layout_constraintBaseline_toBaselineOf="@+id/dangnhap"
+-            app:layout_constraintBottom_toBottomOf="parent"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintHorizontal_bias="0.875"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toTopOf="parent"
+-            app:layout_constraintVertical_bias="0.284" />
+-
+-        <TextView
+-            android:id="@+id/dangnhap"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="Đăng nhập"
+-            android:textSize="25dp"
+-            android:textStyle="bold"
+-            app:layout_constraintBottom_toBottomOf="parent"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintHorizontal_bias="0.13"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toTopOf="parent"
+-            app:layout_constraintVertical_bias="0.319" />
+-
+-        <ImageView
+-            android:id="@+id/user_icon"
+-            android:layout_width="48dp"
+-            android:layout_height="42dp"
+-            android:layout_marginEnd="8dp"
+-            android:layout_marginRight="8dp"
+-            android:layout_marginBottom="8dp"
+-            app:layout_constraintBottom_toBottomOf="@+id/username"
+-            app:layout_constraintEnd_toStartOf="@+id/username"
+-            app:layout_constraintTop_toTopOf="@+id/username"
+-            app:layout_constraintVertical_bias="0.408"
+-            app:srcCompat="@drawable/user_icon" />
+-
+-
+-        <ImageView
+-            android:id="@+id/password_icon"
+-            android:layout_width="47dp"
+-            android:layout_height="48dp"
+-            android:layout_marginTop="8dp"
+-            app:layout_constraintBottom_toBottomOf="@+id/password"
+-            app:layout_constraintEnd_toEndOf="@+id/user_icon"
+-            app:layout_constraintHorizontal_bias="0.0"
+-            app:layout_constraintStart_toStartOf="@+id/user_icon"
+-            app:layout_constraintTop_toTopOf="@+id/password"
+-            app:srcCompat="@drawable/password" />
+-
+-        <EditText
+-            android:id="@+id/password"
+-            android:layout_width="0dp"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="23dp"
+-            android:ems="10"
+-            android:hint="Mật khẩu"
+-            android:inputType="textPassword"
+-            app:layout_constraintEnd_toEndOf="@+id/username"
+-            app:layout_constraintHorizontal_bias="0.0"
+-            app:layout_constraintStart_toStartOf="@+id/username"
+-            app:layout_constraintTop_toBottomOf="@+id/username" />
+-
+-        <Button
+-            android:id="@+id/button"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="120dp"
+-            android:background="@drawable/button_background"
+-            android:text="Đăng nhập"
+-            android:textSize="23dp"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toBottomOf="@+id/password" />
+-
+-        <ImageView
+-            android:id="@+id/tea_logo"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_marginStart="8dp"
+-            android:layout_marginTop="8dp"
+-            android:layout_marginEnd="8dp"
+-            android:layout_marginBottom="8dp"
+-            app:layout_constraintBottom_toTopOf="@+id/username"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintHorizontal_bias="0.497"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toTopOf="parent"
+-            app:layout_constraintVertical_bias="0.146"
+-            app:srcCompat="@drawable/tea_logo" />
+-
+-        <TextView
+-            android:id="@+id/forgot_password"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="44dp"
+-            android:text="Quên mật khẩu?"
+-            android:textSize="20dp"
+-            app:layout_constraintEnd_toEndOf="@+id/password"
+-            app:layout_constraintTop_toBottomOf="@+id/password" />
+-
+-    </androidx.constraintlayout.widget.ConstraintLayout>
+-</ScrollView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/feander/SignInAndUp/SignUp_Activity.java
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/SignUp_Activity.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/SignUp_Activity.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
+@@ -1,24 +0,0 @@
+-package com.example.feander.SignInAndUp;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.view.View;
+-
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-import com.example.feander.R;
+-import com.example.feander.SignInAndUp.ui.login.LoginActivity;
+-
+-public class SignUp_Activity extends AppCompatActivity {
+-
+-    @Override
+-    protected void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_sign_up_);
+-    }
+-
+-    public void openSignIn(View view) {
+-        Intent intent = new Intent(this, LoginActivity.class);
+-        startActivity(intent);
+-    }
+-}
+Index: app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginViewModelFactory.java
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginViewModelFactory.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginViewModelFactory.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
+@@ -1,26 +0,0 @@
+-package com.example.feander.SignInAndUp.ui.login;
+-
+-import androidx.lifecycle.ViewModel;
+-import androidx.lifecycle.ViewModelProvider;
+-import androidx.annotation.NonNull;
+-
+-import com.example.feander.SignInAndUp.data.LoginDataSource;
+-import com.example.feander.SignInAndUp.data.LoginRepository;
+-
+-/**
+- * ViewModel provider factory to instantiate LoginViewModel.
+- * Required given LoginViewModel has a non-empty constructor
+- */
+-public class LoginViewModelFactory implements ViewModelProvider.Factory {
+-
+-    @NonNull
+-    @Override
+-    @SuppressWarnings("unchecked")
+-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+-        if (modelClass.isAssignableFrom(LoginViewModel.class)) {
+-            return (T) new LoginViewModel(LoginRepository.getInstance(new LoginDataSource()));
+-        } else {
+-            throw new IllegalArgumentException("Unknown ViewModel class");
+-        }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:fillViewport=\"true\"\r\n    tools:context=\".SignInAndUp.ui.login.LoginActivity\">\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:background=\"@color/cardview_light_background\"\r\n        >\r\n\r\n        <Button\r\n            android:id=\"@+id/button\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"120dp\"\r\n            android:background=\"@drawable/button_background\"\r\n            android:text=\"Đăng nhập\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textSize=\"23dp\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.532\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/password\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/username\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"8dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:layout_marginEnd=\"8dp\"\r\n            android:layout_marginBottom=\"8dp\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Tài khoản\"\r\n            android:inputType=\"textPersonName\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textColorHint=\"@color/textColor\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.728\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.446\"\r\n            app:layout_constraintWidth_percent=\"0.7\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/password\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"23dp\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Mật khẩu\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textColorHint=\"@color/textColor\"\r\n            android:inputType=\"textPassword\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/username\"\r\n            app:layout_constraintHorizontal_bias=\"0.0\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/username\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/username\" />\r\n\r\n        <ImageView\r\n            android:id=\"@+id/user_icon\"\r\n            android:layout_width=\"48dp\"\r\n            android:layout_height=\"42dp\"\r\n            android:layout_marginEnd=\"8dp\"\r\n            android:layout_marginRight=\"8dp\"\r\n            android:layout_marginBottom=\"8dp\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/username\"\r\n            app:layout_constraintEnd_toStartOf=\"@+id/username\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/username\"\r\n            app:layout_constraintVertical_bias=\"0.408\"\r\n            app:srcCompat=\"@drawable/user_icon\" />\r\n\r\n\r\n        <ImageView\r\n            android:id=\"@+id/password_icon\"\r\n            android:layout_width=\"47dp\"\r\n            android:layout_height=\"48dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/password\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/user_icon\"\r\n            app:layout_constraintHorizontal_bias=\"0.0\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/user_icon\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/password\"\r\n            app:srcCompat=\"@drawable/password\" />\r\n\r\n        <ImageView\r\n            android:id=\"@+id/tea_logo\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"8dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:layout_marginEnd=\"8dp\"\r\n            android:layout_marginBottom=\"8dp\"\r\n            app:layout_constraintBottom_toTopOf=\"@+id/username\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.5\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.146\"\r\n            app:srcCompat=\"@drawable/tea_logo\" />\r\n\r\n        <ProgressBar\r\n            android:id=\"@+id/progres_bar\"\r\n            android:layout_width=\"30dp\"\r\n            android:layout_height=\"30dp\"\r\n            android:visibility=\"gone\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/button\"\r\n            app:layout_constraintEnd_toEndOf=\"@id/button\"\r\n            app:layout_constraintStart_toStartOf=\"@id/button\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/button\"\r\n            />\r\n\r\n        <TextView\r\n            android:id=\"@+id/dangky\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"8dp\"\r\n            android:onClick=\"openSignUp\"\r\n            android:text=\"Đăng ký\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textSize=\"23sp\"\r\n            app:layout_constraintBaseline_toBaselineOf=\"@+id/dangnhap\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.875\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.284\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/dangnhap\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Đăng nhập\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textSize=\"25sp\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintHorizontal_bias=\"0.13\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.319\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/forgot_password\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"44dp\"\r\n            android:text=\"Quên mật khẩu?\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:textSize=\"20sp\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/password\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/password\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView\"\r\n            android:textColor=\"@color/textColor\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Xem với tư cách khách\"\r\n            android:textSize=\"20sp\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/button\"\r\n            android:onClick=\"openMain\"\r\n            />\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</ScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_login.xml	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/res/layout/activity_login.xml	(date 1605452600531)
+@@ -5,7 +5,7 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:fillViewport="true"
+-    tools:context=".SignInAndUp.ui.login.LoginActivity">
++    tools:context=".SignInAndUp.ui.loginsignup.LoginActivity">
+ 
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Yêu Trà Việt</string>\r\n    <string name=\"title_activity_maps\">Map</string>\r\n    <string name=\"action_geolocate\">Pick Place</string>\r\n    <string name=\"default_info_title\">Default Location</string>\r\n    <string name=\"default_info_snippet\">No places found, because location permission is disabled</string>\r\n    <string name=\"title_activity_login\">LoginActivity</string>\r\n    <string name=\"prompt_email\">Email</string>\r\n    <string name=\"prompt_password\">Password</string>\r\n    <string name=\"action_sign_in\">Sign in or register</string>\r\n    <string name=\"action_sign_in_short\">Sign in</string>\r\n    <string name=\"welcome\">Xin chào! </string>\r\n    <string name=\"invalid_username\">Tên tài khoản không hợp lệ</string>\r\n    <string name=\"invalid_password\">Mật khẩu phải trên 5 ký tự</string>\r\n    <string name=\"login_failed\">\"Đăng nhập thất bại\"</string>\r\n    <string name=\"title_activity_maps2\">Map</string>\r\n    <string name=\"title_activity_detailed\">ShopDetailedActivity</string>\r\n    <!-- Strings used for fragments for navigation -->\r\n    <string name=\"first_fragment_label\">First Fragment</string>\r\n    <string name=\"second_fragment_label\">Second Fragment</string>\r\n    <string name=\"next\">Next</string>\r\n    <string name=\"previous\">Previous</string>\r\n\r\n\r\n    <string name=\"hello_first_fragment\">Hello first fragment</string>\r\n    <string name=\"hello_second_fragment\">Hello second fragment. Arg: %1$s</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"title_activity_search\">SearchActivity</string>\r\n    <string name=\"large_text\">\r\n        \"Material is the metaphor.\\n\\n\"\r\n\r\n        \"A material metaphor is the unifying theory of a rationalized space and a system of motion.\"\r\n        \"The material is grounded in tactile reality, inspired by the study of paper and ink, yet \"\r\n        \"technologically advanced and open to imagination and magic.\\n\"\r\n        \"Surfaces and edges of the material provide visual cues that are grounded in reality. The \"\r\n        \"use of familiar tactile attributes helps users quickly understand affordances. Yet the \"\r\n        \"flexibility of the material creates new affordances that supercede those in the physical \"\r\n        \"world, without breaking the rules of physics.\\n\"\r\n        \"The fundamentals of light, surface, and movement are key to conveying how objects move, \"\r\n        \"interact, and exist in space and in relation to each other. Realistic lighting shows \"\r\n        \"seams, divides space, and indicates moving parts.\\n\\n\"\r\n\r\n        \"Bold, graphic, intentional.\\n\\n\"\r\n\r\n        \"The foundational elements of print based design typography, grids, space, scale, color, \"\r\n        \"and use of imagery guide visual treatments. These elements do far more than please the \"\r\n        \"eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge \"\r\n        \"imagery, large scale typography, and intentional white space create a bold and graphic \"\r\n        \"interface that immerse the user in the experience.\\n\"\r\n        \"An emphasis on user actions makes core functionality immediately apparent and provides \"\r\n        \"waypoints for the user.\\n\\n\"\r\n\r\n        \"Motion provides meaning.\\n\\n\"\r\n\r\n        \"Motion respects and reinforces the user as the prime mover. Primary user actions are \"\r\n        \"inflection points that initiate motion, transforming the whole design.\\n\"\r\n        \"All action takes place in a single environment. Objects are presented to the user without \"\r\n        \"breaking the continuity of experience even as they transform and reorganize.\\n\"\r\n        \"Motion is meaningful and appropriate, serving to focus attention and maintain continuity. \"\r\n        \"Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\\n\\n\"\r\n\r\n        \"3D world.\\n\\n\"\r\n\r\n        \"The material environment is a 3D space, which means all objects have x, y, and z \"\r\n        \"dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the \"\r\n        \"positive z-axis extending towards the viewer. Every sheet of material occupies a single \"\r\n        \"position along the z-axis and has a standard 1dp thickness.\\n\"\r\n        \"On the web, the z-axis is used for layering and not for perspective. The 3D world is \"\r\n        \"emulated by manipulating the y-axis.\\n\\n\"\r\n\r\n        \"Light and shadow.\\n\\n\"\r\n\r\n        \"Within the material environment, virtual lights illuminate the scene. Key lights create \"\r\n        \"directional shadows, while ambient light creates soft shadows from all angles.\\n\"\r\n        \"Shadows in the material environment are cast by these two light sources. In Android \"\r\n        \"development, shadows occur when light sources are blocked by sheets of material at \"\r\n        \"various positions along the z-axis. On the web, shadows are depicted by manipulating the \"\r\n        \"y-axis only. The following example shows the card with a height of 6dp.\\n\\n\"\r\n\r\n        \"Resting elevation.\\n\\n\"\r\n\r\n        \"All material objects, regardless of size, have a resting elevation, or default elevation \"\r\n        \"that does not change. If an object changes elevation, it should return to its resting \"\r\n        \"elevation as soon as possible.\\n\\n\"\r\n\r\n        \"Component elevations.\\n\\n\"\r\n\r\n        \"The resting elevation for a component type is consistent across apps (e.g., FAB elevation \"\r\n        \"does not vary from 6dp in one app to 16dp in another app).\\n\"\r\n        \"Components may have different resting elevations across platforms, depending on the depth \"\r\n        \"of the environment (e.g., TV has a greater depth than mobile or desktop).\\n\\n\"\r\n\r\n        \"Responsive elevation and dynamic elevation offsets.\\n\\n\"\r\n\r\n        \"Some component types have responsive elevation, meaning they change elevation in response \"\r\n        \"to user input (e.g., normal, focused, and pressed) or system events. These elevation \"\r\n        \"changes are consistently implemented using dynamic elevation offsets.\\n\"\r\n        \"Dynamic elevation offsets are the goal elevation that a component moves towards, relative \"\r\n        \"to the component’s resting state. They ensure that elevation changes are consistent \"\r\n        \"across actions and component types. For example, all components that lift on press have \"\r\n        \"the same elevation change relative to their resting elevation.\\n\"\r\n        \"Once the input event is completed or cancelled, the component will return to its resting \"\r\n        \"elevation.\\n\\n\"\r\n\r\n        \"Avoiding elevation interference.\\n\\n\"\r\n\r\n        \"Components with responsive elevations may encounter other components as they move between \"\r\n        \"their resting elevations and dynamic elevation offsets. Because material cannot pass \"\r\n        \"through other material, components avoid interfering with one another any number of ways, \"\r\n        \"whether on a per component basis or using the entire app layout.\\n\"\r\n        \"On a component level, components can move or be removed before they cause interference. \"\r\n        \"For example, a floating action button (FAB) can disappear or move off screen before a \"\r\n        \"user picks up a card, or it can move if a snackbar appears.\\n\"\r\n        \"On the layout level, design your app layout to minimize opportunities for interference. \"\r\n        \"For example, position the FAB to one side of stream of a cards so the FAB won’t interfere \"\r\n        \"when a user tries to pick up one of cards.\\n\\n\"\r\n    </string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/res/values/strings.xml	(date 1605452601185)
+@@ -9,7 +9,7 @@
+     <string name="prompt_password">Password</string>
+     <string name="action_sign_in">Sign in or register</string>
+     <string name="action_sign_in_short">Sign in</string>
+-    <string name="welcome">Xin chào! </string>
++    <string name="welcome">"Xin chào! "</string>
+     <string name="invalid_username">Tên tài khoản không hợp lệ</string>
+     <string name="invalid_password">Mật khẩu phải trên 5 ký tự</string>
+     <string name="login_failed">"Đăng nhập thất bại"</string>
+Index: app/src/main/java/com/example/feander/SignInAndUp/data/model/UserNameExistException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/data/model/UserNameExistException.java	(date 1605452601168)
++++ app/src/main/java/com/example/feander/SignInAndUp/data/model/UserNameExistException.java	(date 1605452601168)
+@@ -0,0 +1,11 @@
++package com.example.feander.SignInAndUp.data.model;
++
++import androidx.annotation.NonNull;
++
++public class UserNameExistException extends Exception {
++    @NonNull
++    @Override
++    public String toString() {
++        return "Tên tài khoản này đã được đăng ký";
++    }
++}
+Index: app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/SignUp_Activity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/SignUp_Activity.java	(date 1605452600560)
++++ app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/SignUp_Activity.java	(date 1605452600560)
+@@ -0,0 +1,136 @@
++package com.example.feander.SignInAndUp.ui.loginsignup;
++
++import android.content.Intent;
++import android.os.Build;
++import android.os.Bundle;
++import android.text.Editable;
++import android.text.TextWatcher;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.ProgressBar;
++import android.widget.Toast;
++
++import androidx.annotation.Nullable;
++import androidx.annotation.RequiresApi;
++import androidx.appcompat.app.AppCompatActivity;
++import androidx.lifecycle.MutableLiveData;
++import androidx.lifecycle.Observer;
++import androidx.lifecycle.ViewModelProviders;
++
++import com.example.feander.MainActivity;
++import com.example.feander.R;
++import com.example.feander.SignInAndUp.data.Result;
++import com.example.feander.SignInAndUp.data.model.LoggedInUser;
++
++
++public class SignUp_Activity extends AppCompatActivity {
++    ViewModel viewModel;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_sign_up_);
++        viewModel = ViewModelProviders.of(this, new ViewModelFactory())
++                .get(ViewModel.class);
++        final EditText usernameEditText = findViewById(R.id.username);
++        final EditText passwordEditText = findViewById(R.id.password);
++        final EditText phoneNumbersEditText = findViewById(R.id.phoneNumber);
++        final Button signUpButton = findViewById(R.id.button);
++        final ProgressBar progressBar = findViewById(R.id.progressBar);
++        viewModel.getState().observe(this, new Observer<State>() {
++            @Override
++            public void onChanged(@Nullable State state) {
++                if (state == null) {
++                    return;
++                }
++                signUpButton.setEnabled(state.isDataValid());
++                if (state.getUsernameError() != null) {
++                    usernameEditText.setError(getString(state.getUsernameError()));
++                }
++                if (state.getPasswordError() != null) {
++                    passwordEditText.setError(getString(state.getPasswordError()));
++                }
++            }
++        });
++        TextWatcher afterTextChangedListener = new TextWatcher() {
++            @Override
++            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
++                // ignore
++            }
++
++            @Override
++            public void onTextChanged(CharSequence s, int start, int before, int count) {
++                // ignore
++            }
++
++            @Override
++            public void afterTextChanged(Editable s) {
++                viewModel.loginDataChanged(usernameEditText.getText().toString(),
++                        passwordEditText.getText().toString());
++            }
++        };
++        usernameEditText.addTextChangedListener(afterTextChangedListener);
++        passwordEditText.addTextChangedListener(afterTextChangedListener);
++//        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
++//
++//            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
++//            @Override
++//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
++//                if (actionId == EditorInfo.IME_ACTION_DONE) {
++//                    viewModel.login(usernameEditText.getText().toString(),
++//                            passwordEditText.getText().toString());
++//                }
++//                return false;
++//            }
++//        });
++        signUpButton.setOnClickListener(new View.OnClickListener() {
++            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
++            @Override
++            public void onClick(View v) {
++                progressBar.setVisibility(View.VISIBLE);
++                viewModel.setCallingActivity(SignUp_Activity.this);
++                final MutableLiveData<Result> resultLive = viewModel.signUp(usernameEditText.getText().toString(),
++                        passwordEditText.getText().toString(), phoneNumbersEditText.getText().toString());
++                resultLive.observeForever(new Observer<Result>() {
++                    @Override
++                    public void onChanged(Result result) {
++                        progressBar.setVisibility(View.GONE);
++                        if (result instanceof Result.Success) {
++                            updateUiWithUser(((Result.Success<LoggedInUser>) result).getData());
++                            resultLive.removeObserver(this);
++                            finish();
++                        } else if (result instanceof Result.Error) {
++                            showSignUpFailed(((Result.Error) result).getError().toString());
++                            resultLive.setValue(null);
++                        }
++                    }
++                });
++            }
++        });
++
++    }
++
++
++    private void updateUiWithUser(LoggedInUser model) {
++        String welcome = getString(R.string.welcome) + model.getDisplayName();
++        // TODO : initiate successful logged in experience
++        openMainIntent(model.getDisplayName());
++        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
++    }
++
++    private void showSignUpFailed(String errorString) {
++        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
++    }
++
++    private void openMainIntent(String displayName) {
++        Intent intent = new Intent(this, MainActivity.class);
++        intent.putExtra("user", displayName);
++        startActivity(intent);
++    }
++
++    public void openSignIn(View view) {
++        Intent intent = new Intent(this, LoginActivity.class);
++        startActivity(intent);
++    }
++}
+Index: app/src/main/java/com/example/feander/Splash/Splash_Activity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.feander.Splash;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Build;\r\nimport android.os.Bundle;\r\nimport android.os.Handler;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.RequiresApi;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.example.feander.MainActivity;\r\nimport com.example.feander.R;\r\nimport com.example.feander.SignInAndUp.ui.login.LoginActivity;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.File;\r\nimport java.io.FileInputStream;\r\nimport java.io.FileNotFoundException;\r\nimport java.io.IOException;\r\nimport java.io.InputStreamReader;\r\nimport java.nio.charset.StandardCharsets;\r\n\r\npublic class Splash_Activity extends AppCompatActivity {\r\n    final int SPLASH_TIME = 2000;\r\n    final String fileName = \"user\";\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_splash_);\r\n        new Handler().postDelayed(new Runnable() {\r\n            @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n            @Override\r\n            public void run() {\r\n                String user = checkUserLoggin();\r\n                if (user != null) {\r\n                    Intent intent = new Intent(Splash_Activity.this, MainActivity.class);\r\n                    intent.putExtra(\"userName\", user);\r\n                    Toast.makeText(getApplicationContext(), \"Xin chao \" + user, Toast.LENGTH_LONG).show();\r\n                    finish();\r\n                    startActivity(intent);\r\n                } else {\r\n                    Intent intent = new Intent(Splash_Activity.this, LoginActivity.class);\r\n                    startActivity(intent);\r\n                }\r\n            }\r\n        }, SPLASH_TIME);\r\n    }\r\n\r\n    @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n    private String checkUserLoggin() {\r\n        String line = null, contents = null;\r\n        try {\r\n            FileInputStream fis = getApplicationContext().openFileInput(fileName);\r\n            InputStreamReader inputStreamReader =\r\n                    new InputStreamReader(fis, StandardCharsets.UTF_8);\r\n            StringBuilder stringBuilder = new StringBuilder();\r\n            try (BufferedReader reader = new BufferedReader(inputStreamReader)) {\r\n                line = reader.readLine();\r\n                while (line != null) {\r\n                    stringBuilder.append(line).append('\\n');\r\n                    line = reader.readLine();\r\n                }\r\n            } catch (IOException e) {\r\n                Toast.makeText(this, \"Loi doc thong tin\" + e.getMessage(), Toast.LENGTH_LONG).show();\r\n                // Error occurred when opening raw file for reading.\r\n            } finally {\r\n                contents = stringBuilder.toString();\r\n            }\r\n        } catch (FileNotFoundException e) {\r\n//            File file = new File(getApplicationContext().getFilesDir(), fileName);\r\n//            Toast.makeText(this, \"Da tao file\", Toast.LENGTH_LONG).show();\r\n        }\r\n        return  contents;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/feander/Splash/Splash_Activity.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/Splash/Splash_Activity.java	(date 1605452601202)
+@@ -11,10 +11,9 @@
+ 
+ import com.example.feander.MainActivity;
+ import com.example.feander.R;
+-import com.example.feander.SignInAndUp.ui.login.LoginActivity;
++import com.example.feander.SignInAndUp.ui.loginsignup.LoginActivity;
+ 
+ import java.io.BufferedReader;
+-import java.io.File;
+ import java.io.FileInputStream;
+ import java.io.FileNotFoundException;
+ import java.io.IOException;
+Index: app/src/main/java/com/example/feander/SignInAndUp/data/LoginDataSource.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.feander.SignInAndUp.data;\r\n\r\nimport android.os.Build;\r\nimport android.util.Log;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.RequiresApi;\r\nimport androidx.lifecycle.MutableLiveData;\r\n\r\nimport com.example.feander.SignInAndUp.data.model.LoggedInUser;\r\nimport com.example.feander.SignInAndUp.data.model.UncorrectException;\r\nimport com.google.android.gms.tasks.OnCompleteListener;\r\nimport com.google.android.gms.tasks.Task;\r\nimport com.google.firebase.firestore.FirebaseFirestore;\r\nimport com.google.firebase.firestore.QueryDocumentSnapshot;\r\nimport com.google.firebase.firestore.QuerySnapshot;\r\n\r\nimport java.io.IOException;\r\n\r\n//import static com.firebase.ui.auth.AuthUI.getApplicationContext;\r\n\r\n/**\r\n * Class that handles authentication w/ login credentials and retrieves user information.\r\n */\r\npublic class LoginDataSource {\r\n    FirebaseFirestore dataSource = FirebaseFirestore.getInstance();\r\n    private MutableLiveData<Result> resultLive = new MutableLiveData<>();\r\n//    private Result loginResult;\r\n\r\n    @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n    public MutableLiveData<Result> login(String username, String password) {\r\n        try {\r\n//            if (checkUsers(username, password)) {\r\n//                LoggedInUser loggedInUser =\r\n//                        new LoggedInUser(\r\n//                                java.util.UUID.randomUUID().toString(),\r\n//                                username);\r\n//                return new Result.Success<LoggedInUser>(loggedInUser);\r\n//            } else {\r\n//                return new Result.Error(new UncorrectPassWordException());\r\n//            }\r\n            return checkUsers(username, password);\r\n\r\n        } catch (Exception e) {\r\n            resultLive.setValue(new Result.Error(new IOException(\"Lỗi vào ra khi đăng nhập\", e)));\r\n            return resultLive;\r\n        }\r\n    }\r\n\r\n\r\n    @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n    public void logout() {\r\n    }\r\n    private MutableLiveData<Result> checkUsers(final String userName, final String passWord) {\r\n//        dataSource.collection(\"users\").whereEqualTo(\"userNames\", userName)\r\n//                .get()\r\n//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {\r\n//                    @Override\r\n//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {\r\n//                        if ((task.isSuccessful()) && (task.getResult().size() > 0)) {\r\n//                            for (QueryDocumentSnapshot document : task.getResult()) {\r\n//                                Log.d(\"PassWord\", document.getId() + \" => \" + document.getData());\r\n//                                if (document.get(\"passWord\").equals(passWord)) {\r\n//                                    loginSuccess = true;\r\n//                                } else loginSuccess = false;\r\n//                            }\r\n//                        } else {\r\n//                            Log.w(\"PassWord\", \"Error getting documents.\", task.getException());\r\n//                            loginSuccess = false;\r\n//                        }\r\n//                    }\r\n//                });\r\n//        return loginSuccess;\r\n        dataSource.collection(\"users\").whereEqualTo(\"userNames\", userName)\r\n                .get()\r\n                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {\r\n                    @Override\r\n                    public void onComplete(@NonNull Task<QuerySnapshot> task) {\r\n                        if ((task.isSuccessful()) && (task.getResult().size() > 0)) {\r\n                            for (QueryDocumentSnapshot document : task.getResult()) {\r\n                                Log.d(\"PassWord\", document.getId() + \" => \" + document.getData());\r\n                                if (document.get(\"passWord\").equals(passWord)) {\r\n                                    LoggedInUser loggedInUser =\r\n                                            new LoggedInUser(\r\n                                                    java.util.UUID.randomUUID().toString(),\r\n                                                    userName);\r\n//                                    loginResult = new Result.Success<LoggedInUser>(loggedInUser);\r\n                                    resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));\r\n                                } else {\r\n//                                    loginResult = new Result.Error(new UncorrectPassWordException());\r\n                                    resultLive.setValue(new Result.Error(new UncorrectException()));\r\n                                }\r\n                            }\r\n                        } else {\r\n                            Log.w(\"PassWord\", \"Lỗi khi đọc các bản ghi\", task.getException());\r\n                            resultLive.setValue(new Result.Error(new Exception(\"Lỗi khi đăng nhập\", task.getException())));\r\n                        }\r\n                    }\r\n                });\r\n        return resultLive ;\r\n    }\r\n\r\n}
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/data/LoginDataSource.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/data/DataSource.java	(date 1605452600497)
+@@ -9,23 +9,29 @@
+ 
+ import com.example.feander.SignInAndUp.data.model.LoggedInUser;
+ import com.example.feander.SignInAndUp.data.model.UncorrectException;
++import com.example.feander.SignInAndUp.data.model.UserNameExistException;
+ import com.google.android.gms.tasks.OnCompleteListener;
++import com.google.android.gms.tasks.OnFailureListener;
++import com.google.android.gms.tasks.OnSuccessListener;
+ import com.google.android.gms.tasks.Task;
++import com.google.firebase.firestore.DocumentReference;
++import com.google.firebase.firestore.DocumentSnapshot;
+ import com.google.firebase.firestore.FirebaseFirestore;
+ import com.google.firebase.firestore.QueryDocumentSnapshot;
+ import com.google.firebase.firestore.QuerySnapshot;
+ 
+ import java.io.IOException;
++import java.util.HashMap;
++import java.util.Map;
+ 
+ //import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+ 
+ /**
+  * Class that handles authentication w/ login credentials and retrieves user information.
+  */
+-public class LoginDataSource {
++public class DataSource {
+     FirebaseFirestore dataSource = FirebaseFirestore.getInstance();
+     private MutableLiveData<Result> resultLive = new MutableLiveData<>();
+-//    private Result loginResult;
+ 
+     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+     public MutableLiveData<Result> login(String username, String password) {
+@@ -47,10 +53,57 @@
+         }
+     }
+ 
++    public MutableLiveData<Result> signUp(final String username, final String password, final String phoneNumber) {
++        dataSource.collection("users").whereEqualTo("userNames", username)
++                .get()
++                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
++                    @Override
++                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
++                        if (queryDocumentSnapshots.size() > 0) {
++                            resultLive.setValue(new Result.Error(new UserNameExistException()));
++                        } else {
++                            writeData(username, password, phoneNumber);
++                        }
++                    }
++                }).addOnFailureListener(new OnFailureListener() {
++            @Override
++            public void onFailure(@NonNull Exception e) {
++                resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng ký", e)));
++            }
++        });
++        return resultLive;
++    }
++
++    private void writeData(final String username, String password, String phoneNumber) {
++        Map<String, Object> user = new HashMap<>();
++        user.put("userNames", username);
++        user.put("passWord", password);
++        user.put("phoneNumbers", phoneNumber);
++        dataSource.collection("users")
++                .add(user)
++                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
++                    @Override
++                    public void onSuccess(DocumentReference documentReference) {
++                        LoggedInUser loggedInUser =
++                                new LoggedInUser(
++                                        java.util.UUID.randomUUID().toString(),
++                                        username);
++                        resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
++                    }
++                })
++                .addOnFailureListener(new OnFailureListener() {
++                    @Override
++                    public void onFailure(@NonNull Exception e) {
++                        resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng ký", e)));
++                    }
++                });
++
++    }
+ 
+     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+     public void logout() {
+     }
++
+     private MutableLiveData<Result> checkUsers(final String userName, final String passWord) {
+ //        dataSource.collection("users").whereEqualTo("userNames", userName)
+ //                .get()
+@@ -84,10 +137,8 @@
+                                             new LoggedInUser(
+                                                     java.util.UUID.randomUUID().toString(),
+                                                     userName);
+-//                                    loginResult = new Result.Success<LoggedInUser>(loggedInUser);
+                                     resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
+                                 } else {
+-//                                    loginResult = new Result.Error(new UncorrectPassWordException());
+                                     resultLive.setValue(new Result.Error(new UncorrectException()));
+                                 }
+                             }
+@@ -97,7 +148,7 @@
+                         }
+                     }
+                 });
+-        return resultLive ;
++        return resultLive;
+     }
+ 
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/feander/SignInAndUp/data/LoginRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.feander.SignInAndUp.data;\r\n\r\nimport android.annotation.SuppressLint;\r\nimport android.content.Context;\r\nimport android.os.Build;\r\nimport android.util.Log;\r\n\r\nimport androidx.annotation.RequiresApi;\r\nimport androidx.lifecycle.MutableLiveData;\r\nimport androidx.lifecycle.Observer;\r\n\r\nimport com.example.feander.SignInAndUp.data.model.LoggedInUser;\r\nimport com.example.feander.SignInAndUp.ui.login.LoginActivity;\r\nimport com.example.feander.SignInAndUp.ui.login.LoginViewModel;\r\n\r\nimport java.io.FileOutputStream;\r\nimport java.io.IOException;\r\n\r\n\r\n/**\r\n * Class that requests authentication and user information from the remote data source and\r\n * maintains an in-memory cache of login status and user credentials information.\r\n */\r\npublic class LoginRepository {\r\n\r\n    private static volatile LoginRepository instance;\r\n\r\n    private LoginDataSource dataSource;\r\n    final String fileName = \"user\";\r\n    private LoginViewModel loginViewModel;\r\n\r\n    // If user credentials will be cached in local storage, it is recommended it be encrypted\r\n    // @see https://developer.android.com/training/articles/keystore\r\n    private LoggedInUser user = null;\r\n\r\n    // private constructor : singleton access\r\n    private LoginRepository(LoginDataSource dataSource) {\r\n        this.dataSource = dataSource;\r\n    }\r\n\r\n    public static LoginRepository getInstance(LoginDataSource dataSource) {\r\n        if (instance == null) {\r\n            instance = new LoginRepository(dataSource);\r\n        }\r\n        return instance;\r\n    }\r\n\r\n    public boolean isLoggedIn() {\r\n        return user != null;\r\n    }\r\n\r\n    @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n    public void logout() {\r\n        user = null;\r\n        dataSource.logout();\r\n    }\r\n\r\n    private void setLoggedInUser(LoggedInUser user) {\r\n        this.user = user;\r\n        // If user credentials will be cached in local storage, it is recommended it be encrypted\r\n        // @see https://developer.android.com/training/articles/keystore\r\n\r\n    }\r\n\r\n    @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n    public MutableLiveData<Result> login(String username, String password) {\r\n        // handle login\r\n//        Result<LoggedInUser> result = dataSource.login(username, password);\r\n//        if (result instanceof Result.Success) {\r\n//            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());\r\n//        }\r\n//        return result;\r\n        final MutableLiveData<Result> resultLive = dataSource.login(username, password);\r\n        resultLive.observeForever(new Observer<Result>() {\r\n            @Override\r\n            public void onChanged(Result result) {\r\n                if (result instanceof Result.Success) {\r\n                    LoggedInUser loggedInUser = ((Result.Success<LoggedInUser>) result).getData();\r\n                    setLoggedInUser(loggedInUser);\r\n                    storeLoggedInUser(loggedInUser.getDisplayName());\r\n                    resultLive.removeObserver(this);\r\n                } else if (result instanceof Result.Error) {\r\n                    resultLive.removeObserver(this);\r\n                }\r\n            }\r\n        });\r\n\r\n        //        if (resultLive.getValue() instanceof Result.Success) {\r\n//            setLoggedInUser(((Result.Success<LoggedInUser>) resultLive.getValue()).getData());\r\n//        }\r\n        return resultLive;\r\n    }\r\n\r\n    @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n    private void storeLoggedInUser(String fileContents) {\r\n        try (@SuppressLint(\"RestrictedApi\") FileOutputStream fos = loginViewModel.getCallingActivity().openFileOutput(fileName, Context.MODE_PRIVATE)) {\r\n            fos.write(fileContents.getBytes());\r\n        } catch (Exception e) {\r\n            Log.d(\"loggedinuser\", \"that bai\");\r\n        }\r\n    }\r\n    public void setLoginViewModel(LoginViewModel loginViewModel) {\r\n        this.loginViewModel = loginViewModel;\r\n    }\r\n}
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/data/LoginRepository.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/data/Repository.java	(date 1605452600483)
+@@ -10,37 +10,36 @@
+ import androidx.lifecycle.Observer;
+ 
+ import com.example.feander.SignInAndUp.data.model.LoggedInUser;
+-import com.example.feander.SignInAndUp.ui.login.LoginActivity;
+-import com.example.feander.SignInAndUp.ui.login.LoginViewModel;
++import com.example.feander.SignInAndUp.ui.loginsignup.ViewModel;
+ 
++import java.io.File;
+ import java.io.FileOutputStream;
+-import java.io.IOException;
+ 
+ 
+ /**
+  * Class that requests authentication and user information from the remote data source and
+  * maintains an in-memory cache of login status and user credentials information.
+  */
+-public class LoginRepository {
++public class Repository {
+ 
+-    private static volatile LoginRepository instance;
++    private static volatile Repository instance;
+ 
+-    private LoginDataSource dataSource;
++    private DataSource dataSource;
+     final String fileName = "user";
+-    private LoginViewModel loginViewModel;
+-
++    private ViewModel viewModel;
++    private Context context;
+     // If user credentials will be cached in local storage, it is recommended it be encrypted
+     // @see https://developer.android.com/training/articles/keystore
+     private LoggedInUser user = null;
+ 
+     // private constructor : singleton access
+-    private LoginRepository(LoginDataSource dataSource) {
++    private Repository(DataSource dataSource) {
+         this.dataSource = dataSource;
+     }
+ 
+-    public static LoginRepository getInstance(LoginDataSource dataSource) {
++    public static Repository getInstance(DataSource dataSource) {
+         if (instance == null) {
+-            instance = new LoginRepository(dataSource);
++            instance = new Repository(dataSource);
+         }
+         return instance;
+     }
+@@ -52,6 +51,7 @@
+     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+     public void logout() {
+         user = null;
++        storeLoggedInUser("");
+         dataSource.logout();
+     }
+ 
+@@ -71,7 +71,17 @@
+ //        }
+ //        return result;
+         final MutableLiveData<Result> resultLive = dataSource.login(username, password);
++        observe(resultLive);
++
++        //        if (resultLive.getValue() instanceof Result.Success) {
++//            setLoggedInUser(((Result.Success<LoggedInUser>) resultLive.getValue()).getData());
++//        }
++        return resultLive;
++    }
++
++    private void observe(final MutableLiveData<Result> resultLive) {
+         resultLive.observeForever(new Observer<Result>() {
++            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+             @Override
+             public void onChanged(Result result) {
+                 if (result instanceof Result.Success) {
+@@ -84,22 +94,28 @@
+                 }
+             }
+         });
++    }
+ 
+-        //        if (resultLive.getValue() instanceof Result.Success) {
+-//            setLoggedInUser(((Result.Success<LoggedInUser>) resultLive.getValue()).getData());
+-//        }
++    public MutableLiveData<Result> signUp(String username, String password, String phoneNumbers) {
++        final MutableLiveData<Result> resultLive = dataSource.signUp(username, password, phoneNumbers);
++        observe(resultLive);
+         return resultLive;
+     }
+ 
+     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+     private void storeLoggedInUser(String fileContents) {
+-        try (@SuppressLint("RestrictedApi") FileOutputStream fos = loginViewModel.getCallingActivity().openFileOutput(fileName, Context.MODE_PRIVATE)) {
++        try (@SuppressLint("RestrictedApi") FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE)) {
+             fos.write(fileContents.getBytes());
+         } catch (Exception e) {
+-            Log.d("loggedinuser", "that bai");
++            Log.d("write loggedinuser", "that bai");
+         }
+     }
+-    public void setLoginViewModel(LoginViewModel loginViewModel) {
+-        this.loginViewModel = loginViewModel;
++
++    public void setViewModel(ViewModel viewModel) {
++        this.viewModel = viewModel;
++    }
++
++    public void setContext(Context context) {
++        this.context = context;
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.feander.SignInAndUp.ui.login;\r\n\r\nimport android.app.Activity;\r\n\r\nimport androidx.annotation.RequiresApi;\r\nimport androidx.lifecycle.MutableLiveData;\r\nimport androidx.lifecycle.Observer;\r\nimport androidx.lifecycle.ViewModelProviders;\r\n\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.os.Build;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.annotation.StringRes;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.text.Editable;\r\nimport android.text.TextWatcher;\r\nimport android.view.KeyEvent;\r\nimport android.view.View;\r\nimport android.view.inputmethod.EditorInfo;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.ProgressBar;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport com.example.feander.MainActivity;\r\nimport com.example.feander.R;\r\nimport com.example.feander.SignInAndUp.SignUp_Activity;\r\nimport com.example.feander.SignInAndUp.data.Result;\r\nimport com.example.feander.SignInAndUp.data.model.LoggedInUser;\r\nimport com.example.feander.SignInAndUp.ui.login.LoginViewModel;\r\nimport com.example.feander.SignInAndUp.ui.login.LoginViewModelFactory;\r\n\r\nimport java.io.FileOutputStream;\r\n\r\npublic class LoginActivity extends AppCompatActivity {\r\n\r\n    private LoginViewModel loginViewModel;\r\n\r\n    @Override\r\n    public void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_login);\r\n        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())\r\n                .get(LoginViewModel.class);\r\n\r\n        final EditText usernameEditText = findViewById(R.id.username);\r\n        final EditText passwordEditText = findViewById(R.id.password);\r\n        final Button loginButton = findViewById(R.id.button);\r\n        final ProgressBar loadingProgressBar = findViewById(R.id.progres_bar);\r\n\r\n        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {\r\n            @Override\r\n            public void onChanged(@Nullable LoginFormState loginFormState) {\r\n                if (loginFormState == null) {\r\n                    return;\r\n                }\r\n                loginButton.setEnabled(loginFormState.isDataValid());\r\n                if (loginFormState.getUsernameError() != null) {\r\n                    usernameEditText.setError(getString(loginFormState.getUsernameError()));\r\n                }\r\n                if (loginFormState.getPasswordError() != null) {\r\n                    passwordEditText.setError(getString(loginFormState.getPasswordError()));\r\n                }\r\n            }\r\n        });\r\n\r\n//        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {\r\n//            @Override\r\n//            public void onChanged(@Nullable LoginResult loginResult) {\r\n//                if (loginResult == null) {\r\n//                    return;\r\n//                }\r\n//                loadingProgressBar.setVisibility(View.GONE);\r\n//                if (loginResult.getError() != null) {\r\n//                    showLoginFailed(loginResult.getError());\r\n//                }\r\n//                if (loginResult.getSuccess() != null) {\r\n//                    updateUiWithUser(loginResult.getSuccess());\r\n//                }\r\n//                setResult(Activity.RESULT_OK);\r\n//\r\n//                //Complete and destroy login activity once successful\r\n////                finish();\r\n//            }\r\n//        });\r\n\r\n        TextWatcher afterTextChangedListener = new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n                // ignore\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                // ignore\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),\r\n                        passwordEditText.getText().toString());\r\n            }\r\n        };\r\n        usernameEditText.addTextChangedListener(afterTextChangedListener);\r\n        passwordEditText.addTextChangedListener(afterTextChangedListener);\r\n        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {\r\n\r\n            @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n            @Override\r\n            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {\r\n                if (actionId == EditorInfo.IME_ACTION_DONE) {\r\n                    loginViewModel.login(usernameEditText.getText().toString(),\r\n                            passwordEditText.getText().toString());\r\n                }\r\n                return false;\r\n            }\r\n        });\r\n\r\n        loginButton.setOnClickListener(new View.OnClickListener() {\r\n            @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n            @Override\r\n            public void onClick(View v) {\r\n                loadingProgressBar.setVisibility(View.VISIBLE);\r\n                loginViewModel.setCallingActivity(LoginActivity.this);\r\n                final MutableLiveData<Result> resultLive = loginViewModel.login(usernameEditText.getText().toString(),\r\n                        passwordEditText.getText().toString());\r\n                resultLive.observeForever(new Observer<Result>() {\r\n                    @Override\r\n                    public void onChanged(Result result) {\r\n                        loadingProgressBar.setVisibility(View.GONE);\r\n                        if (result instanceof Result.Success) {\r\n                            updateUiWithUser(((Result.Success<LoggedInUser>) result).getData());\r\n                            resultLive.removeObserver(this);\r\n                            openMain(null);\r\n                            finish();\r\n                        } else if (result instanceof Result.Error) {\r\n                            resultLive.removeObserver(this);\r\n                            showLoginFailed(((Result.Error) result).getError().toString());\r\n                            resultLive.setValue(null);\r\n                        }\r\n                    }\r\n                });\r\n\r\n            }\r\n        });\r\n    }\r\n\r\n    private void updateUiWithUser(LoggedInUser model) {\r\n        String welcome = getString(R.string.welcome) + model.getDisplayName();\r\n        // TODO : initiate successful logged in experience\r\n        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();\r\n    }\r\n\r\n    private void showLoginFailed(String errorString) {\r\n        Toast.makeText(getApplicationContext(), errorString,Toast.LENGTH_LONG).show();\r\n    }\r\n\r\n    public void openSignUp(View view) {\r\n        Intent intent = new Intent(this, SignUp_Activity.class);\r\n        startActivity(intent);\r\n\r\n    }\r\n\r\n    public void openMain(View view) {\r\n        Intent intent = new Intent(this, MainActivity.class);\r\n        startActivity(intent);\r\n\r\n    }\r\n}
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginActivity.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/LoginActivity.java	(date 1605452600677)
+@@ -1,19 +1,15 @@
+-package com.example.feander.SignInAndUp.ui.login;
+-
+-import android.app.Activity;
++package com.example.feander.SignInAndUp.ui.loginsignup;
+ 
+ import androidx.annotation.RequiresApi;
+ import androidx.lifecycle.MutableLiveData;
+ import androidx.lifecycle.Observer;
+ import androidx.lifecycle.ViewModelProviders;
+ 
+-import android.content.Context;
+ import android.content.Intent;
+ import android.os.Build;
+ import android.os.Bundle;
+ 
+ import androidx.annotation.Nullable;
+-import androidx.annotation.StringRes;
+ import androidx.appcompat.app.AppCompatActivity;
+ 
+ import android.text.Editable;
+@@ -29,66 +25,40 @@
+ 
+ import com.example.feander.MainActivity;
+ import com.example.feander.R;
+-import com.example.feander.SignInAndUp.SignUp_Activity;
+ import com.example.feander.SignInAndUp.data.Result;
+ import com.example.feander.SignInAndUp.data.model.LoggedInUser;
+-import com.example.feander.SignInAndUp.ui.login.LoginViewModel;
+-import com.example.feander.SignInAndUp.ui.login.LoginViewModelFactory;
+-
+-import java.io.FileOutputStream;
+ 
+ public class LoginActivity extends AppCompatActivity {
+ 
+-    private LoginViewModel loginViewModel;
++    private ViewModel viewModel;
+ 
+     @Override
+     public void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_login);
+-        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
+-                .get(LoginViewModel.class);
++        viewModel = ViewModelProviders.of(this, new ViewModelFactory())
++                .get(ViewModel.class);
+ 
+         final EditText usernameEditText = findViewById(R.id.username);
+         final EditText passwordEditText = findViewById(R.id.password);
+         final Button loginButton = findViewById(R.id.button);
+         final ProgressBar loadingProgressBar = findViewById(R.id.progres_bar);
+ 
+-        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
++        viewModel.getState().observe(this, new Observer<State>() {
+             @Override
+-            public void onChanged(@Nullable LoginFormState loginFormState) {
+-                if (loginFormState == null) {
++            public void onChanged(@Nullable State state) {
++                if (state == null) {
+                     return;
+                 }
+-                loginButton.setEnabled(loginFormState.isDataValid());
+-                if (loginFormState.getUsernameError() != null) {
+-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
++                loginButton.setEnabled(state.isDataValid());
++                if (state.getUsernameError() != null) {
++                    usernameEditText.setError(getString(state.getUsernameError()));
+                 }
+-                if (loginFormState.getPasswordError() != null) {
+-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
++                if (state.getPasswordError() != null) {
++                    passwordEditText.setError(getString(state.getPasswordError()));
+                 }
+             }
+         });
+-
+-//        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
+-//            @Override
+-//            public void onChanged(@Nullable LoginResult loginResult) {
+-//                if (loginResult == null) {
+-//                    return;
+-//                }
+-//                loadingProgressBar.setVisibility(View.GONE);
+-//                if (loginResult.getError() != null) {
+-//                    showLoginFailed(loginResult.getError());
+-//                }
+-//                if (loginResult.getSuccess() != null) {
+-//                    updateUiWithUser(loginResult.getSuccess());
+-//                }
+-//                setResult(Activity.RESULT_OK);
+-//
+-//                //Complete and destroy login activity once successful
+-////                finish();
+-//            }
+-//        });
+-
+         TextWatcher afterTextChangedListener = new TextWatcher() {
+             @Override
+             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+@@ -102,32 +72,32 @@
+ 
+             @Override
+             public void afterTextChanged(Editable s) {
+-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
++                viewModel.loginDataChanged(usernameEditText.getText().toString(),
+                         passwordEditText.getText().toString());
+             }
+         };
+         usernameEditText.addTextChangedListener(afterTextChangedListener);
+         passwordEditText.addTextChangedListener(afterTextChangedListener);
+-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+-
+-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+-            @Override
+-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+-                    loginViewModel.login(usernameEditText.getText().toString(),
+-                            passwordEditText.getText().toString());
+-                }
+-                return false;
+-            }
+-        });
++//        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
++//
++//            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
++//            @Override
++//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
++//                if (actionId == EditorInfo.IME_ACTION_DONE) {
++//                    viewModel.login(usernameEditText.getText().toString(),
++//                            passwordEditText.getText().toString());
++//                }
++//                return false;
++//            }
++//        });
+ 
+         loginButton.setOnClickListener(new View.OnClickListener() {
+             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+             @Override
+             public void onClick(View v) {
+                 loadingProgressBar.setVisibility(View.VISIBLE);
+-                loginViewModel.setCallingActivity(LoginActivity.this);
+-                final MutableLiveData<Result> resultLive = loginViewModel.login(usernameEditText.getText().toString(),
++                viewModel.setCallingActivity(LoginActivity.this);
++                final MutableLiveData<Result> resultLive = viewModel.login(usernameEditText.getText().toString(),
+                         passwordEditText.getText().toString());
+                 resultLive.observeForever(new Observer<Result>() {
+                     @Override
+@@ -136,10 +106,8 @@
+                         if (result instanceof Result.Success) {
+                             updateUiWithUser(((Result.Success<LoggedInUser>) result).getData());
+                             resultLive.removeObserver(this);
+-                            openMain(null);
+                             finish();
+                         } else if (result instanceof Result.Error) {
+-                            resultLive.removeObserver(this);
+                             showLoginFailed(((Result.Error) result).getError().toString());
+                             resultLive.setValue(null);
+                         }
+@@ -153,22 +121,27 @@
+     private void updateUiWithUser(LoggedInUser model) {
+         String welcome = getString(R.string.welcome) + model.getDisplayName();
+         // TODO : initiate successful logged in experience
++        openMainIntent(model.getDisplayName());
+         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+     }
+ 
+     private void showLoginFailed(String errorString) {
+-        Toast.makeText(getApplicationContext(), errorString,Toast.LENGTH_LONG).show();
++        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
+     }
+ 
+     public void openSignUp(View view) {
+         Intent intent = new Intent(this, SignUp_Activity.class);
+         startActivity(intent);
+-
+     }
+ 
+     public void openMain(View view) {
+         Intent intent = new Intent(this, MainActivity.class);
+         startActivity(intent);
+-
++    }
++
++    private void openMainIntent(String userIntents) {
++        Intent intent = new Intent(this, MainActivity.class);
++        intent.putExtra("user", userIntents);
++        startActivity(intent);
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/ViewModelFactory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/ViewModelFactory.java	(date 1605452601429)
++++ app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/ViewModelFactory.java	(date 1605452601429)
+@@ -0,0 +1,25 @@
++package com.example.feander.SignInAndUp.ui.loginsignup;
++
++import androidx.lifecycle.ViewModelProvider;
++import androidx.annotation.NonNull;
++
++import com.example.feander.SignInAndUp.data.DataSource;
++import com.example.feander.SignInAndUp.data.Repository;
++
++/**
++ * ViewModel provider factory to instantiate LoginViewModel.
++ * Required given LoginViewModel has a non-empty constructor
++ */
++public class ViewModelFactory implements ViewModelProvider.Factory {
++
++    @NonNull
++    @Override
++    @SuppressWarnings("unchecked")
++    public <T extends androidx.lifecycle.ViewModel> T create(@NonNull Class<T> modelClass) {
++        if (modelClass.isAssignableFrom(ViewModel.class)) {
++            return (T) new ViewModel(Repository.getInstance(new DataSource()));
++        } else {
++            throw new IllegalArgumentException("Unknown ViewModel class");
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginResult.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.feander.SignInAndUp.ui.login;\r\n\r\nimport androidx.annotation.Nullable;\r\n\r\n/**\r\n * Authentication result : success (user details) or error message.\r\n */\r\nclass LoginResult {\r\n    @Nullable\r\n    private LoggedInUserView success;\r\n    @Nullable\r\n    private Integer error;\r\n\r\n    LoginResult(@Nullable Integer error) {\r\n        this.error = error;\r\n    }\r\n\r\n    LoginResult(@Nullable LoggedInUserView success) {\r\n        this.success = success;\r\n    }\r\n\r\n    @Nullable\r\n    LoggedInUserView getSuccess() {\r\n        return success;\r\n    }\r\n\r\n    @Nullable\r\n    Integer getError() {\r\n        return error;\r\n    }\r\n}
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginResult.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/LoginResult.java	(date 1605452601457)
+@@ -1,4 +1,4 @@
+-package com.example.feander.SignInAndUp.ui.login;
++package com.example.feander.SignInAndUp.ui.loginsignup;
+ 
+ import androidx.annotation.Nullable;
+ 
+Index: app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginViewModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.feander.SignInAndUp.ui.login;\r\n\r\nimport androidx.annotation.RequiresApi;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.lifecycle.LiveData;\r\nimport androidx.lifecycle.MutableLiveData;\r\nimport androidx.lifecycle.ViewModel;\r\n\r\nimport android.annotation.SuppressLint;\r\nimport android.app.Activity;\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.os.Build;\r\nimport android.util.Log;\r\nimport android.util.Patterns;\r\nimport android.widget.Toast;\r\n\r\nimport com.example.feander.MainActivity;\r\nimport com.example.feander.R;\r\nimport com.example.feander.SignInAndUp.data.LoginRepository;\r\nimport com.example.feander.SignInAndUp.data.Result;\r\nimport com.example.feander.SignInAndUp.data.model.LoggedInUser;\r\n\r\nimport java.io.FileOutputStream;\r\n\r\npublic class LoginViewModel extends ViewModel {\r\n    private AppCompatActivity callingActivity;\r\n\r\n    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();\r\n    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();\r\n    private LoginRepository loginRepository;\r\n\r\n    LoginViewModel(LoginRepository loginRepository) {\r\n        this.loginRepository = loginRepository;\r\n        this.loginRepository.setLoginViewModel(this);\r\n    }\r\n\r\n    LiveData<LoginFormState> getLoginFormState() {\r\n        return loginFormState;\r\n    }\r\n\r\n    LiveData<LoginResult> getLoginResult() {\r\n        return loginResult;\r\n    }\r\n\r\n    @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n    public MutableLiveData<Result> login(String username, String password) {\r\n        // can be launched in a separate asynchronous job\r\n        MutableLiveData<Result> resultLive = loginRepository.login(username, password);\r\n\r\n//        if (result instanceof Result.Success) {\r\n//            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();\r\n//            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));\r\n//            storeLoggedInUser(username);\r\n//            Intent intent = new Intent(getCallingActivity(), MainActivity.class);\r\n//            intent.putExtra(\"userName\", data.getDisplayName());\r\n//            getCallingActivity().startActivity(intent);\r\n//        } else {\r\n//            loginResult.setValue(new LoginResult(R.string.login_failed));\r\n//        }\r\n        return resultLive;\r\n    }\r\n\r\n    public void loginDataChanged(String username, String password) {\r\n        if (!isUserNameValid(username)) {\r\n            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));\r\n        } else if (!isPasswordValid(password)) {\r\n            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));\r\n        } else {\r\n            loginFormState.setValue(new LoginFormState(true));\r\n        }\r\n    }\r\n\r\n    // A placeholder username validation check\r\n    private boolean isUserNameValid(String username) {\r\n        if (username == null) {\r\n            return false;\r\n        }\r\n        if (username.contains(\"@\")) {\r\n            return Patterns.EMAIL_ADDRESS.matcher(username).matches();\r\n        } else {\r\n            return !username.trim().isEmpty();\r\n        }\r\n    }\r\n\r\n    // A placeholder password validation check\r\n    private boolean isPasswordValid(String password) {\r\n        return password != null && password.trim().length() > 5;\r\n    }\r\n\r\n    public void setCallingActivity(AppCompatActivity callingActivity) {\r\n        this.callingActivity = callingActivity;\r\n    }\r\n\r\n    public AppCompatActivity getCallingActivity() {\r\n        return callingActivity;\r\n    }\r\n//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)\r\n//    private void storeLoggedInUser(String fileContents) {\r\n//        try (@SuppressLint(\"RestrictedApi\") FileOutputStream fos = getCallingActivity().getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE)) {\r\n//            fos.write(fileContents.getBytes());\r\n//        } catch (Exception e) {\r\n//            Log.d(\"loggedinuser\", \"that bai\");\r\n//        }\r\n//    }\r\n}
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginViewModel.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/ViewModel.java	(date 1605452600641)
+@@ -1,42 +1,31 @@
+-package com.example.feander.SignInAndUp.ui.login;
++package com.example.feander.SignInAndUp.ui.loginsignup;
+ 
+ import androidx.annotation.RequiresApi;
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.lifecycle.LiveData;
+ import androidx.lifecycle.MutableLiveData;
+-import androidx.lifecycle.ViewModel;
+ 
+-import android.annotation.SuppressLint;
+-import android.app.Activity;
+-import android.content.Context;
+-import android.content.Intent;
+ import android.os.Build;
+-import android.util.Log;
+ import android.util.Patterns;
+-import android.widget.Toast;
+ 
+-import com.example.feander.MainActivity;
+ import com.example.feander.R;
+-import com.example.feander.SignInAndUp.data.LoginRepository;
++import com.example.feander.SignInAndUp.data.Repository;
+ import com.example.feander.SignInAndUp.data.Result;
+-import com.example.feander.SignInAndUp.data.model.LoggedInUser;
+ 
+-import java.io.FileOutputStream;
+-
+-public class LoginViewModel extends ViewModel {
++public class ViewModel extends androidx.lifecycle.ViewModel {
+     private AppCompatActivity callingActivity;
+ 
+-    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
++    private MutableLiveData<State> state = new MutableLiveData<>();
+     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
+-    private LoginRepository loginRepository;
++    private Repository repository;
+ 
+-    LoginViewModel(LoginRepository loginRepository) {
+-        this.loginRepository = loginRepository;
+-        this.loginRepository.setLoginViewModel(this);
++    ViewModel(Repository repository) {
++        this.repository = repository;
++        this.repository.setContext(this.getCallingActivity());
+     }
+ 
+-    LiveData<LoginFormState> getLoginFormState() {
+-        return loginFormState;
++    public LiveData<State> getState() {
++        return state;
+     }
+ 
+     LiveData<LoginResult> getLoginResult() {
+@@ -46,7 +35,7 @@
+     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+     public MutableLiveData<Result> login(String username, String password) {
+         // can be launched in a separate asynchronous job
+-        MutableLiveData<Result> resultLive = loginRepository.login(username, password);
++        MutableLiveData<Result> resultLive = repository.login(username, password);
+ 
+ //        if (result instanceof Result.Success) {
+ //            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+@@ -63,13 +52,19 @@
+ 
+     public void loginDataChanged(String username, String password) {
+         if (!isUserNameValid(username)) {
+-            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
++            state.setValue(new State(R.string.invalid_username, null));
+         } else if (!isPasswordValid(password)) {
+-            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
++            state.setValue(new State(null, R.string.invalid_password));
+         } else {
+-            loginFormState.setValue(new LoginFormState(true));
++            state.setValue(new State(true));
+         }
+     }
++
++    public MutableLiveData<Result> signUp(String username, String password, String phoneNumbers) {
++        return repository.signUp(username, password, phoneNumbers);
++
++        // can be launched in a separate asynchronous job
++    }
+ 
+     // A placeholder username validation check
+     private boolean isUserNameValid(String username) {
+@@ -95,12 +90,4 @@
+     public AppCompatActivity getCallingActivity() {
+         return callingActivity;
+     }
+-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+-//    private void storeLoggedInUser(String fileContents) {
+-//        try (@SuppressLint("RestrictedApi") FileOutputStream fos = getCallingActivity().getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE)) {
+-//            fos.write(fileContents.getBytes());
+-//        } catch (Exception e) {
+-//            Log.d("loggedinuser", "that bai");
+-//        }
+-//    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoggedInUserView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.feander.SignInAndUp.ui.login;\r\n\r\n/**\r\n * Class exposing authenticated user details to the UI.\r\n */\r\nclass LoggedInUserView {\r\n    private String displayName;\r\n    //... other data fields that may be accessible to the UI\r\n\r\n    LoggedInUserView(String displayName) {\r\n        this.displayName = displayName;\r\n    }\r\n\r\n    String getDisplayName() {\r\n        return displayName;\r\n    }\r\n}
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoggedInUserView.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/LoggedInUserView.java	(date 1605452601400)
+@@ -1,4 +1,4 @@
+-package com.example.feander.SignInAndUp.ui.login;
++package com.example.feander.SignInAndUp.ui.loginsignup;
+ 
+ /**
+  * Class exposing authenticated user details to the UI.
+Index: app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginFormState.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.feander.SignInAndUp.ui.login;\r\n\r\nimport androidx.annotation.Nullable;\r\n\r\n/**\r\n * Data validation state of the login form.\r\n */\r\nclass LoginFormState {\r\n    @Nullable\r\n    private Integer usernameError;\r\n    @Nullable\r\n    private Integer passwordError;\r\n    private boolean isDataValid;\r\n\r\n    LoginFormState(@Nullable Integer usernameError, @Nullable Integer passwordError) {\r\n        this.usernameError = usernameError;\r\n        this.passwordError = passwordError;\r\n        this.isDataValid = false;\r\n    }\r\n\r\n    LoginFormState(boolean isDataValid) {\r\n        this.usernameError = null;\r\n        this.passwordError = null;\r\n        this.isDataValid = isDataValid;\r\n    }\r\n\r\n    @Nullable\r\n    Integer getUsernameError() {\r\n        return usernameError;\r\n    }\r\n\r\n    @Nullable\r\n    Integer getPasswordError() {\r\n        return passwordError;\r\n    }\r\n\r\n    boolean isDataValid() {\r\n        return isDataValid;\r\n    }\r\n}
+===================================================================
+--- app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginFormState.java	(revision c2cc128c8905a498b2f4fec5a2447f1273f42381)
++++ app/src/main/java/com/example/feander/SignInAndUp/ui/loginsignup/State.java	(date 1605452600599)
+@@ -1,36 +1,36 @@
+-package com.example.feander.SignInAndUp.ui.login;
++package com.example.feander.SignInAndUp.ui.loginsignup;
+ 
+ import androidx.annotation.Nullable;
+ 
+ /**
+  * Data validation state of the login form.
+  */
+-class LoginFormState {
++public class State {
+     @Nullable
+     private Integer usernameError;
+     @Nullable
+     private Integer passwordError;
+     private boolean isDataValid;
+ 
+-    LoginFormState(@Nullable Integer usernameError, @Nullable Integer passwordError) {
++    State(@Nullable Integer usernameError, @Nullable Integer passwordError) {
+         this.usernameError = usernameError;
+         this.passwordError = passwordError;
+         this.isDataValid = false;
+     }
+ 
+-    LoginFormState(boolean isDataValid) {
++    State(boolean isDataValid) {
+         this.usernameError = null;
+         this.passwordError = null;
+         this.isDataValid = isDataValid;
+     }
+ 
+     @Nullable
+-    Integer getUsernameError() {
++    public Integer getUsernameError() {
+         return usernameError;
+     }
+ 
+     @Nullable
+-    Integer getPasswordError() {
++    public Integer getPasswordError() {
+         return passwordError;
+     }
+ 

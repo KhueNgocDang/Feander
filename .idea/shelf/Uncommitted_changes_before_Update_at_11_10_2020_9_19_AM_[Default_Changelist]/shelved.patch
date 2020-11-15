@@ -1,0 +1,186 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_27_10_20_10_46_AM_[Default_Changelist]1/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_27_10_20_10_46_AM_[Default_Changelist]1/shelved.patch	(revision 670335e5a9ecd00ecb6cf68e9f321ee54d668979)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_27_10_20_10_46_AM_[Default_Changelist]1/shelved.patch	(revision 670335e5a9ecd00ecb6cf68e9f321ee54d668979)
+@@ -1,171 +0,0 @@
+-Index: app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginActivity.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package com.example.feander.SignInAndUp.ui.login;\n\nimport android.app.Activity;\n\nimport androidx.lifecycle.Observer;\nimport androidx.lifecycle.ViewModelProviders;\n\nimport android.content.Intent;\nimport android.os.Bundle;\n\nimport androidx.annotation.Nullable;\nimport androidx.annotation.StringRes;\nimport androidx.appcompat.app.AppCompatActivity;\n\nimport android.text.Editable;\nimport android.text.TextWatcher;\nimport android.view.KeyEvent;\nimport android.view.View;\nimport android.view.inputmethod.EditorInfo;\nimport android.widget.Button;\nimport android.widget.EditText;\nimport android.widget.ProgressBar;\nimport android.widget.TextView;\nimport android.widget.Toast;\n\nimport com.example.feander.MainActivity;\nimport com.example.feander.R;\nimport com.example.feander.SignInAndUp.SignUp_Activity;\nimport com.example.feander.SignInAndUp.ui.login.LoginViewModel;\nimport com.example.feander.SignInAndUp.ui.login.LoginViewModelFactory;\n\npublic class LoginActivity extends AppCompatActivity {\n\n    private LoginViewModel loginViewModel;\n\n    @Override\n    public void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_login);\n        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())\n                .get(LoginViewModel.class);\n\n        final EditText usernameEditText = findViewById(R.id.username);\n        final EditText passwordEditText = findViewById(R.id.password);\n        final Button loginButton = findViewById(R.id.button);\n        final ProgressBar loadingProgressBar = findViewById(R.id.progres_bar);\n\n        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {\n            @Override\n            public void onChanged(@Nullable LoginFormState loginFormState) {\n                if (loginFormState == null) {\n                    return;\n                }\n                loginButton.setEnabled(loginFormState.isDataValid());\n                if (loginFormState.getUsernameError() != null) {\n                    usernameEditText.setError(getString(loginFormState.getUsernameError()));\n                }\n                if (loginFormState.getPasswordError() != null) {\n                    passwordEditText.setError(getString(loginFormState.getPasswordError()));\n                }\n            }\n        });\n\n        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {\n            @Override\n            public void onChanged(@Nullable LoginResult loginResult) {\n                if (loginResult == null) {\n                    return;\n                }\n                loadingProgressBar.setVisibility(View.GONE);\n                if (loginResult.getError() != null) {\n                    showLoginFailed(loginResult.getError());\n                }\n                if (loginResult.getSuccess() != null) {\n                    updateUiWithUser(loginResult.getSuccess());\n                }\n                setResult(Activity.RESULT_OK);\n\n                //Complete and destroy login activity once successful\n                finish();\n            }\n        });\n\n        TextWatcher afterTextChangedListener = new TextWatcher() {\n            @Override\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\n                // ignore\n            }\n\n            @Override\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\n                // ignore\n            }\n\n            @Override\n            public void afterTextChanged(Editable s) {\n                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),\n                        passwordEditText.getText().toString());\n            }\n        };\n        usernameEditText.addTextChangedListener(afterTextChangedListener);\n        passwordEditText.addTextChangedListener(afterTextChangedListener);\n        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {\n\n            @Override\n            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {\n                if (actionId == EditorInfo.IME_ACTION_DONE) {\n                    loginViewModel.login(usernameEditText.getText().toString(),\n                            passwordEditText.getText().toString());\n                }\n                return false;\n            }\n        });\n\n        loginButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View v) {\n                loadingProgressBar.setVisibility(View.VISIBLE);\n                loginViewModel.setCallingActivity(LoginActivity.this);\n                loginViewModel.login(usernameEditText.getText().toString(),\n                        passwordEditText.getText().toString());\n            }\n        });\n    }\n\n    private void updateUiWithUser(LoggedInUserView model) {\n        String welcome = getString(R.string.welcome) + model.getDisplayName();\n        // TODO : initiate successful logged in experience\n        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();\n    }\n\n    private void showLoginFailed(@StringRes Integer errorString) {\n        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();\n    }\n    public void openSignUp(View view) {\n        Intent intent = new Intent(this, SignUp_Activity.class);\n        startActivity(intent);\n\n    }\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginActivity.java	(revision 97e5ef805535a9fc6c82dc27ffaa8b7ad7ba1e83)
+-+++ app/src/main/java/com/example/feander/SignInAndUp/ui/login/LoginActivity.java	(date 1603770389000)
+-@@ -137,4 +137,8 @@
+-         startActivity(intent);
+- 
+-     }
+-+    public void openMain(View view) {
+-+        Intent intent = new Intent(this, MainActivity.class);
+-+        startActivity(intent);
+-+    }
+- }
+-\ No newline at end of file
+-Index: app/src/main/res/layout/activity_login.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:fillViewport=\"true\"\n    tools:context=\".SignInAndUp.ui.login.LoginActivity\">\n\n    <androidx.constraintlayout.widget.ConstraintLayout\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\"\n        android:background=\"@color/cardview_light_background\"\n        >\n        <Button\n            android:id=\"@+id/button\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginTop=\"152dp\"\n            android:background=\"@drawable/button_background\"\n            android:text=\"Đăng nhập\"\n            android:textColor=\"@color/textColor\"\n            android:textSize=\"23dp\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintHorizontal_bias=\"0.532\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintTop_toBottomOf=\"@+id/password\" />\n\n        <EditText\n            android:id=\"@+id/username\"\n            android:layout_width=\"0dp\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginStart=\"8dp\"\n            android:layout_marginTop=\"8dp\"\n            android:layout_marginEnd=\"8dp\"\n            android:layout_marginBottom=\"8dp\"\n            android:ems=\"10\"\n            android:hint=\"Tài khoản\"\n            android:inputType=\"textPersonName\"\n            android:textColor=\"@color/textColor\"\n            android:textColorHint=\"@color/textColor\"\n            app:layout_constraintBottom_toBottomOf=\"parent\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintHorizontal_bias=\"0.728\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintTop_toTopOf=\"parent\"\n            app:layout_constraintVertical_bias=\"0.446\"\n            app:layout_constraintWidth_percent=\"0.7\" />\n\n        <EditText\n            android:id=\"@+id/password\"\n            android:layout_width=\"0dp\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginTop=\"23dp\"\n            android:ems=\"10\"\n            android:hint=\"Mật khẩu\"\n            android:textColor=\"@color/textColor\"\n            android:textColorHint=\"@color/textColor\"\n            android:inputType=\"textPassword\"\n            app:layout_constraintEnd_toEndOf=\"@+id/username\"\n            app:layout_constraintHorizontal_bias=\"0.0\"\n            app:layout_constraintStart_toStartOf=\"@+id/username\"\n            app:layout_constraintTop_toBottomOf=\"@+id/username\" />\n\n        <ImageView\n            android:id=\"@+id/user_icon\"\n            android:layout_width=\"48dp\"\n            android:layout_height=\"42dp\"\n            android:layout_marginEnd=\"8dp\"\n            android:layout_marginRight=\"8dp\"\n            android:layout_marginBottom=\"8dp\"\n            app:layout_constraintBottom_toBottomOf=\"@+id/username\"\n            app:layout_constraintEnd_toStartOf=\"@+id/username\"\n            app:layout_constraintTop_toTopOf=\"@+id/username\"\n            app:layout_constraintVertical_bias=\"0.408\"\n            app:srcCompat=\"@drawable/user_icon\" />\n\n\n        <ImageView\n            android:id=\"@+id/password_icon\"\n            android:layout_width=\"47dp\"\n            android:layout_height=\"48dp\"\n            android:layout_marginTop=\"8dp\"\n            app:layout_constraintBottom_toBottomOf=\"@+id/password\"\n            app:layout_constraintEnd_toEndOf=\"@+id/user_icon\"\n            app:layout_constraintHorizontal_bias=\"0.0\"\n            app:layout_constraintStart_toStartOf=\"@+id/user_icon\"\n            app:layout_constraintTop_toTopOf=\"@+id/password\"\n            app:srcCompat=\"@drawable/password\" />\n\n        <ImageView\n            android:id=\"@+id/tea_logo\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginStart=\"8dp\"\n            android:layout_marginTop=\"8dp\"\n            android:layout_marginEnd=\"8dp\"\n            android:layout_marginBottom=\"8dp\"\n            app:layout_constraintBottom_toTopOf=\"@+id/username\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintHorizontal_bias=\"0.497\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintTop_toTopOf=\"parent\"\n            app:layout_constraintVertical_bias=\"0.146\"\n            app:srcCompat=\"@drawable/tea_logo\" />\n\n        <ProgressBar\n            android:id=\"@+id/progres_bar\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:visibility=\"gone\"\n            app:layout_constraintBottom_toBottomOf=\"parent\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintHorizontal_bias=\"0.498\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintTop_toTopOf=\"@+id/password\"\n            app:layout_constraintVertical_bias=\"0.463\" />\n\n        <TextView\n            android:id=\"@+id/dangky\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginTop=\"8dp\"\n            android:onClick=\"openSignUp\"\n            android:text=\"Đăng ký\"\n            android:textColor=\"@color/textColor\"\n            android:textSize=\"23dp\"\n\n            app:layout_constraintBaseline_toBaselineOf=\"@+id/dangnhap\"\n            app:layout_constraintBottom_toBottomOf=\"parent\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintHorizontal_bias=\"0.875\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintTop_toTopOf=\"parent\"\n            app:layout_constraintVertical_bias=\"0.284\" />\n\n        <TextView\n            android:id=\"@+id/dangnhap\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:text=\"Đăng nhập\"\n            android:textColor=\"@color/textColor\"\n            android:textSize=\"25dp\"\n            android:textStyle=\"bold\"\n            app:layout_constraintBottom_toBottomOf=\"parent\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintHorizontal_bias=\"0.13\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintTop_toTopOf=\"parent\"\n            app:layout_constraintVertical_bias=\"0.319\" />\n\n        <TextView\n            android:id=\"@+id/forgot_password\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginTop=\"44dp\"\n            android:text=\"Quên mật khẩu?\"\n            android:textColor=\"@color/textColor\"\n            android:textSize=\"20dp\"\n            app:layout_constraintEnd_toEndOf=\"@+id/password\"\n            app:layout_constraintTop_toBottomOf=\"@+id/password\" />\n\n\n    </androidx.constraintlayout.widget.ConstraintLayout>\n</ScrollView>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- app/src/main/res/layout/activity_login.xml	(revision 97e5ef805535a9fc6c82dc27ffaa8b7ad7ba1e83)
+-+++ app/src/main/res/layout/activity_login.xml	(date 1603770389000)
+-@@ -12,11 +12,12 @@
+-         android:layout_height="match_parent"
+-         android:background="@color/cardview_light_background"
+-         >
+-+
+-         <Button
+-             android:id="@+id/button"
+-             android:layout_width="wrap_content"
+-             android:layout_height="wrap_content"
+--            android:layout_marginTop="152dp"
+-+            android:layout_marginTop="120dp"
+-             android:background="@drawable/button_background"
+-             android:text="Đăng nhập"
+-             android:textColor="@color/textColor"
+-@@ -124,7 +125,7 @@
+-             android:onClick="openSignUp"
+-             android:text="Đăng ký"
+-             android:textColor="@color/textColor"
+--            android:textSize="23dp"
+-+            android:textSize="23sp"
+- 
+-             app:layout_constraintBaseline_toBaselineOf="@+id/dangnhap"
+-             app:layout_constraintBottom_toBottomOf="parent"
+-@@ -140,7 +141,7 @@
+-             android:layout_height="wrap_content"
+-             android:text="Đăng nhập"
+-             android:textColor="@color/textColor"
+--            android:textSize="25dp"
+-+            android:textSize="25sp"
+-             android:textStyle="bold"
+-             app:layout_constraintBottom_toBottomOf="parent"
+-             app:layout_constraintEnd_toEndOf="parent"
+-@@ -156,10 +157,24 @@
+-             android:layout_marginTop="44dp"
+-             android:text="Quên mật khẩu?"
+-             android:textColor="@color/textColor"
+--            android:textSize="20dp"
+-+            android:textSize="20sp"
+-             app:layout_constraintEnd_toEndOf="@+id/password"
+-             app:layout_constraintTop_toBottomOf="@+id/password" />
+- 
+-+        <TextView
+-+            android:id="@+id/textView"
+-+            android:textColor="@color/textColor"
+-+            android:layout_width="wrap_content"
+-+            android:layout_height="wrap_content"
+-+            android:text="Xem với tư cách khách"
+-+            android:textSize="20sp"
+-+            app:layout_constraintBottom_toBottomOf="parent"
+-+            app:layout_constraintEnd_toEndOf="parent"
+-+            app:layout_constraintStart_toStartOf="parent"
+-+            app:layout_constraintTop_toBottomOf="@+id/button"
+-+            android:onClick="openMain"
+-+            />
+-+
+- 
+-     </androidx.constraintlayout.widget.ConstraintLayout>
+- </ScrollView>
+-\ No newline at end of file
+-Index: build.gradle
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\nbuildscript {\n    repositories {\n        google()\n        jcenter()\n    }\n    dependencies {\n        classpath \"com.android.tools.build:gradle:4.0.1\"\n        classpath 'com.google.gms:google-services:4.3.4'\n\n        // NOTE: Do not place your application dependencies here; they belong\n        // in the individual module build.gradle files\n    }\n}\n\nallprojects {\n    repositories {\n        google()\n        jcenter()\n    }\n}\n\ntask clean(type: Delete) {\n    delete rootProject.buildDir\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- build.gradle	(revision 97e5ef805535a9fc6c82dc27ffaa8b7ad7ba1e83)
+-+++ build.gradle	(date 1603128718000)
+-@@ -5,7 +5,7 @@
+-         jcenter()
+-     }
+-     dependencies {
+--        classpath "com.android.tools.build:gradle:4.0.1"
+-+        classpath 'com.android.tools.build:gradle:4.1.0'
+-         classpath 'com.google.gms:google-services:4.3.4'
+- 
+-         // NOTE: Do not place your application dependencies here; they belong
+-Index: app/src/main/java/com/example/feander/SignInAndUp/data/LoginRepository.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package com.example.feander.SignInAndUp.data;\n\nimport com.example.feander.SignInAndUp.data.model.LoggedInUser;\n\n/**\n * Class that requests authentication and user information from the remote data source and\n * maintains an in-memory cache of login status and user credentials information.\n */\npublic class LoginRepository {\n\n    private static volatile LoginRepository instance;\n\n    private LoginDataSource dataSource;\n\n    // If user credentials will be cached in local storage, it is recommended it be encrypted\n    // @see https://developer.android.com/training/articles/keystore\n    private LoggedInUser user = null;\n\n    // private constructor : singleton access\n    private LoginRepository(LoginDataSource dataSource) {\n        this.dataSource = dataSource;\n    }\n\n    public static LoginRepository getInstance(LoginDataSource dataSource) {\n        if (instance == null) {\n            instance = new LoginRepository(dataSource);\n        }\n        return instance;\n    }\n\n    public boolean isLoggedIn() {\n        return user != null;\n    }\n\n    public void logout() {\n        user = null;\n        dataSource.logout();\n    }\n\n    private void setLoggedInUser(LoggedInUser user) {\n        this.user = user;\n        // If user credentials will be cached in local storage, it is recommended it be encrypted\n        // @see https://developer.android.com/training/articles/keystore\n    }\n\n    public Result<LoggedInUser> login(String username, String password) {\n        // handle login\n        Result<LoggedInUser> result = dataSource.login(username, password);\n        if (result instanceof Result.Success) {\n            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());\n        }\n        return result;\n    }\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- app/src/main/java/com/example/feander/SignInAndUp/data/LoginRepository.java	(revision 97e5ef805535a9fc6c82dc27ffaa8b7ad7ba1e83)
+-+++ app/src/main/java/com/example/feander/SignInAndUp/data/LoginRepository.java	(date 1603128718000)
+-@@ -41,6 +41,7 @@
+-         this.user = user;
+-         // If user credentials will be cached in local storage, it is recommended it be encrypted
+-         // @see https://developer.android.com/training/articles/keystore
+-+
+-     }
+- 
+-     public Result<LoggedInUser> login(String username, String password) {
+-Index: .idea/gradle.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"testRunner\" value=\"PLATFORM\" />\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"gradleJvm\" value=\"1.8\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/app\" />\n          </set>\n        </option>\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- .idea/gradle.xml	(revision 97e5ef805535a9fc6c82dc27ffaa8b7ad7ba1e83)
+-+++ .idea/gradle.xml	(date 1603128719000)
+-@@ -15,6 +15,7 @@
+-           </set>
+-         </option>
+-         <option name="resolveModulePerSourceSet" value="false" />
+-+        <option name="useQualifiedModuleNames" value="true" />
+-       </GradleProjectSettings>
+-     </option>
+-   </component>
+-Index: .idea/compiler.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- .idea/compiler.xml	(date 1603128718000)
+-+++ .idea/compiler.xml	(date 1603128718000)
+-@@ -0,0 +1,6 @@
+-+<?xml version="1.0" encoding="UTF-8"?>
+-+<project version="4">
+-+  <component name="CompilerConfiguration">
+-+    <bytecodeTargetLevel target="1.8" />
+-+  </component>
+-+</project>
+-\ No newline at end of file
+-Index: .idea/misc.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_7\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\n  </component>\n  <component name=\"ProjectType\">\n    <option name=\"id\" value=\"Android\" />\n  </component>\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- .idea/misc.xml	(revision 97e5ef805535a9fc6c82dc27ffaa8b7ad7ba1e83)
+-+++ .idea/misc.xml	(date 1603128718000)
+-@@ -1,6 +1,6 @@
+- <?xml version="1.0" encoding="UTF-8"?>
+- <project version="4">
+--  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+-+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+-     <output url="file://$PROJECT_DIR$/build/classes" />
+-   </component>
+-   <component name="ProjectType">
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_27_10_20_10_46_AM__Default_Changelist_1.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_27_10_20_10_46_AM__Default_Changelist_1.xml	(revision 670335e5a9ecd00ecb6cf68e9f321ee54d668979)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_27_10_20_10_46_AM__Default_Changelist_1.xml	(revision 670335e5a9ecd00ecb6cf68e9f321ee54d668979)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_27_10_20_10_46_AM_[Default_Changelist]1" date="1603770477488" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_10_20_10_46_AM_[Default_Changelist]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27/10/20 10:46 AM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
