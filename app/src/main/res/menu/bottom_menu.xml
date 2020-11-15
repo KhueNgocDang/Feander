@@ -16,5 +16,6 @@
         android:id="@+id/map_location"/>
     <item
         android:id="@+id/LogOut"
+        android:onClick="logOut"
         android:title="Đăng xuất" />
 </menu>

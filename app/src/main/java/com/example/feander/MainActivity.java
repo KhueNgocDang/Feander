@@ -6,15 +6,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.feander.SignInAndUp.data.Repository;
+import com.example.feander.SignInAndUp.ui.loginsignup.LoginActivity;
 import com.example.feander.ui.MainActivityFragment.LocationFragment;
 import com.example.feander.ui.MainActivityFragment.SearchFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         double latitude = 0;
         double longitude = 0;
@@ -44,16 +45,16 @@ public class MainActivity extends AppCompatActivity {
             }
             location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-            if(location!=null){
-                latitude  = location.getLatitude();
+            if (location != null) {
+                latitude = location.getLatitude();
                 longitude = location.getLongitude();
             }
-            latLng = new LatLng(latitude,longitude);
+            latLng = new LatLng(latitude, longitude);
         }
 
-        final LocationFragment locationFragment = LocationFragment.newInstance(latitude,longitude);
+        final LocationFragment locationFragment = LocationFragment.newInstance(latitude, longitude);
 
-        final SearchFragment searchFragment = SearchFragment.newInstance(latitude,longitude);
+        final SearchFragment searchFragment = SearchFragment.newInstance(latitude, longitude);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, locationFragment)
@@ -61,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container,searchFragment)
+                .add(R.id.fragment_container, searchFragment)
                 .commit();
 
-        final Intent map_intent = new Intent(this,MapsActivity.class);
+        final Intent map_intent = new Intent(this, MapsActivity.class);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_bar);
         BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                                 getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
                                 getSupportFragmentManager().beginTransaction().attach(searchFragment).commit();
                                 break;
-                            case R.id.LogOut:
                         }
                         return true;
                     }
@@ -91,5 +91,12 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void logOut(MenuItem item) {
+        Repository repository = new Repository();
+        repository.setContext(getApplicationContext());
+        repository.logOut();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
 }

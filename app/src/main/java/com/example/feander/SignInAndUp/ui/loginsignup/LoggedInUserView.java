@@ -1,4 +1,4 @@
-package com.example.feander.SignInAndUp.ui.login;
+package com.example.feander.SignInAndUp.ui.loginsignup;
 
 /**
  * Class exposing authenticated user details to the UI.

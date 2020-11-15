@@ -40,9 +40,10 @@
             android:name=".DetailedActivity.DetailedActivity"
             android:label="@string/title_activity_detailed" />
         <activity
-            android:name=".SignInAndUp.ui.login.LoginActivity"
+            android:name=".SignInAndUp.ui.loginsignup.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".SignInAndUp.ui.loginsignup.SignUp_Activity">
         </activity>
         <activity android:name=".Splash.Splash_Activity">
             <intent-filter>

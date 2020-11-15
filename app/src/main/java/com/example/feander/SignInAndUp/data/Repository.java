@@ -10,37 +10,40 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
-import com.example.feander.SignInAndUp.ui.login.LoginActivity;
-import com.example.feander.SignInAndUp.ui.login.LoginViewModel;
+import com.example.feander.SignInAndUp.ui.loginsignup.ViewModel;
 
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 
 /**
  * Class that requests authentication and user information from the remote data source and
  * maintains an in-memory cache of login status and user credentials information.
  */
-public class LoginRepository {
+public class Repository {
 
-    private static volatile LoginRepository instance;
+    private static volatile Repository instance;
 
-    private LoginDataSource dataSource;
+    private DataSource dataSource;
     final String fileName = "user";
-    private LoginViewModel loginViewModel;
-
+    private ViewModel viewModel;
+    private Context context;
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
     private LoggedInUser user = null;
 
+    public Repository() {
+
+    }
+
     // private constructor : singleton access
-    private LoginRepository(LoginDataSource dataSource) {
+    private Repository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public static LoginRepository getInstance(LoginDataSource dataSource) {
+    public static Repository getInstance(DataSource dataSource) {
         if (instance == null) {
-            instance = new LoginRepository(dataSource);
+            instance = new Repository(dataSource);
         }
         return instance;
     }
@@ -50,9 +53,9 @@ public class LoginRepository {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void logout() {
+    public void logOut() {
         user = null;
-        dataSource.logout();
+        deleteLoggedInUser();
     }
 
     private void setLoggedInUser(LoggedInUser user) {
@@ -71,7 +74,17 @@ public class LoginRepository {
 //        }
 //        return result;
         final MutableLiveData<Result> resultLive = dataSource.login(username, password);
+        observe(resultLive);
+
+        //        if (resultLive.getValue() instanceof Result.Success) {
+//            setLoggedInUser(((Result.Success<LoggedInUser>) resultLive.getValue()).getData());
+//        }
+        return resultLive;
+    }
+
+    private void observe(final MutableLiveData<Result> resultLive) {
         resultLive.observeForever(new Observer<Result>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onChanged(Result result) {
                 if (result instanceof Result.Success) {
@@ -84,22 +97,37 @@ public class LoginRepository {
                 }
             }
         });
+    }
 
-        //        if (resultLive.getValue() instanceof Result.Success) {
-//            setLoggedInUser(((Result.Success<LoggedInUser>) resultLive.getValue()).getData());
-//        }
+    public MutableLiveData<Result> signUp(String username, String password, String phoneNumbers) {
+        final MutableLiveData<Result> resultLive = dataSource.signUp(username, password, phoneNumbers);
+        observe(resultLive);
         return resultLive;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void storeLoggedInUser(String fileContents) {
-        try (@SuppressLint("RestrictedApi") FileOutputStream fos = loginViewModel.getCallingActivity().openFileOutput(fileName, Context.MODE_PRIVATE)) {
+        try (@SuppressLint("RestrictedApi") FileOutputStream fos = viewModel.getCallingActivity().openFileOutput(fileName, Context.MODE_PRIVATE)) {
             fos.write(fileContents.getBytes());
         } catch (Exception e) {
-            Log.d("loggedinuser", "that bai");
+            Log.d("write loggedinuser", "that bai");
         }
     }
-    public void setLoginViewModel(LoginViewModel loginViewModel) {
-        this.loginViewModel = loginViewModel;
+    private void deleteLoggedInUser(){
+        try{
+            File file = new File(context.getFilesDir(), fileName);
+            file.delete();
+        }catch (Exception e){
+            Log.d("delete loggedinuser", "that bai");
+
+        }
+    }
+
+    public void setViewModel(ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

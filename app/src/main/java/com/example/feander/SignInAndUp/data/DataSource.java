@@ -9,23 +9,29 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
 import com.example.feander.SignInAndUp.data.model.UncorrectException;
+import com.example.feander.SignInAndUp.data.model.UserNameExistException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 //import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-public class LoginDataSource {
+public class DataSource {
     FirebaseFirestore dataSource = FirebaseFirestore.getInstance();
     private MutableLiveData<Result> resultLive = new MutableLiveData<>();
-//    private Result loginResult;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public MutableLiveData<Result> login(String username, String password) {
@@ -47,10 +53,57 @@ public class LoginDataSource {
         }
     }
 
+    public MutableLiveData<Result> signUp(final String username, final String password, final String phoneNumber) {
+        dataSource.collection("users").whereEqualTo("userNames", username)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (queryDocumentSnapshots.size() > 0) {
+                            resultLive.setValue(new Result.Error(new UserNameExistException()));
+                        } else {
+                            writeData(username, password, phoneNumber);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng ký", e)));
+            }
+        });
+        return resultLive;
+    }
+
+    private void writeData(final String username, String password, String phoneNumber) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("userNames", username);
+        user.put("passWord", password);
+        user.put("phoneNumbers", phoneNumber);
+        dataSource.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        LoggedInUser loggedInUser =
+                                new LoggedInUser(
+                                        java.util.UUID.randomUUID().toString(),
+                                        username);
+                        resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng ký", e)));
+                    }
+                });
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void logout() {
     }
+
     private MutableLiveData<Result> checkUsers(final String userName, final String passWord) {
 //        dataSource.collection("users").whereEqualTo("userNames", userName)
 //                .get()
@@ -84,10 +137,8 @@ public class LoginDataSource {
                                             new LoggedInUser(
                                                     java.util.UUID.randomUUID().toString(),
                                                     userName);
-//                                    loginResult = new Result.Success<LoggedInUser>(loggedInUser);
                                     resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
                                 } else {
-//                                    loginResult = new Result.Error(new UncorrectPassWordException());
                                     resultLive.setValue(new Result.Error(new UncorrectException()));
                                 }
                             }
@@ -97,7 +148,7 @@ public class LoginDataSource {
                         }
                     }
                 });
-        return resultLive ;
+        return resultLive;
     }
 
 }
