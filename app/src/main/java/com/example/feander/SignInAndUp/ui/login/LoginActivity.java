@@ -1,19 +1,15 @@
 package com.example.feander.SignInAndUp.ui.login;
 
-import android.app.Activity;
-
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
@@ -27,15 +23,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.feander.MainActivity;
+import com.example.feander.MainActivity.MainActivity;
 import com.example.feander.R;
 import com.example.feander.SignInAndUp.SignUp_Activity;
 import com.example.feander.SignInAndUp.data.Result;
 import com.example.feander.SignInAndUp.data.model.LoggedInUser;
-import com.example.feander.SignInAndUp.ui.login.LoginViewModel;
-import com.example.feander.SignInAndUp.ui.login.LoginViewModelFactory;
-
-import java.io.FileOutputStream;
 
 public class LoginActivity extends AppCompatActivity {
 

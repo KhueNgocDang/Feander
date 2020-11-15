@@ -6,22 +6,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.util.Patterns;
-import android.widget.Toast;
 
-import com.example.feander.MainActivity;
 import com.example.feander.R;
 import com.example.feander.SignInAndUp.data.LoginRepository;
 import com.example.feander.SignInAndUp.data.Result;
-import com.example.feander.SignInAndUp.data.model.LoggedInUser;
-
-import java.io.FileOutputStream;
 
 public class LoginViewModel extends ViewModel {
     private AppCompatActivity callingActivity;

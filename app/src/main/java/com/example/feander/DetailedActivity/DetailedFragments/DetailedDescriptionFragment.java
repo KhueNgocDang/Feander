@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
-import com.example.feander.ui.MainActivityFragment.LocationFragment;
 
 /**
  * A simple {@link Fragment} subclass.

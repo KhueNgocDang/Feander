@@ -1,12 +1,10 @@
-package com.example.feander.ui.MainActivityFragment;
+package com.example.feander.MainActivity.MainFragments;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;

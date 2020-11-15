@@ -90,7 +90,7 @@ public class DetailedInfoFragment extends Fragment {
             //Create camera with bounds
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width,height,padding);
 
-            googleMap.moveCamera(cu);
+            googleMap.animateCamera(cu);
 
         }
     };
