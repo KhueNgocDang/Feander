@@ -90,8 +90,8 @@ public class SignUp_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 viewModel.setCallingActivity(SignUp_Activity.this);
-                final MutableLiveData<Result> resultLive = viewModel.signUp(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString(), phoneNumbersEditText.getText().toString());
+                final MutableLiveData<Result> resultLive = viewModel.signUp(usernameEditText.getText().toString().trim(),
+                        passwordEditText.getText().toString().trim(), phoneNumbersEditText.getText().toString().trim());
                 resultLive.observeForever(new Observer<Result>() {
                     @Override
                     public void onChanged(Result result) {
@@ -134,4 +134,6 @@ public class SignUp_Activity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+
 }

@@ -33,6 +33,5 @@ public class UpdateActivity extends AppCompatActivity {
     public void changePassword(View view) {
     }
 
-    public void change_Password(View view) {
-    }
+
 }

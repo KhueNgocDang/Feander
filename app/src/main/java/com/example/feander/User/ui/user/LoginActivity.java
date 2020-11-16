@@ -93,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 viewModel.setCallingActivity(LoginActivity.this);
-                final MutableLiveData<Result> resultLive = viewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                final MutableLiveData<Result> resultLive = viewModel.login(usernameEditText.getText().toString().trim(),
+                        passwordEditText.getText().toString().trim());
                 resultLive.observeForever(new Observer<Result>() {
                     @Override
                     public void onChanged(Result result) {

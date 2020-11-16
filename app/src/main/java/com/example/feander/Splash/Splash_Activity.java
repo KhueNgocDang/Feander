@@ -35,13 +35,14 @@ public class Splash_Activity extends AppCompatActivity {
                 String user = checkUserLoggin();
                 if (user != null) {
                     Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
-                    intent.putExtra("userName", user);
+                    intent.putExtra("userName", user.trim());
                     Toast.makeText(getApplicationContext(), "Xin chao " + user, Toast.LENGTH_LONG).show();
                     finish();
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(Splash_Activity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         }, SPLASH_TIME);

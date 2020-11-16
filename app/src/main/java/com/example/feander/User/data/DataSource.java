@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.feander.User.data.model.LoggedInUser;
 import com.example.feander.User.data.model.UncorrectException;
@@ -47,6 +48,7 @@ public class DataSource {
             return checkUsers(username, password);
 
         } catch (Exception e) {
+            Log.d("login", e.toString());
             resultLive.setValue(new Result.Error(new IOException("Lỗi vào ra khi đăng nhập", e)));
             return resultLive;
         }
@@ -123,37 +125,101 @@ public class DataSource {
 //                    }
 //                });
 //        return loginSuccess;
-        dataSource.collection("users").whereEqualTo("userNames", userName)
+//        dataSource.collection("users").whereEqualTo("userNames", userName)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if ((task.isSuccessful()) && (task.getResult().size() > 0)) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.d("PassWord", document.getId() + " => " + document.getData());
+//                                if (document.get("passWord").equals(passWord)) {
+//                                    LoggedInUser loggedInUser =
+//                                            new LoggedInUser(
+//                                                    java.util.UUID.randomUUID().toString(),
+//                                                    userName);
+//                                    resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
+//                                } else {
+//                                    resultLive.setValue(new Result.Error(new UncorrectException()));
+//                                }
+//                            }
+//                        } else {
+//                            Log.w("PassWord", "Lỗi khi đọc các bản ghi", task.getException());
+//                            resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng nhập", task.getException())));
+//                        }
+//                    }
+//                });
+
+        final MutableLiveData<QuerySnapshot> querySnapshotMutableLiveData = getUserData(userName);
+        querySnapshotMutableLiveData.observeForever(new Observer<QuerySnapshot>() {
+            @Override
+            public void onChanged(QuerySnapshot querySnapshot) {
+                if (querySnapshot != null) {
+                    querySnapshotMutableLiveData.removeObserver(this);
+                    if (querySnapshot.size() > 0) {
+                        for (QueryDocumentSnapshot document : querySnapshot) {
+                            Log.d("PassWord", document.getId() + " => " + document.getData());
+                            if (document.get("passWord").equals(passWord)) {
+                                LoggedInUser loggedInUser =
+                                        new LoggedInUser(
+                                                java.util.UUID.randomUUID().toString(),
+                                                userName);
+                                resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
+                            } else {
+                                resultLive.setValue(new Result.Error(new UncorrectException()));
+                            }
+                        }
+                    }else {
+                        resultLive.setValue(new Result.Error(new UncorrectException()));
+                    }
+                }
+            }
+        });
+
+        return resultLive;
+    }
+
+    public void updateUserData(String userName, String phoneNumber) {
+
+    }
+
+    public void changePassword(String newPassword) {
+
+    }
+
+    public MutableLiveData<String> getUserPhoneNumber(String username) {
+        MutableLiveData<QuerySnapshot> querySnapshotLive = getUserData(username);
+        final MutableLiveData<String> phoneNumberLive = new MutableLiveData<>();
+        querySnapshotLive.observeForever(new Observer<QuerySnapshot>() {
+            @Override
+            public void onChanged(QuerySnapshot querySnapshot) {
+                if (querySnapshot != null) {
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        phoneNumberLive.setValue(document.get("phoneNumbers").toString());
+                    }
+                }
+            }
+        });
+        return phoneNumberLive;
+    }
+
+    private MutableLiveData<QuerySnapshot> getUserData(String username) {
+        final MutableLiveData<QuerySnapshot> querySnapshotMutableLiveData = new MutableLiveData<>();
+        dataSource.collection("users").whereEqualTo("userNames", username)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if ((task.isSuccessful()) && (task.getResult().size() > 0)) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("PassWord", document.getId() + " => " + document.getData());
-                                if (document.get("passWord").equals(passWord)) {
-                                    LoggedInUser loggedInUser =
-                                            new LoggedInUser(
-                                                    java.util.UUID.randomUUID().toString(),
-                                                    userName);
-                                    resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
-                                } else {
-                                    resultLive.setValue(new Result.Error(new UncorrectException()));
-                                }
-                            }
+                        if ((task.isSuccessful())) {
+                            querySnapshotMutableLiveData.setValue(task.getResult());
+                            Log.d("so ban ghi", Integer.toString(task.getResult().size()));
                         } else {
                             Log.w("PassWord", "Lỗi khi đọc các bản ghi", task.getException());
                             resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng nhập", task.getException())));
                         }
                     }
                 });
-        return resultLive;
-    }
-    public void updateUserData(String userName, String phoneNumber){
-
-    }
-    public void changePassword(String newPassword){
-
+        return querySnapshotMutableLiveData;
     }
 
 }
