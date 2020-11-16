@@ -99,6 +99,7 @@ public class DetailedInfoFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
+        assert bundle != null;
         current_position = new LatLng(bundle.getDouble(ARG_PARAM2),bundle.getDouble(ARG_PARAM3));
         mParam1 = bundle.getParcelable(ARG_PARAM1);
     }

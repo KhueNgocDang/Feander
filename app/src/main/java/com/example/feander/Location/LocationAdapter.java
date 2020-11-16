@@ -1,7 +1,6 @@
 package com.example.feander.Location;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,16 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         this.locationModelList = locationModelList;
         this.locationModelListFull = locationModelList;
         this.onLocationListener = onLocationListener;
+    }
+
+    public void clearAdapter() {
+        int size = this.locationModelList.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                locationModelList.remove(0);
+            }
+            this.notifyItemRangeRemoved(0, size);
+        }
     }
 
     @NonNull

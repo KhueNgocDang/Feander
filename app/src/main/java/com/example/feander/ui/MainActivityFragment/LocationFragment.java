@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -52,6 +53,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     public List<LocationModel> locationList = new ArrayList<>();
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private LatLng current_location;
+    Task<QuerySnapshot> querySnapshotTask;
     View view;
 
     public LocationFragment() {
@@ -76,6 +78,8 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
         Bundle bundle = this.getArguments();
         assert bundle != null;
         current_location = new LatLng(bundle.getDouble(ARG_PARAM1),bundle.getDouble(ARG_PARAM2));
+
+
     }
 
     @Override
@@ -85,36 +89,20 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
             view = inflater.inflate(R.layout.fragment_list, container, false);
             recyclerView = view.findViewById(R.id.FirestoreList);
 
+            FloatingActionButton fab = view.findViewById(R.id.refresshFAB);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    adapter.clearAdapter();
+
+                    getData(view);
+                }
+            });
+
+            getData(view);
+
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
-            Task<QuerySnapshot> querySnapshotTask = db.collection("Location").get()
-                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
-                                LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
-                                locationModel.setDistance(current_location);
-                                locationList.add(locationModel);
-                                Log.d("TAG", "onSuccess" + locationModel.getName());
-                            }
-                            Collections.sort(locationList, new Comparator<LocationModel>() {
-                                @Override
-                                public int compare(LocationModel o1, LocationModel o2) {
-                                    if (o1.getDistance() < o2.getDistance())
-                                        return -1;
-                                    else if (o2.getDistance() < o1.getDistance())
-                                        return 1;
-                                    return 0;
-                                }
-                            });
-                            recyclerView.setAdapter(adapter);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("TAG", "onFailure" + e.getMessage());
-                        }
-                    });
             recyclerView.setLayoutManager(linearLayoutManager);
 
             adapter = new LocationAdapter(getContext(), locationList, this);
@@ -157,5 +145,36 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    public void getData(View v){
+        querySnapshotTask = db.collection("Location").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
+                            LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
+                            locationModel.setDistance(current_location);
+                            locationList.add(locationModel);
+                            Log.d("TAG", "onSuccess" + locationModel.getName());
+                        }
+                        Collections.sort(locationList, new Comparator<LocationModel>() {
+                            @Override
+                            public int compare(LocationModel o1, LocationModel o2) {
+                                if (o1.getDistance() < o2.getDistance())
+                                    return -1;
+                                else if (o2.getDistance() < o1.getDistance())
+                                    return 1;
+                                return 0;
+                            }
+                        });
+                        recyclerView.setAdapter(adapter);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG", "onFailure" + e.getMessage());
+                    }
+                });
     }
 }

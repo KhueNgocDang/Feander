@@ -1,9 +1,12 @@
 package com.example.feander.DetailedActivity.DetailedFragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
-import com.example.feander.ui.MainActivityFragment.LocationFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,9 +58,26 @@ public class DetailedDescriptionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detailed_description, container, false);
-        TextView desc = view.findViewById(R.id.textView);
-        desc.setText("Mô tả:"+mParam1.getDesc()+'\n'+'\n'+"Địa chỉ:"+mParam1.getLocation()
-                +'\n'+'\n'+"Khoảng cách:"+mParam1.getDistance()+"m");
+        TextView desc = view.findViewById(R.id.description);
+        TextView webs = view.findViewById(R.id.website);
+        TextView add = view.findViewById(R.id.address);
+        TextView dis = view.findViewById(R.id.distance);
+        desc.setText("Mô tả: "+mParam1.getDesc());
+        dis.setText("Khoảng cách:"+mParam1.getDistance()+"m");
+        add.setText('\n'+"Địa chỉ:"+mParam1.getLocation() +'\n');
+        webs.setText(mParam1.getWebsite());
+        webs.setMovementMethod(LinkMovementMethod.getInstance());
+        webs.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view)
+            {
+                Intent browser= new Intent(Intent.ACTION_VIEW, Uri.parse(mParam1.getWebsite()));
+                startActivity(browser);
+            }
+
+        });
+
 
         return view;
     }
