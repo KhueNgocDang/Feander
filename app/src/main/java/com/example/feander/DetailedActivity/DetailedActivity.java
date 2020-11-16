@@ -13,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.feander.DetailedActivity.DetailedFragments.DetailedDescriptionFragment;
 import com.example.feander.DetailedActivity.DetailedFragments.DetailedInfoFragment;
 import com.example.feander.Location.LocationModel;
@@ -58,6 +61,12 @@ public class DetailedActivity extends AppCompatActivity {
 
         TextView detailed_name = findViewById(R.id.detailed_name);
         detailed_name.setText(locationModel.getName());
+
+        ImageView img = findViewById(R.id.detailed_imageView);
+        Glide.with(img.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(locationModel.getImage())
+                .into(img);
 
         new DetailedDescriptionFragment();
         final DetailedDescriptionFragment detailed_desc = DetailedDescriptionFragment.newInstance(locationModel);

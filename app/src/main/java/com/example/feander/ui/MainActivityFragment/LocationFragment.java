@@ -7,10 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,6 +32,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +50,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     public List<LocationModel> locationList = new ArrayList<>();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private LatLng current_location;
     View view;
 
@@ -65,6 +72,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         Bundle bundle = this.getArguments();
         assert bundle != null;
         current_location = new LatLng(bundle.getDouble(ARG_PARAM1),bundle.getDouble(ARG_PARAM2));
@@ -126,5 +134,28 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
         Intent intent = new Intent(getContext(), DetailedActivity.class);
         intent.putExtra("Location",locationList.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu,menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

@@ -11,18 +11,20 @@ public class LocationModel implements Parcelable {
     private GeoPoint latLng;
     private String location;
     private String desc;
+    private String image;
     private double distance;
 
     public LocationModel(){
     }
 
-    public LocationModel(String name, GeoPoint latLng, String location, String desc, double distance)
+    public LocationModel(String name, GeoPoint latLng, String location, String desc, double distance,String image)
     {
         this.name = name;
         this.latLng = latLng;
         this.location = location;
         this.desc = desc;
         this.distance =distance;
+        this.image = image;
     }
 
     public LocationModel(Parcel in) {
@@ -33,6 +35,7 @@ public class LocationModel implements Parcelable {
         location = in.readString();
         desc = in.readString();
         distance = in.readDouble();
+        image = in.readString();
     }
 
     public String getName() {
@@ -91,6 +94,7 @@ public class LocationModel implements Parcelable {
         dest.writeString(location);
         dest.writeString(desc);
         dest.writeDouble(distance);
+        dest.writeString(image);
     }
 
     public double getDistance() {
@@ -121,5 +125,13 @@ public class LocationModel implements Parcelable {
 
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

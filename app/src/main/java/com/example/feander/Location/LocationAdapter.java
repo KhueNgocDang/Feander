@@ -1,17 +1,21 @@
 package com.example.feander.Location;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.feander.R;
 
 import java.text.Normalizer;
@@ -45,6 +49,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         holder.list_name.setText(model.getName());
         holder.location.setText(model.getLocation());
         holder.distance.setText((int) model.getDistance() + "m");
+        Glide.with(holder.img.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(model.getImage())
+                .into(holder.img);
     }
 
     @Override
@@ -56,6 +64,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         TextView list_name;
         TextView location;
         TextView distance;
+        ImageView img;
         OnLocationListener onLocationListener;
 
         public LocationHolder(@NonNull View itemView, OnLocationListener onLocationListener) {
@@ -63,6 +72,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
             list_name = itemView.findViewById(R.id.location_name);
             location = itemView.findViewById(R.id.location_address);
             distance = itemView.findViewById(R.id.location_distance);
+            img =  itemView.findViewById(R.id.location_image);
             this.onLocationListener = onLocationListener;
 
             itemView.setOnClickListener(this);
