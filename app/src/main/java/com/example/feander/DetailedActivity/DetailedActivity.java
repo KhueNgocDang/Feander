@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.feander.DetailedActivity.DetailedFragments.DetailedDescriptionFragment;
+import com.example.feander.DetailedActivity.DetailedFragments.DetailedHighlightFragment;
 import com.example.feander.DetailedActivity.DetailedFragments.DetailedInfoFragment;
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
@@ -70,6 +71,10 @@ public class DetailedActivity extends AppCompatActivity {
 
         new DetailedDescriptionFragment();
         final DetailedDescriptionFragment detailed_desc = DetailedDescriptionFragment.newInstance(locationModel);
+
+        new DetailedHighlightFragment();
+        final DetailedHighlightFragment detailed_high_light = DetailedHighlightFragment.newInstance(locationModel);
+
         new DetailedInfoFragment();
         final DetailedInfoFragment detailed_info = DetailedInfoFragment.newInstance(locationModel,latitude,longitude);
 
