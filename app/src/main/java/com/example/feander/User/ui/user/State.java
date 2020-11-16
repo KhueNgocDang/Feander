@@ -1,4 +1,4 @@
-package com.example.feander.SignInAndUp.ui.loginsignup;
+package com.example.feander.User.ui.user;
 
 import androidx.annotation.Nullable;
 

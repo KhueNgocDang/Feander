@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".SignInAndUp.ui.loginsignup.LoginActivity">
+    tools:context=".User.ui.user.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         >
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/update_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.532"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/phone_number" />
 
         <EditText
             android:id="@+id/username"
@@ -49,7 +49,7 @@
             app:layout_constraintWidth_percent="0.7" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/phone_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="23dp"
@@ -78,15 +78,15 @@
 
 
         <ImageView
-            android:id="@+id/password_icon"
+            android:id="@+id/phone_icon"
             android:layout_width="47dp"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/password"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_number"
             app:layout_constraintEnd_toEndOf="@+id/user_icon"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/user_icon"
-            app:layout_constraintTop_toTopOf="@+id/password"
+            app:layout_constraintTop_toTopOf="@+id/phone_number"
             app:srcCompat="@drawable/password" />
 
         <ImageView
@@ -110,10 +110,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/button"
-            app:layout_constraintEnd_toEndOf="@id/button"
-            app:layout_constraintStart_toStartOf="@id/button"
-            app:layout_constraintTop_toTopOf="@+id/button"
+            app:layout_constraintBottom_toBottomOf="@+id/update_button"
+            app:layout_constraintEnd_toEndOf="@id/update_button"
+            app:layout_constraintStart_toStartOf="@id/update_button"
+            app:layout_constraintTop_toTopOf="@+id/update_button"
             />
 
         <TextView
@@ -156,8 +156,8 @@
             android:text="Quên mật khẩu?"
             android:textColor="@color/textColor"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/password"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintEnd_toEndOf="@+id/phone_number"
+            app:layout_constraintTop_toBottomOf="@+id/phone_number" />
 
         <TextView
             android:id="@+id/description"
@@ -169,7 +169,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/update_button"
             android:onClick="openMain"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.feander.SignInAndUp.data;
+package com.example.feander.User.data;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,8 +9,8 @@ import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.example.feander.SignInAndUp.data.model.LoggedInUser;
-import com.example.feander.SignInAndUp.ui.loginsignup.ViewModel;
+import com.example.feander.User.data.model.LoggedInUser;
+import com.example.feander.User.ui.user.ViewModel;
 
 import java.io.File;
 import java.io.FileOutputStream;

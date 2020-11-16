@@ -1,8 +1,17 @@
-package com.example.feander.SignInAndUp.ui.loginsignup;
+package com.example.feander.User.ui.user;
+
+import androidx.annotation.RequiresApi;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,40 +20,33 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.feander.MainActivity;
 import com.example.feander.R;
-import com.example.feander.SignInAndUp.data.Result;
-import com.example.feander.SignInAndUp.data.model.LoggedInUser;
+import com.example.feander.User.data.Result;
+import com.example.feander.User.data.model.LoggedInUser;
 
+public class LoginActivity extends AppCompatActivity {
 
-public class SignUp_Activity extends AppCompatActivity {
-    ViewModel viewModel;
+    private ViewModel viewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_);
+        setContentView(R.layout.activity_login);
         viewModel = ViewModelProviders.of(this, new ViewModelFactory())
                 .get(ViewModel.class);
         final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final EditText phoneNumbersEditText = findViewById(R.id.phoneNumber);
-        final Button signUpButton = findViewById(R.id.button);
-        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        final EditText passwordEditText = findViewById(R.id.phone_number);
+        final Button loginButton = findViewById(R.id.update_button);
+        final ProgressBar loadingProgressBar = findViewById(R.id.progres_bar);
+
         viewModel.getState().observe(this, new Observer<State>() {
             @Override
             public void onChanged(@Nullable State state) {
                 if (state == null) {
                     return;
                 }
-                signUpButton.setEnabled(state.isDataValid());
+                loginButton.setEnabled(state.isDataValid());
                 if (state.getUsernameError() != null) {
                     usernameEditText.setError(getString(state.getUsernameError()));
                 }
@@ -84,34 +86,34 @@ public class SignUp_Activity extends AppCompatActivity {
 //                return false;
 //            }
 //        });
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                viewModel.setCallingActivity(SignUp_Activity.this);
-                final MutableLiveData<Result> resultLive = viewModel.signUp(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString(), phoneNumbersEditText.getText().toString());
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                viewModel.setCallingActivity(LoginActivity.this);
+                final MutableLiveData<Result> resultLive = viewModel.login(usernameEditText.getText().toString(),
+                        passwordEditText.getText().toString());
                 resultLive.observeForever(new Observer<Result>() {
                     @Override
                     public void onChanged(Result result) {
                         if (result instanceof Result.Success) {
-                            progressBar.setVisibility(View.GONE);
+                            loadingProgressBar.setVisibility(View.GONE);
                             updateUiWithUser(((Result.Success<LoggedInUser>) result).getData());
                             resultLive.removeObserver(this);
                             finish();
                         } else if (result instanceof Result.Error) {
-                            progressBar.setVisibility(View.GONE);
-                            showSignUpFailed(((Result.Error) result).getError().toString());
+                            loadingProgressBar.setVisibility(View.GONE);
+                            showLoginFailed(((Result.Error) result).getError().toString());
                             resultLive.setValue(null);
                         }
                     }
                 });
+
             }
         });
-
     }
-
 
     private void updateUiWithUser(LoggedInUser model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
@@ -120,18 +122,23 @@ public class SignUp_Activity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showSignUpFailed(String errorString) {
+    private void showLoginFailed(String errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
     }
 
-    private void openMainIntent(String displayName) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("user", displayName);
+    public void openSignUp(View view) {
+        Intent intent = new Intent(this, SignUp_Activity.class);
         startActivity(intent);
     }
 
-    public void openSignIn(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
+    public void openMain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void openMainIntent(String userIntents) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("userName", userIntents);
         startActivity(intent);
     }
 }

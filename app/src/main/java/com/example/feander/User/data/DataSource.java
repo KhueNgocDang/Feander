@@ -1,4 +1,4 @@
-package com.example.feander.SignInAndUp.data;
+package com.example.feander.User.data;
 
 import android.os.Build;
 import android.util.Log;
@@ -7,15 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.feander.SignInAndUp.data.model.LoggedInUser;
-import com.example.feander.SignInAndUp.data.model.UncorrectException;
-import com.example.feander.SignInAndUp.data.model.UserNameExistException;
+import com.example.feander.User.data.model.LoggedInUser;
+import com.example.feander.User.data.model.UncorrectException;
+import com.example.feander.User.data.model.UserNameExistException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,7 +29,7 @@ import java.util.Map;
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class DataSource {
-    FirebaseFirestore dataSource = FirebaseFirestore.getInstance();
+    private FirebaseFirestore dataSource = FirebaseFirestore.getInstance();
     private MutableLiveData<Result> resultLive = new MutableLiveData<>();
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -149,6 +148,12 @@ public class DataSource {
                     }
                 });
         return resultLive;
+    }
+    public void updateUserData(String userName, String phoneNumber){
+
+    }
+    public void changePassword(String newPassword){
+
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.feander.SignInAndUp.data.model;
+package com.example.feander.User.data.model;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

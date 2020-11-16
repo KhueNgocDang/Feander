@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.feander.MainActivity;
 import com.example.feander.R;
-import com.example.feander.SignInAndUp.ui.loginsignup.LoginActivity;
+import com.example.feander.User.ui.user.LoginActivity;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
