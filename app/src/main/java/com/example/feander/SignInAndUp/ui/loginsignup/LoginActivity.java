@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -101,12 +102,13 @@ public class LoginActivity extends AppCompatActivity {
                 resultLive.observeForever(new Observer<Result>() {
                     @Override
                     public void onChanged(Result result) {
-                        loadingProgressBar.setVisibility(View.GONE);
                         if (result instanceof Result.Success) {
+                            loadingProgressBar.setVisibility(View.GONE);
                             updateUiWithUser(((Result.Success<LoggedInUser>) result).getData());
                             resultLive.removeObserver(this);
                             finish();
                         } else if (result instanceof Result.Error) {
+                            loadingProgressBar.setVisibility(View.GONE);
                             showLoginFailed(((Result.Error) result).getError().toString());
                             resultLive.setValue(null);
                         }

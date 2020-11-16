@@ -95,12 +95,13 @@ public class SignUp_Activity extends AppCompatActivity {
                 resultLive.observeForever(new Observer<Result>() {
                     @Override
                     public void onChanged(Result result) {
-                        progressBar.setVisibility(View.GONE);
                         if (result instanceof Result.Success) {
+                            progressBar.setVisibility(View.GONE);
                             updateUiWithUser(((Result.Success<LoggedInUser>) result).getData());
                             resultLive.removeObserver(this);
                             finish();
                         } else if (result instanceof Result.Error) {
+                            progressBar.setVisibility(View.GONE);
                             showSignUpFailed(((Result.Error) result).getError().toString());
                             resultLive.setValue(null);
                         }
