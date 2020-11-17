@@ -131,7 +131,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
         Intent intent = new Intent(getContext(), DetailedActivity.class);
         intent.putExtra("Location",locationList.get(position));
         intent.putExtra("userId", userId);
-        intent.putExtra("locationId", locationId);
+        intent.putExtra("locationId", locationList.get(position).getLocationId());
         startActivity(intent);
     }
 

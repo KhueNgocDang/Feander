@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.feander.User.data.Repository;
 import com.example.feander.User.ui.user.LoginActivity;
+import com.example.feander.User.ui.user.SavedLocationActivity;
 import com.example.feander.User.ui.user.UpdateActivity;
 import com.example.feander.ui.MainActivityFragment.LocationFragment;
 import com.example.feander.ui.MainActivityFragment.SearchFragment;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateUser(View view) {
-        startActivity(new Intent(this, UpdateActivity.class).putExtra("userName", userName));
+        startActivity(new Intent(this, UpdateActivity.class).putExtra("userName", userName).putExtra("userId", userId));
     }
 
 
@@ -122,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
         repository.logOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+    }
+
+    public void showSavedLocation(View view) {
+        startActivity(new Intent(this, SavedLocationActivity.class).putExtra("userId", userId));
     }
 
 //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
