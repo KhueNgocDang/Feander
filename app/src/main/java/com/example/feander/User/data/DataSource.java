@@ -87,7 +87,7 @@ public class DataSource {
                     public void onSuccess(DocumentReference documentReference) {
                         LoggedInUser loggedInUser =
                                 new LoggedInUser(
-                                        java.util.UUID.randomUUID().toString(),
+                                        documentReference.getId(),
                                         username);
                         resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
                     }
@@ -162,14 +162,14 @@ public class DataSource {
                             if (document.get("passWord").equals(passWord)) {
                                 LoggedInUser loggedInUser =
                                         new LoggedInUser(
-                                                java.util.UUID.randomUUID().toString(),
+                                                document.getId(),
                                                 userName);
                                 resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
                             } else {
                                 resultLive.setValue(new Result.Error(new UncorrectException()));
                             }
                         }
-                    }else {
+                    } else {
                         resultLive.setValue(new Result.Error(new UncorrectException()));
                     }
                 }
@@ -179,16 +179,66 @@ public class DataSource {
         return resultLive;
     }
 
-    public void updateUserData(String userName, String phoneNumber) {
-
+    public MutableLiveData<Result> updateUserData(String userName, final String phoneNumber) {
+        final MutableLiveData<QuerySnapshot> querySnapshotMutableLive = getUserData(userName);
+        querySnapshotMutableLive.observeForever(new Observer<QuerySnapshot>() {
+            @Override
+            public void onChanged(QuerySnapshot querySnapshot) {
+                if (querySnapshot != null) {
+                    updateInFirreStore(phoneNumber, querySnapshot.getDocuments().get(0).getId(),"phoneNumbers");
+                    querySnapshotMutableLive.removeObserver(this);
+                }
+            }
+        });
+        return resultLive;
     }
 
-    public void changePassword(String newPassword) {
 
+    public MutableLiveData<Result> changePassword(String userName, String oldPassword, final String newPassword) {
+        final MutableLiveData<Result> resultMutableLiveData = new MutableLiveData<>();
+        final MutableLiveData<Result> mutableLiveData = checkUsers(userName, oldPassword);
+        mutableLiveData.observeForever(new Observer<Result>() {
+            @Override
+            public void onChanged(Result result) {
+                if (result instanceof Result.Success) {
+                    Void aVoid = null;
+                    resultMutableLiveData.setValue(result);
+                    updateInFirreStore(newPassword, ((Result.Success<LoggedInUser>) result).getData().getUserId(), "passWord" );
+                    mutableLiveData.removeObserver(this);
+                } else if (result instanceof Result.Error) {
+                    resultMutableLiveData.setValue(result);
+                    mutableLiveData.removeObserver(this);
+                }
+            }
+        });
+        return resultMutableLiveData;
+    }
+
+
+    private void updateInFirreStore(String info, String id, String field) {
+        DocumentReference userRecord = dataSource.collection("users").document(id);
+
+// Set the "isCapital" field of the city 'DC'
+        userRecord
+                .update(field, info)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("update", "DocumentSnapshot successfully updated!");
+                        resultLive.setValue(new Result.Success<Void>(aVoid));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("update", "Loi khi cap nhat", e);
+                        resultLive.setValue(new Result.Error(e));
+                    }
+                });
     }
 
     public MutableLiveData<String> getUserPhoneNumber(String username) {
-        MutableLiveData<QuerySnapshot> querySnapshotLive = getUserData(username);
+        final MutableLiveData<QuerySnapshot> querySnapshotLive = getUserData(username);
         final MutableLiveData<String> phoneNumberLive = new MutableLiveData<>();
         querySnapshotLive.observeForever(new Observer<QuerySnapshot>() {
             @Override
@@ -196,6 +246,7 @@ public class DataSource {
                 if (querySnapshot != null) {
                     for (QueryDocumentSnapshot document : querySnapshot) {
                         phoneNumberLive.setValue(document.get("phoneNumbers").toString());
+                        querySnapshotLive.removeObserver(this);
                     }
                 }
             }

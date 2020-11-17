@@ -65,15 +65,6 @@ public class User_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARGS_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        new DataSource().getUserPhoneNumber(userName).observeForever(new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                if (s != null) {
-                    phoneNumber = s;
-                }
-            }
-        });
-
     }
 
     @Override
@@ -83,8 +74,15 @@ public class User_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.user_fragment, container, false);
         TextView userNameView = view.findViewById(R.id.username);
         userNameView.setText(userName);
-        TextView phoneNumberView = view.findViewById(R.id.phone_number);
-        phoneNumberView.setText(phoneNumber);
+        final TextView phoneNumberView = view.findViewById(R.id.phone_number);
+        new DataSource().getUserPhoneNumber(userName).observeForever(new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (s != null) {
+                   phoneNumberView.setText(s);
+                }
+            }
+        });
         return view;
     }
 }
