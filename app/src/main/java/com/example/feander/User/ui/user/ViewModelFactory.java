@@ -1,10 +1,10 @@
-package com.example.feander.SignInAndUp.ui.loginsignup;
+package com.example.feander.User.ui.user;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.example.feander.SignInAndUp.data.DataSource;
-import com.example.feander.SignInAndUp.data.Repository;
+import com.example.feander.User.data.DataSource;
+import com.example.feander.User.data.Repository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

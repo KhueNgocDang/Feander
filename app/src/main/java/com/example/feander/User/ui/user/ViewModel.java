@@ -1,4 +1,4 @@
-package com.example.feander.SignInAndUp.ui.loginsignup;
+package com.example.feander.User.ui.user;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,8 @@ import android.os.Build;
 import android.util.Patterns;
 
 import com.example.feander.R;
-import com.example.feander.SignInAndUp.data.Repository;
-import com.example.feander.SignInAndUp.data.Result;
+import com.example.feander.User.data.Repository;
+import com.example.feander.User.data.Result;
 
 public class ViewModel extends androidx.lifecycle.ViewModel {
     private AppCompatActivity callingActivity;

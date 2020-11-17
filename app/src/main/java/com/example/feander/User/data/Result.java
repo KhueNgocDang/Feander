@@ -1,4 +1,4 @@
-package com.example.feander.SignInAndUp.data;
+package com.example.feander.User.data;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

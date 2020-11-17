@@ -9,23 +9,29 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.feander.SignInAndUp.data.Repository;
-import com.example.feander.SignInAndUp.ui.loginsignup.LoginActivity;
+import com.example.feander.User.data.Repository;
+import com.example.feander.User.ui.user.LoginActivity;
+import com.example.feander.User.ui.user.UpdateActivity;
 import com.example.feander.ui.MainActivityFragment.LocationFragment;
 import com.example.feander.ui.MainActivityFragment.SearchFragment;
+import com.example.feander.ui.MainActivityFragment.User_Fragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import io.grpc.ClientStreamTracer;
 
 
 public class MainActivity extends AppCompatActivity {
     LatLng latLng;
     Location location;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         double latitude = 0;
         double longitude = 0;
         boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        userName = getIntent().getStringExtra("userName");
 
         if (network_enabled) {
 
@@ -55,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         final LocationFragment locationFragment = LocationFragment.newInstance(latitude, longitude);
 
         final SearchFragment searchFragment = SearchFragment.newInstance(latitude, longitude);
+        final User_Fragment user_fragment = new User_Fragment(userName);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, locationFragment)
@@ -64,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, searchFragment)
                 .commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, user_fragment)
+                .commit();
+        getSupportFragmentManager().beginTransaction().detach(user_fragment).commit();
 
         final Intent map_intent = new Intent(this, MapsActivity.class);
 
@@ -76,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.location_info:
                                 getSupportFragmentManager().beginTransaction().detach(searchFragment).commit();
                                 getSupportFragmentManager().beginTransaction().attach(locationFragment).commit();
+                                getSupportFragmentManager().beginTransaction().detach(user_fragment).commit();
+
                                 break;
                             case R.id.map_location:
                                 startActivity(map_intent);
@@ -83,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_search:
                                 getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
                                 getSupportFragmentManager().beginTransaction().attach(searchFragment).commit();
+                                getSupportFragmentManager().beginTransaction().detach(user_fragment).commit();
+                                break;
+                            case R.id.LogOut:
+                                getSupportFragmentManager().beginTransaction().detach(searchFragment).commit();
+                                getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
+                                getSupportFragmentManager().beginTransaction().attach(user_fragment).commit();
                                 break;
                         }
                         return true;
@@ -91,12 +111,26 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
     }
 
+    public void updateUser(View view) {
+        startActivity(new Intent(this, UpdateActivity.class).putExtra("userName", userName));
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void logOut(MenuItem item) {
+    public void logOut(View view) {
         Repository repository = new Repository();
         repository.setContext(getApplicationContext());
         repository.logOut();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
+
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    public void logOut(MenuItem item) {
+//        Repository repository = new Repository();
+//        repository.setContext(getApplicationContext());
+//        repository.logOut();
+//        startActivity(new Intent(this, LoginActivity.class));
+//        finish();
+//    }
 }

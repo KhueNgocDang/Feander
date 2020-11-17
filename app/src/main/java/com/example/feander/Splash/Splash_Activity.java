@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.feander.MainActivity;
 import com.example.feander.R;
-import com.example.feander.SignInAndUp.ui.loginsignup.LoginActivity;
+import com.example.feander.User.ui.user.LoginActivity;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -35,13 +35,14 @@ public class Splash_Activity extends AppCompatActivity {
                 String user = checkUserLoggin();
                 if (user != null) {
                     Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
-                    intent.putExtra("userName", user);
+                    intent.putExtra("userName", user.trim());
                     Toast.makeText(getApplicationContext(), "Xin chao " + user, Toast.LENGTH_LONG).show();
                     finish();
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(Splash_Activity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         }, SPLASH_TIME);

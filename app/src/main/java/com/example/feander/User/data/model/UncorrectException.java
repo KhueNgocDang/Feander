@@ -1,4 +1,4 @@
-package com.example.feander.SignInAndUp.data.model;
+package com.example.feander.User.data.model;
 
 import androidx.annotation.NonNull;
 
