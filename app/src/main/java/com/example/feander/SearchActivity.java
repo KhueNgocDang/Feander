@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -54,6 +55,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
 
         final Intent get_intent = getIntent();
         final LatLng latLng = get_intent.getParcelableExtra("current_location");
+        final String Type = get_intent.getStringExtra("type");
 
         Toolbar toolbar = findViewById(R.id.SearchToolbar);
         setSupportActionBar(toolbar);
@@ -70,7 +72,11 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
                         for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
                             LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
                             locationModel.setDistance(latLng);
-                            locationList.add(locationModel);
+                            if(Type.equals("tearoom")&&locationModel.isTea_room().equals("true"))
+                                {locationList.add(locationModel);}
+                            if(Type.equals("retailer")&&locationModel.isSeller().equals("true"))
+                            {locationList.add(locationModel);}
+                            if(Type.equals("both")) {locationList.add(locationModel);}
                         }
                         Collections.sort(locationList, new Comparator<LocationModel>() {
                             @Override
@@ -103,6 +109,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
 
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String newText) {
@@ -127,15 +134,23 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
         startActivity(intent);
     }
 
-    private void byDistance(List<LocationModel> LocationList){
+    private void byDistance(List<LocationModel> LocationList, final int Type){
         Collections.sort(LocationList, new Comparator<LocationModel>() {
             @Override
             public int compare(LocationModel o1, LocationModel o2) {
-                if(o1.getDistance()<o2.getDistance())
-                    return -1;
-                else if(o2.getDistance()<o1.getDistance())
-                    return 1;
-                return 0;
+                if (Type == 1) {
+                    if(o1.getDistance()<o2.getDistance())
+                        return -1;
+                    else if(o2.getDistance()<o1.getDistance())
+                        return 1;
+                    return 0;
+                }
+                else {
+                    if(o1.getDistance()<o2.getDistance())
+                        return -1;
+                    else if(o2.getDistance()<o1.getDistance())
+                        return 1;
+                        return 0;}
             }
         });
     }

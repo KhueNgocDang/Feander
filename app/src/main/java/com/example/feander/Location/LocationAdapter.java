@@ -93,6 +93,46 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         }
     }
 
+
+    public Filter getTeaShopFilter(){
+        return  TeaShop_Filter;
+    }
+    private Filter TeaShop_Filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint == null || constraint.length() == 0) {
+                results.values = locationModelListFull;
+            }
+            else {
+                String filterPattern = Normalizer.normalize(constraint.toString().toLowerCase(), Normalizer.Form.NFD) ;
+                List<LocationModel> filteredList = new ArrayList<>();
+                for (LocationModel item : locationModelListFull) {
+                    String tea_shop = Normalizer.normalize(item.isSeller().toLowerCase().trim(), Normalizer.Form.NFD);
+                    if (tea_shop.contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+                results.values = filteredList;
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            locationModelList = (List<LocationModel>) results.values;
+            notifyDataSetChanged();
+            if (locationModelList.isEmpty()){
+                CharSequence text = "Không có kết quả phù hợp";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        }
+    };
+
     @Override
     public Filter getFilter() {
         return location_Filter;

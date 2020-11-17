@@ -49,9 +49,27 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-/*
-        Intent intent = new Intent(getContext(), SearchActivity.class);
-        intent.putExtra("current_location",current_location);*/
+
+        Button tearoom_filter = view.findViewById(R.id.tearoom);
+        tearoom_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                intent.putExtra("current_location",current_location);
+                intent.putExtra("type","tearoom");
+                startActivity(intent);
+            }
+        });
+        Button retailer_filter = view.findViewById(R.id.retailer);
+        retailer_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                intent.putExtra("current_location",current_location);
+                intent.putExtra("type","retailer");
+                startActivity(intent);
+            }
+        });
 
         SearchView searchView = view.findViewById(R.id.SearchViewSearchFrag);
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +77,7 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 intent.putExtra("current_location",current_location);
+                intent.putExtra("type","both");
                 startActivity(intent);
             }
         });
