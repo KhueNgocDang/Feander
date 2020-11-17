@@ -116,7 +116,7 @@ public class SignUp_Activity extends AppCompatActivity {
     private void updateUiWithUser(LoggedInUser model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
-        openMainIntent(model.getDisplayName());
+        openMainIntent(model.getDisplayName(), model.getUserId());
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
@@ -124,9 +124,10 @@ public class SignUp_Activity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
     }
 
-    private void openMainIntent(String displayName) {
+    private void openMainIntent(String displayName, String userID) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("userName", displayName);
+        intent.putExtra("id", userID);
         startActivity(intent);
     }
 

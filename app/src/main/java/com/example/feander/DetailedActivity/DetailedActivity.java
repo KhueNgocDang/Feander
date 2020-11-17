@@ -12,12 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -26,7 +29,12 @@ import com.example.feander.DetailedActivity.DetailedFragments.DetailedHighlightF
 import com.example.feander.DetailedActivity.DetailedFragments.DetailedInfoFragment;
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
+import com.example.feander.User.data.DataSource;
+import com.example.feander.User.data.Result;
+import com.example.feander.User.data.model.LoggedInUser;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.DocumentReference;
 
 public class DetailedActivity extends AppCompatActivity {
 
@@ -34,6 +42,9 @@ public class DetailedActivity extends AppCompatActivity {
     DetailedDescriptionFragment detailed_desc;
     DetailedHighlightFragment detailed_high_light;
     DetailedInfoFragment detailed_info;
+    FloatingActionButton saveButton;
+    String locationId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +65,8 @@ public class DetailedActivity extends AppCompatActivity {
             }
             location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-            if(location!=null){
-                latitude  = location.getLatitude();
+            if (location != null) {
+                latitude = location.getLatitude();
                 longitude = location.getLongitude();
             }
         }
@@ -66,8 +77,8 @@ public class DetailedActivity extends AppCompatActivity {
 
         detailed_desc = DetailedDescriptionFragment.newInstance(locationModel);
         detailed_high_light = DetailedHighlightFragment.newInstance(locationModel);
-        detailed_info = DetailedInfoFragment.newInstance(locationModel,latitude,longitude);
-
+        detailed_info = DetailedInfoFragment.newInstance(locationModel, latitude, longitude);
+        locationId = intent.getStringExtra("locationId");
         final ViewPager viewPager = findViewById(R.id.DetailedViewpager);
         setupViewPager(viewPager);
 
@@ -108,19 +119,24 @@ public class DetailedActivity extends AppCompatActivity {
                         break;
                 }
             }
+
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
+
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         DetailedPagerAdapter adapter = new DetailedPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        adapter.addFrag(detailed_desc,"Info");
-        adapter.addFrag(detailed_high_light,"Highlight");
-        adapter.addFrag(detailed_info,"On Map");
+        adapter.addFrag(detailed_desc, "Info");
+        adapter.addFrag(detailed_high_light, "Highlight");
+        adapter.addFrag(detailed_info, "On Map");
         viewPager.setAdapter(adapter);
     }
 
@@ -135,4 +151,21 @@ public class DetailedActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void saveLocation(View view) {
+        new DataSource().writeData("users" + "/" + getIntent().getStringExtra("id") + "/" + "savedLocation"
+                , new String[]{"locationId"}, new String[]{locationId}).observe(this, new Observer<Result>() {
+            @Override
+            public void onChanged(Result result) {
+                if (result instanceof Result.Success) {
+                    showResult("Lưu thành công");
+                } else if (result instanceof Result.Error) {
+                    showResult("Lưu thất bại");
+                }
+            }
+        });
+    }
+
+    private void showResult(String string) {
+        Toast.makeText(this, string, Toast.LENGTH_LONG).show();
+    }
 }

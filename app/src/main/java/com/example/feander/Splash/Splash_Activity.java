@@ -32,11 +32,12 @@ public class Splash_Activity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void run() {
-                String user = checkUserLoggin();
-                if (user != null) {
+                String userName = checkUserLoggin()[0], userId = checkUserLoggin()[1];
+                if (userName != null) {
                     Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
-                    intent.putExtra("userName", user.trim());
-                    Toast.makeText(getApplicationContext(), "Xin chao " + user, Toast.LENGTH_LONG).show();
+                    intent.putExtra("userName", userName.trim());
+                    intent.putExtra("id", userId.trim());
+                    Toast.makeText(getApplicationContext(), "Xin chao " + userName, Toast.LENGTH_LONG).show();
                     finish();
                     startActivity(intent);
                 } else {
@@ -49,18 +50,22 @@ public class Splash_Activity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private String checkUserLoggin() {
+    private String[] checkUserLoggin() {
         String line = null, contents = null;
+        String[] result = new String[2];
         try {
             FileInputStream fis = getApplicationContext().openFileInput(fileName);
             InputStreamReader inputStreamReader =
                     new InputStreamReader(fis, StandardCharsets.UTF_8);
             StringBuilder stringBuilder = new StringBuilder();
             try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                int i=0;
                 line = reader.readLine();
                 while (line != null) {
+                    result[i] = line;
                     stringBuilder.append(line).append('\n');
                     line = reader.readLine();
+                    i++;
                 }
             } catch (IOException e) {
                 Toast.makeText(this, "Loi doc thong tin" + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -72,7 +77,7 @@ public class Splash_Activity extends AppCompatActivity {
 //            File file = new File(getApplicationContext().getFilesDir(), fileName);
 //            Toast.makeText(this, "Da tao file", Toast.LENGTH_LONG).show();
         }
-        return  contents;
+        return  result;
     }
 
 }

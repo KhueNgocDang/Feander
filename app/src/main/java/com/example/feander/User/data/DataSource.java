@@ -63,7 +63,7 @@ public class DataSource {
                         if (queryDocumentSnapshots.size() > 0) {
                             resultLive.setValue(new Result.Error(new UserNameExistException()));
                         } else {
-                            writeData(username, password, phoneNumber);
+                            writeSignUpData(username, password, phoneNumber);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -75,30 +75,68 @@ public class DataSource {
         return resultLive;
     }
 
-    private void writeData(final String username, String password, String phoneNumber) {
-        Map<String, Object> user = new HashMap<>();
-        user.put("userNames", username);
-        user.put("passWord", password);
-        user.put("phoneNumbers", phoneNumber);
-        dataSource.collection("users")
-                .add(user)
+    private void writeSignUpData(final String username, String password, String phoneNumber) {
+//        Map<String, Object> user = new HashMap<>();
+//        user.put("userNames", username);
+//        user.put("passWord", password);
+//        user.put("phoneNumbers", phoneNumber);
+//        dataSource.collection("users")
+//                .add(user)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        LoggedInUser loggedInUser =
+//                                new LoggedInUser(
+//                                        documentReference.getId(),
+//                                        username);
+//                        resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng ký", e)));
+//                    }
+//                });
+
+        MutableLiveData<Result> resultMutableLiveData = writeData("users", new String[]{"userNames", "passWord", "phoneNumbers"}, new String[]{username, password, phoneNumber});
+        resultMutableLiveData.observeForever(new Observer<Result>() {
+            @Override
+            public void onChanged(Result result) {
+                if (result instanceof Result.Success) {
+                    LoggedInUser loggedInUser =
+                            new LoggedInUser(((Result.Success<DocumentReference>) result).getData().getId(),
+                                    username);
+                    resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
+                } else if (result instanceof Result.Error) {
+                    resultLive.setValue(result);
+                }
+            }
+        });
+
+    }
+
+    public MutableLiveData<Result> writeData(String collection, String[] fields, String[] values) {
+        final MutableLiveData<Result> resultMutableLiveData = new MutableLiveData<>();
+        Map<String, Object> map = new HashMap<>();
+        for (int i = 0; i < fields.length; i++) {
+            map.put(fields[i], values[i]);
+        }
+        dataSource.collection(collection)
+                .add(map)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        LoggedInUser loggedInUser =
-                                new LoggedInUser(
-                                        documentReference.getId(),
-                                        username);
-                        resultLive.setValue(new Result.Success<LoggedInUser>(loggedInUser));
+                        resultMutableLiveData.setValue(new Result.Success<DocumentReference>(documentReference));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng ký", e)));
+                        resultMutableLiveData.setValue(new Result.Error(new Exception("Lỗi khi lưu cơ sở dữ liệu", e)));
                     }
                 });
-
+        return resultMutableLiveData;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -185,7 +223,7 @@ public class DataSource {
             @Override
             public void onChanged(QuerySnapshot querySnapshot) {
                 if (querySnapshot != null) {
-                    updateInFirreStore(phoneNumber, querySnapshot.getDocuments().get(0).getId(),"phoneNumbers");
+                    updateInFirreStore(phoneNumber, querySnapshot.getDocuments().get(0).getId(), "phoneNumbers");
                     querySnapshotMutableLive.removeObserver(this);
                 }
             }
@@ -201,9 +239,8 @@ public class DataSource {
             @Override
             public void onChanged(Result result) {
                 if (result instanceof Result.Success) {
-                    Void aVoid = null;
                     resultMutableLiveData.setValue(result);
-                    updateInFirreStore(newPassword, ((Result.Success<LoggedInUser>) result).getData().getUserId(), "passWord" );
+                    updateInFirreStore(newPassword, ((Result.Success<LoggedInUser>) result).getData().getUserId(), "passWord");
                     mutableLiveData.removeObserver(this);
                 } else if (result instanceof Result.Error) {
                     resultMutableLiveData.setValue(result);

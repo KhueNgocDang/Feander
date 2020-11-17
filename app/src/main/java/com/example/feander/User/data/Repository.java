@@ -90,7 +90,7 @@ public class Repository {
                 if (result instanceof Result.Success) {
                     LoggedInUser loggedInUser = ((Result.Success<LoggedInUser>) result).getData();
                     setLoggedInUser(loggedInUser);
-                    storeLoggedInUser(loggedInUser.getDisplayName());
+                    storeLoggedInUser(loggedInUser.getDisplayName() + "\n" + loggedInUser.getUserId());
                     resultLive.removeObserver(this);
                 } else if (result instanceof Result.Error) {
                     resultLive.removeObserver(this);
@@ -113,11 +113,12 @@ public class Repository {
             Log.d("write loggedinuser", "that bai");
         }
     }
-    private void deleteLoggedInUser(){
-        try{
+
+    private void deleteLoggedInUser() {
+        try {
             File file = new File(context.getFilesDir(), fileName);
             file.delete();
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.d("delete loggedinuser", "that bai");
 
         }

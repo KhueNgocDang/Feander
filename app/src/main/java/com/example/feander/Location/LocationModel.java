@@ -20,6 +20,7 @@ public class LocationModel implements Parcelable {
     private int end_hour;
     private int start_hour;
     private double distance;
+    private String locationId;
 
     public LocationModel(){
     }
@@ -219,5 +220,13 @@ public class LocationModel implements Parcelable {
 
     public void setStart_hour(int start_hour) {
         this.start_hour = start_hour;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getLocationId() {
+        return locationId;
     }
 }
