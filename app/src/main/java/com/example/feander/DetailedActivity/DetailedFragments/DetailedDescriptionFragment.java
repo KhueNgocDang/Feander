@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,14 @@ import android.widget.TextView;
 
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,12 +71,25 @@ public class DetailedDescriptionFragment extends Fragment {
         TextView dis = view.findViewById(R.id.distance);
         TextView phone = view.findViewById(R.id.phone);
         TextView email =view.findViewById(R.id.email);
+        TextView time = view.findViewById(R.id.BusinessHour);
 
         desc.setText("Mô tả: "+mParam1.getDesc());
 
         add.setText('\n'+"Địa chỉ: "+mParam1.getLocation() );
 
         dis.setText('\n'+"Khoảng cách: "+(int)mParam1.getDistance()+"m");
+
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY)*100;
+        int minute = rightNow.get(Calendar.MINUTE);
+        String timed;
+        if(mParam1.getStart_hour()<hour&&hour<mParam1.getEnd_hour())
+            {
+                timed = "Openning: "+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();
+            }
+        if (mParam1.getEnd_hour()==mParam1.getStart_hour()){timed="Alway Open";}
+        else {timed = "Closed"+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();}
+        time.setText(timed);
 
         webs.setText('\n'+mParam1.getWebsite());
         webs.setOnClickListener(new View.OnClickListener() {

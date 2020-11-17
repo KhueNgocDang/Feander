@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.feander.R;
 import com.example.feander.SearchActivity;
 import com.google.android.gms.maps.model.LatLng;
@@ -50,8 +52,13 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
         ImageView banner = view.findViewById(R.id.search_frag_banner);
-        banner.setImageResource(R.drawable.app_background);
+        Glide.with(banner.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.app_background).error(R.drawable.ic_tea))
+                .load("https://firebasestorage.googleapis.com/v0/b/feander-91f8f.appspot.com/o/Y%C3%AAu%20tr%C3%A0%20vi%E1%BB%87t_Banner.jpg?alt=media&token=74341e28-93d3-4791-bd93-1bf945715a6c")
+                .into(banner);
+
         Button tearoom_filter = view.findViewById(R.id.tearoom);
         tearoom_filter.setOnClickListener(new View.OnClickListener() {
             @Override
