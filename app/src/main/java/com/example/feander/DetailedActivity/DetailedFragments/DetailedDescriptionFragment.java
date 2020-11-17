@@ -62,13 +62,17 @@ public class DetailedDescriptionFragment extends Fragment {
         TextView webs = view.findViewById(R.id.website);
         TextView add = view.findViewById(R.id.address);
         TextView dis = view.findViewById(R.id.distance);
-        desc.setText("Mô tả: "+mParam1.getDesc());
-        dis.setText("Khoảng cách:"+mParam1.getDistance()+"m");
-        add.setText('\n'+"Địa chỉ:"+mParam1.getLocation() +'\n');
-        webs.setText(mParam1.getWebsite());
-        webs.setMovementMethod(LinkMovementMethod.getInstance());
-        webs.setOnClickListener(new View.OnClickListener() {
+        TextView phone = view.findViewById(R.id.phone);
+        TextView email =view.findViewById(R.id.email);
 
+        desc.setText("Mô tả: "+mParam1.getDesc());
+
+        dis.setText('\n'+"Khoảng cách: "+(int)mParam1.getDistance()+"m"+'\n');
+
+        add.setText('\n'+"Địa chỉ: "+mParam1.getLocation() +'\n');
+
+        webs.setText('\n'+mParam1.getWebsite());
+        webs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
@@ -78,6 +82,16 @@ public class DetailedDescriptionFragment extends Fragment {
 
         });
 
+        phone.setText('\n'+mParam1.getPhone());
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browser= new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+mParam1.getPhone()));
+                startActivity(browser);
+            }
+        });
+
+        email.setText('\n'+mParam1.getEmail());
 
         return view;
     }
