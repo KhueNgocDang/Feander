@@ -8,13 +8,14 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -23,13 +24,14 @@ import com.example.feander.DetailedActivity.DetailedFragments.DetailedHighlightF
 import com.example.feander.DetailedActivity.DetailedFragments.DetailedInfoFragment;
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 public class DetailedActivity extends AppCompatActivity {
 
-    LatLng latLng;
     Location location;
+    DetailedDescriptionFragment detailed_desc;
+    DetailedHighlightFragment detailed_high_light;
+    DetailedInfoFragment detailed_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,60 +62,61 @@ public class DetailedActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final LocationModel locationModel = intent.getParcelableExtra("Location");
 
-        TextView detailed_name = findViewById(R.id.detailed_name);
-        detailed_name.setText(locationModel.getName());
+        detailed_desc = DetailedDescriptionFragment.newInstance(locationModel);
+        detailed_high_light = DetailedHighlightFragment.newInstance(locationModel);
+        detailed_info = DetailedInfoFragment.newInstance(locationModel,latitude,longitude);
 
-        ImageView img = findViewById(R.id.detailed_imageView);
+        final ViewPager viewPager = findViewById(R.id.DetailedViewpager);
+        setupViewPager(viewPager);
+
+        Toolbar toolbar = findViewById(R.id.DetailedToolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(locationModel.getName());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ImageView img = findViewById(R.id.DetailedHeader);
         Glide.with(img.getContext())
                 .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
                 .load(locationModel.getImage())
                 .into(img);
 
-        new DetailedDescriptionFragment();
-        final DetailedDescriptionFragment detailed_desc = DetailedDescriptionFragment.newInstance(locationModel);
+        TabLayout tabLayout = findViewById(R.id.DetailedTabs);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                switch (tab.getPosition()) {
+                    case 0:
+                        // TODO
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
 
-        new DetailedHighlightFragment();
-        final DetailedHighlightFragment detailed_high_light = DetailedHighlightFragment.newInstance(locationModel);
-
-        new DetailedInfoFragment();
-        final DetailedInfoFragment detailed_info = DetailedInfoFragment.newInstance(locationModel,latitude,longitude);
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.DetailedLocationFragContainer,
-                        detailed_desc)
-                .commit();
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.DetailedLocationFragContainer,
-                        detailed_info)
-                .commit();
-        getSupportFragmentManager().beginTransaction().detach(detailed_info).commit();
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.DetailedLocationNav);
-        BottomNavigationView.OnNavigationItemSelectedListener DetailedLocationNav = new
-                BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_search:
-                                getSupportFragmentManager().beginTransaction().detach(detailed_info).commit();
-
-                                getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .attach(detailed_desc).commit();
-                                break;
-                            case R.id.location_info:
-                                getSupportFragmentManager().beginTransaction().detach(detailed_desc).commit();
-
-                                getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .attach(detailed_info).commit();
-                                break;
-                        }
-                        return true;
-                    }
-                };
-        bottomNavigationView.setOnNavigationItemSelectedListener(DetailedLocationNav);
     }
+
+    private void setupViewPager(ViewPager viewPager) {
+        DetailedPagerAdapter adapter = new DetailedPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        adapter.addFrag(detailed_desc,"Info");
+        adapter.addFrag(detailed_high_light,"Highlight");
+        adapter.addFrag(detailed_info,"On Map");
+        viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
