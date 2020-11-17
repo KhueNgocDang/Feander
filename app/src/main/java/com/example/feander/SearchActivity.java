@@ -32,6 +32,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -57,6 +58,9 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
         final LatLng latLng = get_intent.getParcelableExtra("current_location");
         final String Type = get_intent.getStringExtra("type");
 
+        Calendar rightNow = Calendar.getInstance();
+        final int hour = rightNow.get(Calendar.HOUR_OF_DAY)*100;
+
         Toolbar toolbar = findViewById(R.id.SearchToolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("Tìm kiếm");
@@ -75,6 +79,10 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
                             if(Type.equals("tearoom")&&locationModel.isTea_room().equals("true"))
                                 {locationList.add(locationModel);}
                             if(Type.equals("retailer")&&locationModel.isSeller().equals("true"))
+                            {locationList.add(locationModel);}
+                            if(Type.equals("opening")&&(
+                                    (locationModel.getEnd_hour()>hour&&locationModel.getStart_hour()<hour)||
+                                            (locationModel.getEnd_hour()==locationModel.getStart_hour())))
                             {locationList.add(locationModel);}
                             if(Type.equals("both")) {locationList.add(locationModel);}
                         }

@@ -77,21 +77,20 @@ public class DetailedDescriptionFragment extends Fragment {
 
         add.setText('\n'+"Địa chỉ: "+mParam1.getLocation() );
 
-        dis.setText('\n'+"Khoảng cách: "+(int)mParam1.getDistance()+"m");
+        dis.setText('\n'+"Khoảng cách: "+(int)mParam1.getDistance()+"m"+'\n');
 
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY)*100;
-        int minute = rightNow.get(Calendar.MINUTE);
         String timed;
         if(mParam1.getStart_hour()<hour&&hour<mParam1.getEnd_hour())
             {
                 timed = "Openning: "+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();
             }
         if (mParam1.getEnd_hour()==mParam1.getStart_hour()){timed="Alway Open";}
-        else {timed = "Closed"+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();}
-        time.setText(timed);
+        else {timed = "Closed "+"From: "+mParam1.getStart_hour()+" To: "+ mParam1.getEnd_hour();}
+        time.setText(timed+'\n');
 
-        webs.setText('\n'+mParam1.getWebsite());
+        webs.setText(mParam1.getWebsite());
         webs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -102,7 +101,7 @@ public class DetailedDescriptionFragment extends Fragment {
 
         });
 
-        phone.setText('\n'+mParam1.getPhone());
+        phone.setText('\n'+'\n'+mParam1.getPhone());
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

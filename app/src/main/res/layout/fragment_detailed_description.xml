@@ -52,7 +52,7 @@
                     android:id="@+id/websText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="website: " />
+                    android:text="Website :  " />
 
                 <TextView
                     android:id="@+id/website"

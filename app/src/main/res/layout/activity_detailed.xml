@@ -74,6 +74,8 @@
         android:clickable="true"
         app:srcCompat="@drawable/ic_tea"
         android:onClick="saveLocation"
+        android:layout_gravity="bottom|right"
+        app:layout_anchorGravity="bottom|right|end"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

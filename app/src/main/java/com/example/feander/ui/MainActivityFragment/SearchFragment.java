@@ -79,6 +79,16 @@ public class SearchFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        Button opening_filter = view.findViewById(R.id.opening);
+        opening_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                intent.putExtra("current_location",current_location);
+                intent.putExtra("type","opening");
+                startActivity(intent);
+            }
+        });
 
         SearchView searchView = view.findViewById(R.id.SearchViewSearchFrag);
         searchView.setOnClickListener(new View.OnClickListener() {
