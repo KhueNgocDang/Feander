@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.example.feander.Location.LocationModel;
 import com.example.feander.User.data.model.LoggedInUser;
 import com.example.feander.User.data.model.UncorrectException;
 import com.example.feander.User.data.model.UserNameExistException;
@@ -314,19 +315,15 @@ public class DataSource {
         return querySnapshotMutableLiveData;
     }
 
-    public MutableLiveData<ArrayList<String>> getAllIdData(String collection) {
-        final MutableLiveData<ArrayList<String>> listLive = new MutableLiveData<>();
-        final ArrayList<String> list = new ArrayList<>();
+    public MutableLiveData<QuerySnapshot> getAllIdData(String collection) {
+        final MutableLiveData<QuerySnapshot> listLive = new MutableLiveData<>();
         dataSource.collection(collection)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if ((task.isSuccessful())) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                list.add(document.getId());
-                            }
-                            listLive.setValue(list);
+                            listLive.setValue(task.getResult());
                         } else {
                             Log.w("PassWord", "Lỗi khi đọc các bản ghi", task.getException());
                             resultLive.setValue(new Result.Error(new Exception("Lỗi khi đọc các bản ghi", task.getException())));
@@ -337,17 +334,44 @@ public class DataSource {
         return listLive;
     }
 
-    public MutableLiveData<QuerySnapshot> getSavedLocation(String userId) {
-        MutableLiveData<QuerySnapshot> querySnapshotMutableLiveData = new MutableLiveData<>();
-        getAllIdData("users" + "/" + userId + "/" + "savedLocation").observeForever(new Observer<ArrayList<String>>() {
+    public MutableLiveData<ArrayList<LocationModel>> getSavedLocation(String userId) {
+        final ArrayList<LocationModel> listLocation = new ArrayList<>();
+        final MutableLiveData<ArrayList<LocationModel>> listLocationLive = new MutableLiveData<>();
+        final ArrayList<String> listId = new ArrayList<>();
+        final MutableLiveData<QuerySnapshot> listLive = getAllIdData("users" + "/" + userId + "/" + "savedLocation");
+        listLive.observeForever(new Observer<QuerySnapshot>() {
             @Override
-            public void onChanged(ArrayList<String> list) {
-                if (list.size() > 0) {
-                    DocumentReference documentReference = dataSource.collection("Location").document();
+            public void onChanged(QuerySnapshot queryDocumentSnapshotId) {
+                if (queryDocumentSnapshotId.size() > 0) {
+                    listLive.removeObserver(this);
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshotId) {
+                        listId.add(document.get("locationId").toString().trim());
+                    }
+                    final MutableLiveData<QuerySnapshot> listLive1 = getAllIdData("Location");
+                    listLive1.observeForever(new Observer<QuerySnapshot>() {
+                        @Override
+                        public void onChanged(QuerySnapshot queryDocumentSnapshots) {
+                            if (queryDocumentSnapshots.size() > 0) {
+                                listLive1.removeObserver(this);
+                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                    if (listId.contains(document.getId())) {
+                                        listLocation.add(document.toObject(LocationModel.class));
+                                    }
+                                }
+                                listLocationLive.setValue(listLocation);
+                                Log.d("danh sach ", listLocation.toString());
+
+                            }
+
+                        }
+                    });
+
+                }else {
+                    listLocationLive.setValue(listLocation);
                 }
             }
         });
-        return querySnapshotMutableLiveData;
+        return listLocationLive;
     }
 
 }

@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         userName = getIntent().getStringExtra("userName");
         userId = getIntent().getStringExtra("id");
+        Log.d("userId", userId);
 
         if (network_enabled) {
 
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         final LocationFragment locationFragment = LocationFragment.newInstance(latitude, longitude);
         locationFragment.setUserId(userId);
+        locationFragment.setCallingActivty(this);
         final SearchFragment searchFragment = SearchFragment.newInstance(latitude, longitude);
         final User_Fragment user_fragment = new User_Fragment(userName);
 
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         repository.setContext(getApplicationContext());
         repository.logOut();
         startActivity(new Intent(this, LoginActivity.class));
-        finish();
+        onDestroy();
     }
 
     public void showSavedLocation(View view) {

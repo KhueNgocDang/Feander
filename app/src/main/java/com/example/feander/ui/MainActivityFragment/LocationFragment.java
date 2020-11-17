@@ -1,5 +1,6 @@
 package com.example.feander.ui.MainActivityFragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     public static LocationFragment fragment;
     private RecyclerView recyclerView;
     private LocationAdapter adapter;
+    private Activity callingActivty;
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     public List<LocationModel> locationList = new ArrayList<>();
@@ -60,14 +62,14 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     private LatLng current_location;
     Task<QuerySnapshot> querySnapshotTask;
     View view;
-   private String userId, locationId;
+    private String userId, locationId;
 
     public LocationFragment() {
         // Required empty public constructor
     }
 
     public static LocationFragment newInstance(double latitude, double longitude) {
-        if(fragment==null){
+        if (fragment == null) {
             fragment = new LocationFragment();
         }
         Bundle args = new Bundle();
@@ -83,7 +85,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
         setHasOptionsMenu(true);
         Bundle bundle = this.getArguments();
         assert bundle != null;
-        current_location = new LatLng(bundle.getDouble(ARG_PARAM1),bundle.getDouble(ARG_PARAM2));
+        current_location = new LatLng(bundle.getDouble(ARG_PARAM1), bundle.getDouble(ARG_PARAM2));
 
 
     }
@@ -91,7 +93,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(view == null) {
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_list, container, false);
             recyclerView = view.findViewById(R.id.FirestoreList);
 
@@ -115,12 +117,13 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
             recyclerView.setLayoutManager(linearLayoutManager);
 
             adapter = new LocationAdapter(getContext(), locationList, this);
+            adapter.setCallingActivity(callingActivty);
         }
-        return  view;
+        return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
     }
@@ -129,7 +132,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     public void onLocationClick(int position) {
         locationList.get(position);
         Intent intent = new Intent(getContext(), DetailedActivity.class);
-        intent.putExtra("Location",locationList.get(position));
+        intent.putExtra("Location", locationList.get(position));
         intent.putExtra("userId", userId);
         intent.putExtra("locationId", locationList.get(position).getLocationId());
         startActivity(intent);
@@ -137,22 +140,22 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu,menu);
+        inflater.inflate(R.menu.search_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.action_search){
+        if (item.getItemId() == R.id.action_search) {
             Intent intent = new Intent(getContext(), SearchActivity.class);
-            intent.putExtra("current_location",current_location);
-            intent.putExtra("type","both");
+            intent.putExtra("current_location", current_location);
+            intent.putExtra("type", "both");
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void getData(View v){
+    public void getData(View v) {
         querySnapshotTask = db.collection("Location").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -190,5 +193,9 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
 
     public void setLocationId(String locationId) {
         this.locationId = locationId;
+    }
+
+    public void setCallingActivty(Activity callingActivty) {
+        this.callingActivty = callingActivty;
     }
 }
