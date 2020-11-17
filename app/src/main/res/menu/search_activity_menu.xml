@@ -7,5 +7,5 @@
         android:icon="@drawable/ic_search"
         android:title="Tìm kiếm"
         app:showAsAction="always"
-        />
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 </menu>

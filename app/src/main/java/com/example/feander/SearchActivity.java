@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +54,10 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
 
         final Intent get_intent = getIntent();
         final LatLng latLng = get_intent.getParcelableExtra("current_location");
+
+        Toolbar toolbar = findViewById(R.id.SearchToolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("Tìm kiếm");
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -93,7 +98,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.search_menu,menu);
+        menuInflater.inflate(R.menu.search_activity_menu,menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
@@ -120,5 +125,18 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
         Intent intent = new Intent(this, DetailedActivity.class);
         intent.putExtra("Location",locationList.get(position));
         startActivity(intent);
+    }
+
+    private void byDistance(List<LocationModel> LocationList){
+        Collections.sort(LocationList, new Comparator<LocationModel>() {
+            @Override
+            public int compare(LocationModel o1, LocationModel o2) {
+                if(o1.getDistance()<o2.getDistance())
+                    return -1;
+                else if(o2.getDistance()<o1.getDistance())
+                    return 1;
+                return 0;
+            }
+        });
     }
 }

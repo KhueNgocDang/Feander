@@ -13,12 +13,18 @@ public class LocationModel implements Parcelable {
     private String desc;
     private String image;
     private String website;
+    private String phone;
+    private String email;
+    private String tea_room;
+    private String seller;
     private double distance;
 
     public LocationModel(){
     }
 
-    public LocationModel(String name, GeoPoint latLng, String location, String desc, double distance,String image,String website)
+    public LocationModel(String name, GeoPoint latLng, String location, String desc,
+                         double distance,String image,String website, String phone,
+                         String email, String tea_room, String seller)
     {
         this.name = name;
         this.latLng = latLng;
@@ -27,6 +33,10 @@ public class LocationModel implements Parcelable {
         this.distance =distance;
         this.image = image;
         this.website = website;
+        this.phone = phone;
+        this.email = email;
+        this.tea_room = tea_room;
+        this.seller = seller;
     }
 
     public LocationModel(Parcel in) {
@@ -39,6 +49,10 @@ public class LocationModel implements Parcelable {
         distance = in.readDouble();
         image = in.readString();
         website = in.readString();
+        phone = in.readString();
+        email = in.readString();
+        tea_room = in.readString();
+        seller = in.readString();
     }
 
     public String getName() {
@@ -99,6 +113,10 @@ public class LocationModel implements Parcelable {
         dest.writeDouble(distance);
         dest.writeString(image);
         dest.writeString(website);
+        dest.writeString(phone);
+        dest.writeString(email);
+        dest.writeString(tea_room);
+        dest.writeString(seller);
     }
 
     public double getDistance() {
@@ -145,5 +163,37 @@ public class LocationModel implements Parcelable {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String isTea_room() {
+        return tea_room;
+    }
+
+    public void setTea_room(String tea_room) {
+        this.tea_room = tea_room;
+    }
+
+    public String isSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
     }
 }

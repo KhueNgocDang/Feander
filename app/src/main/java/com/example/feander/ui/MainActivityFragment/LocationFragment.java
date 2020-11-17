@@ -7,7 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -25,6 +28,7 @@ import com.example.feander.DetailedActivity.DetailedActivity;
 import com.example.feander.Location.LocationAdapter;
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
+import com.example.feander.SearchActivity;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -89,6 +93,9 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
             view = inflater.inflate(R.layout.fragment_list, container, false);
             recyclerView = view.findViewById(R.id.FirestoreList);
 
+            Toolbar toolbar = view.findViewById(R.id.toolbar);
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
             FloatingActionButton fab = view.findViewById(R.id.refresshFAB);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -128,23 +135,35 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu,menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        /*MenuItem searchItem = menu.findItem(R.id.action_search);
+
         SearchView searchView = (SearchView) searchItem.getActionView();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
+            public void onClick(View v) {
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
             }
         });
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                intent.putExtra("current_location",current_location);
+                startActivity(intent);
+            }
+        });*/
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.action_search){
+            Intent intent = new Intent(getContext(), SearchActivity.class);
+            intent.putExtra("current_location",current_location);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void getData(View v){

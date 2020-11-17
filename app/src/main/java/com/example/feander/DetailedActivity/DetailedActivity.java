@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -68,6 +70,20 @@ public class DetailedActivity extends AppCompatActivity {
 
         final ViewPager viewPager = findViewById(R.id.DetailedViewpager);
         setupViewPager(viewPager);
+
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                // How far the user has to scroll before it locks the parent vertical scrolling.
+                final int margin = 10;
+                final int fragmentOffset = v.getScrollX() % v.getWidth();
+
+                if (fragmentOffset > margin && fragmentOffset < v.getWidth() - margin) {
+                    viewPager.getParent().requestDisallowInterceptTouchEvent(true);
+                }
+                return false;
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.DetailedToolbar);
         setSupportActionBar(toolbar);
