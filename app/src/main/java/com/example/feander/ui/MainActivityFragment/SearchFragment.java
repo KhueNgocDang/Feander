@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.example.feander.R;
@@ -49,7 +50,8 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-
+        ImageView banner = view.findViewById(R.id.search_frag_banner);
+        banner.setImageResource(R.drawable.app_background);
         Button tearoom_filter = view.findViewById(R.id.tearoom);
         tearoom_filter.setOnClickListener(new View.OnClickListener() {
             @Override

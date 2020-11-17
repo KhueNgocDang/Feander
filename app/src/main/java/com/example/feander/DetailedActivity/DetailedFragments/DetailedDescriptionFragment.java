@@ -67,11 +67,11 @@ public class DetailedDescriptionFragment extends Fragment {
 
         desc.setText("Mô tả: "+mParam1.getDesc());
 
-        dis.setText('\n'+"Khoảng cách: "+(int)mParam1.getDistance()+"m"+'\n');
+        add.setText('\n'+"Địa chỉ: "+mParam1.getLocation() );
 
-        add.setText('\n'+"Địa chỉ: "+mParam1.getLocation() +'\n');
+        dis.setText('\n'+"Khoảng cách: "+(int)mParam1.getDistance()+"m");
 
-        webs.setText(mParam1.getWebsite());
+        webs.setText('\n'+mParam1.getWebsite());
         webs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)

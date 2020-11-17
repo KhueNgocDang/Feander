@@ -17,6 +17,8 @@ public class LocationModel implements Parcelable {
     private String email;
     private String tea_room;
     private String seller;
+    private int end_hour;
+    private int start_hour;
     private double distance;
 
     public LocationModel(){
@@ -24,7 +26,7 @@ public class LocationModel implements Parcelable {
 
     public LocationModel(String name, GeoPoint latLng, String location, String desc,
                          double distance,String image,String website, String phone,
-                         String email, String tea_room, String seller)
+                         String email, String tea_room, String seller, int end_hour, int start_hour)
     {
         this.name = name;
         this.latLng = latLng;
@@ -37,6 +39,8 @@ public class LocationModel implements Parcelable {
         this.email = email;
         this.tea_room = tea_room;
         this.seller = seller;
+        this.end_hour = end_hour;
+        this.start_hour = start_hour;
     }
 
     public LocationModel(Parcel in) {
@@ -53,6 +57,8 @@ public class LocationModel implements Parcelable {
         email = in.readString();
         tea_room = in.readString();
         seller = in.readString();
+        end_hour = in.readInt();
+        start_hour = in.readInt();
     }
 
     public String getName() {
@@ -117,6 +123,8 @@ public class LocationModel implements Parcelable {
         dest.writeString(email);
         dest.writeString(tea_room);
         dest.writeString(seller);
+        dest.writeInt(end_hour);
+        dest.writeInt(start_hour);
     }
 
     public double getDistance() {
@@ -195,5 +203,21 @@ public class LocationModel implements Parcelable {
 
     public void setSeller(String seller) {
         this.seller = seller;
+    }
+
+    public int getEnd_hour() {
+        return end_hour;
+    }
+
+    public void setEnd_hour(int end_hour) {
+        this.end_hour = end_hour;
+    }
+
+    public int getStart_hour() {
+        return start_hour;
+    }
+
+    public void setStart_hour(int start_hour) {
+        this.start_hour = start_hour;
     }
 }
