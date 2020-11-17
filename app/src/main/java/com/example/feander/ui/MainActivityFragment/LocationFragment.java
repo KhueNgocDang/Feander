@@ -135,25 +135,6 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu,menu);
-
-        /*MenuItem searchItem = menu.findItem(R.id.action_search);
-
-        SearchView searchView = (SearchView) searchItem.getActionView();
-
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SearchActivity.class);
-                intent.putExtra("current_location",current_location);
-                startActivity(intent);
-            }
-        });*/
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -162,6 +143,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
         if(item.getItemId()==R.id.action_search){
             Intent intent = new Intent(getContext(), SearchActivity.class);
             intent.putExtra("current_location",current_location);
+            intent.putExtra("type","both");
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
