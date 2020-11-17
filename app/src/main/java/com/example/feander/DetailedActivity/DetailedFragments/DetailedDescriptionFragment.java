@@ -71,7 +71,7 @@ public class DetailedDescriptionFragment extends Fragment {
 
         add.setText('\n'+"Địa chỉ: "+mParam1.getLocation() +'\n');
 
-        webs.setText('\n'+mParam1.getWebsite());
+        webs.setText(mParam1.getWebsite());
         webs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
