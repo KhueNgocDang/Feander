@@ -66,5 +66,15 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_location_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_tea"
+        android:onClick="saveLocation"
+        />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

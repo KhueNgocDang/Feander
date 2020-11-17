@@ -25,13 +25,11 @@ import com.example.feander.ui.MainActivityFragment.User_Fragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import io.grpc.ClientStreamTracer;
-
 
 public class MainActivity extends AppCompatActivity {
     LatLng latLng;
     Location location;
-    private String userName;
+    private String userName, userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         double longitude = 0;
         boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         userName = getIntent().getStringExtra("userName");
+        userId = getIntent().getStringExtra("id");
 
         if (network_enabled) {
 
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         final LocationFragment locationFragment = LocationFragment.newInstance(latitude, longitude);
-
+        locationFragment.setUserId(userId);
         final SearchFragment searchFragment = SearchFragment.newInstance(latitude, longitude);
         final User_Fragment user_fragment = new User_Fragment(userName);
 
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                 getSupportFragmentManager().beginTransaction().attach(searchFragment).commit();
                                 getSupportFragmentManager().beginTransaction().detach(user_fragment).commit();
                                 break;
-                            case R.id.LogOut:
+                            case R.id.user:
                                 getSupportFragmentManager().beginTransaction().detach(searchFragment).commit();
                                 getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
                                 getSupportFragmentManager().beginTransaction().attach(user_fragment).commit();

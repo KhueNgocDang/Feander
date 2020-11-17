@@ -81,6 +81,9 @@ public class User_Fragment extends Fragment {
                 if (s != null) {
                    phoneNumberView.setText(s);
                 }
+                if(s.equals("")){
+                    phoneNumberView.setText("Chưa có thông tin");
+                }
             }
         });
         return view;

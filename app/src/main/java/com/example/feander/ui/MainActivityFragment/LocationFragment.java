@@ -60,6 +60,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
     private LatLng current_location;
     Task<QuerySnapshot> querySnapshotTask;
     View view;
+   private String userId, locationId;
 
     public LocationFragment() {
         // Required empty public constructor
@@ -129,6 +130,8 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
         locationList.get(position);
         Intent intent = new Intent(getContext(), DetailedActivity.class);
         intent.putExtra("Location",locationList.get(position));
+        intent.putExtra("userId", userId);
+        intent.putExtra("locationId", locationId);
         startActivity(intent);
     }
 
@@ -157,6 +160,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
                         for (QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots) {
                             LocationModel locationModel = queryDocumentSnapshot.toObject(LocationModel.class);
                             locationModel.setDistance(current_location);
+                            locationModel.setLocationId(queryDocumentSnapshot.getId());
                             locationList.add(locationModel);
                             Log.d("TAG", "onSuccess" + locationModel.getName());
                         }
@@ -178,5 +182,13 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
                         Log.d("TAG", "onFailure" + e.getMessage());
                     }
                 });
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
     }
 }
