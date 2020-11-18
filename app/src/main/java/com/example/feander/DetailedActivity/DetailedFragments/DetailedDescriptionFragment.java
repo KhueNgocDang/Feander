@@ -81,14 +81,20 @@ public class DetailedDescriptionFragment extends Fragment {
 
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY)*100;
-        String timed;
-        if(mParam1.getStart_hour()<hour&&hour<mParam1.getEnd_hour())
+        String status = "unknow";
+        if(mParam1.getStart_hour()!=mParam1.getEnd_hour()){
+            if(mParam1.getStart_hour()<=hour&&hour<=mParam1.getEnd_hour())
             {
-                timed = "Openning: "+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();
+                status = "Openning: "+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();
             }
-        if (mParam1.getEnd_hour()==mParam1.getStart_hour()){timed="Alway Open";}
-        else {timed = "Closed "+"From: "+mParam1.getStart_hour()+" To: "+ mParam1.getEnd_hour();}
-        time.setText(timed+'\n');
+            //if (mParam1.getStart_hour()>hour||hour>mParam1.getEnd_hour())
+            else
+            {
+                status = "Closed "+"From: "+mParam1.getStart_hour()+" To: "+ mParam1.getEnd_hour();
+            }
+        }
+        else {status="Alway Open";}
+        time.setText(status+'\n');
 
         webs.setText(mParam1.getWebsite());
         webs.setOnClickListener(new View.OnClickListener() {

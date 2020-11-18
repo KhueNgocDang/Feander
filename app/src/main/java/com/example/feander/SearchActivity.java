@@ -81,7 +81,7 @@ public class SearchActivity extends AppCompatActivity implements LocationAdapter
                             if(Type.equals("retailer")&&locationModel.isSeller().equals("true"))
                             {locationList.add(locationModel);}
                             if(Type.equals("opening")&&(
-                                    (locationModel.getEnd_hour()>hour&&locationModel.getStart_hour()<hour)||
+                                    (locationModel.getEnd_hour()>hour&&locationModel.getStart_hour()<=hour)||
                                             (locationModel.getEnd_hour()==locationModel.getStart_hour())))
                             {locationList.add(locationModel);}
                             if(Type.equals("both")) {locationList.add(locationModel);}

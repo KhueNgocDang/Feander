@@ -22,6 +22,7 @@ import com.example.feander.R;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationHolder> implements Filterable {
@@ -63,12 +64,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         holder.list_name.setText(model.getName());
         holder.location.setText(model.getLocation());
         holder.distance.setText((int) model.getDistance() + "m");
-        if (!callingActivity.isDestroyed()) {
-            Glide.with(holder.img.getContext())
-                    .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
-                    .load(model.getImage())
-                    .into(holder.img);
-        }
+        holder.status.setText(getStatus(model));
+        Glide.with(holder.img.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(model.getImage())
+                .into(holder.img);
+        /*if (!callingActivity.isDestroyed()) {
+
+        }*/
     }
 
     @Override
@@ -84,6 +87,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         TextView list_name;
         TextView location;
         TextView distance;
+        TextView status;
         ImageView img;
         OnLocationListener onLocationListener;
 
@@ -93,8 +97,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
             location = itemView.findViewById(R.id.location_address);
             distance = itemView.findViewById(R.id.location_distance);
             img = itemView.findViewById(R.id.location_image);
+            status = itemView.findViewById(R.id.location_status);
             this.onLocationListener = onLocationListener;
-
             itemView.setOnClickListener(this);
         }
 
@@ -187,5 +191,25 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
 
     public interface OnLocationListener {
         void onLocationClick(int position);
+    }
+
+    public String getStatus(LocationModel mParam1){
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY)*100;
+        String status = "unknow";
+        if(mParam1.getStart_hour()!=mParam1.getEnd_hour()){
+            if(mParam1.getStart_hour()<=hour&&hour<=mParam1.getEnd_hour())
+            {
+                status = "Openning: "+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();
+            }
+            //if (mParam1.getStart_hour()>hour||hour>mParam1.getEnd_hour())
+            else
+                {
+                    status = "Closed "+"From: "+mParam1.getStart_hour()+" To: "+ mParam1.getEnd_hour();
+                }
+        }
+        else {status="Alway Open";}
+
+        return status;
     }
 }
