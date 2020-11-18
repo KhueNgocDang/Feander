@@ -7,7 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
 
@@ -52,6 +56,51 @@ public class DetailedHighlightFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_highlight, container, false);
+        View view = inflater.inflate(R.layout.fragment_highlight, container, false);
+        ImageView imageView1 =view.findViewById(R.id.SubImageView1);
+        ImageView imageView2 =view.findViewById(R.id.SubImageView2);
+        ImageView imageView3 =view.findViewById(R.id.SubImageView3);
+        ImageView imageView4 =view.findViewById(R.id.SubImageView4);
+        ImageView imageView5 =view.findViewById(R.id.SubImageView5);
+        ImageView imageView6 =view.findViewById(R.id.SubImageView6);
+
+        Glide.with(imageView1.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(mParam1.getSub_image1())
+                .into(imageView1);
+
+        Glide.with(imageView2.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(mParam1.getSub_image2())
+                .into(imageView2);
+
+        Glide.with(imageView3.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(mParam1.getSub_image3())
+                .into(imageView3);
+
+        Glide.with(imageView4.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(mParam1.getSub_image4())
+                .into(imageView4);
+
+        Glide.with(imageView5.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(mParam1.getSub_image5())
+                .into(imageView5);
+
+        Glide.with(imageView6.getContext())
+                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                .load(mParam1.getSub_image6())
+                .into(imageView6);
+
+        TextView location_text = view.findViewById(R.id.location_text1);
+        location_text.setText("Ảnh cho địa điểm");
+
+        TextView location_text1 = view.findViewById(R.id.location_text2);
+        if(mParam1.isSeller().equals("true")){location_text1.setText("Ảnh sản phẩm:");}
+        else {location_text1.setText("");}
+
+        return view;
     }
 }

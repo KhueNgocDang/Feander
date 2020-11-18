@@ -21,13 +21,21 @@ public class LocationModel implements Parcelable {
     private int start_hour;
     private double distance;
     private String locationId;
+    private String sub_image1;
+    private String sub_image2;
+    private String sub_image3;
+    private String sub_image4;
+    private String sub_image5;
+    private String sub_image6;
 
     public LocationModel(){
     }
 
     public LocationModel(String name, GeoPoint latLng, String location, String desc,
-                         double distance,String image,String website, String phone,
-                         String email, String tea_room, String seller, int end_hour, int start_hour)
+                         double distance,String image,String website, String phone, String email,
+                         String tea_room, String seller, int end_hour, int start_hour, String locationId,
+                         String sub_image1,String sub_image2,String sub_image3
+                        ,String sub_image4,String sub_image5,String sub_image6)
     {
         this.name = name;
         this.latLng = latLng;
@@ -42,6 +50,14 @@ public class LocationModel implements Parcelable {
         this.seller = seller;
         this.end_hour = end_hour;
         this.start_hour = start_hour;
+        this.locationId =locationId;
+        this.sub_image1 = sub_image1;
+        this.sub_image2 = sub_image2;
+        this.sub_image3 = sub_image3;
+        this.sub_image4 = sub_image4;
+        this.sub_image5 = sub_image5;
+        this.sub_image6 = sub_image6;
+
     }
 
     public LocationModel(Parcel in) {
@@ -60,6 +76,13 @@ public class LocationModel implements Parcelable {
         seller = in.readString();
         end_hour = in.readInt();
         start_hour = in.readInt();
+        locationId = in.readString();
+        sub_image1 = in.readString();
+        sub_image2 = in.readString();
+        sub_image3 = in.readString();
+        sub_image4 = in.readString();
+        sub_image5 = in.readString();
+        sub_image6 = in.readString();
     }
 
     public String getName() {
@@ -126,6 +149,13 @@ public class LocationModel implements Parcelable {
         dest.writeString(seller);
         dest.writeInt(end_hour);
         dest.writeInt(start_hour);
+        dest.writeString(locationId);
+        dest.writeString(sub_image1);
+        dest.writeString(sub_image2);
+        dest.writeString(sub_image3);
+        dest.writeString(sub_image4);
+        dest.writeString(sub_image5);
+        dest.writeString(sub_image6);
     }
 
     public double getDistance() {
@@ -228,5 +258,53 @@ public class LocationModel implements Parcelable {
 
     public String getLocationId() {
         return locationId;
+    }
+
+    public String getSub_image1() {
+        return sub_image1;
+    }
+
+    public void setSub_image1(String sub_image1) {
+        this.sub_image1 = sub_image1;
+    }
+
+    public String getSub_image2() {
+        return sub_image2;
+    }
+
+    public void setSub_image2(String sub_image2) {
+        this.sub_image2 = sub_image2;
+    }
+
+    public String getSub_image3() {
+        return sub_image3;
+    }
+
+    public void setSub_image3(String sub_image3) {
+        this.sub_image3 = sub_image3;
+    }
+
+    public String getSub_image4() {
+        return sub_image4;
+    }
+
+    public void setSub_image4(String sub_image4) {
+        this.sub_image4 = sub_image4;
+    }
+
+    public String getSub_image5() {
+        return sub_image5;
+    }
+
+    public void setSub_image5(String sub_image5) {
+        this.sub_image5 = sub_image5;
+    }
+
+    public String getSub_image6() {
+        return sub_image6;
+    }
+
+    public void setSub_image6(String sub_image6) {
+        this.sub_image6 = sub_image6;
     }
 }
