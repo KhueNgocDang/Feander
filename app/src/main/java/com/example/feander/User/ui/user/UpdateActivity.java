@@ -20,7 +20,7 @@ import com.example.feander.User.data.DataSource;
 import com.example.feander.User.data.Result;
 
 public class UpdateActivity extends AppCompatActivity {
-    private String userName;
+    private String userName, userId;
     private ProgressBar progressBarUpdate, progressBarChange;
     EditText userNameEditText, oldPassword, newPassword;
     Button updateButton;
@@ -40,6 +40,7 @@ public class UpdateActivity extends AppCompatActivity {
         progressBarUpdate = findViewById(R.id.update_progressbar);
         progressBarChange = findViewById(R.id.change_password_progressbar);
         userName = getIntent().getStringExtra("userName");
+        userId = getIntent().getStringExtra("userId");
         changePasswodButton = findViewById(R.id.change_password_button);
         phoneNumberEditText = findViewById(R.id.phone_number);
         userNameEditText.setText(userName);
@@ -85,7 +86,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     public void updateUser(View view) {
         progressBarUpdate.setVisibility(View.VISIBLE);
-        final MutableLiveData<Result> resultMutableLiveData = new DataSource().updateUserData(userName, phoneNumberEditText.getText().toString().trim());
+        final MutableLiveData<Result> resultMutableLiveData = new DataSource().updateUserData(userId, phoneNumberEditText.getText().toString().trim());
         resultMutableLiveData.observe(this, new Observer<Result>() {
             @Override
             public void onChanged(Result result) {

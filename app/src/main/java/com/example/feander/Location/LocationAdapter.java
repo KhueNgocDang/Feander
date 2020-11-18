@@ -1,6 +1,8 @@
 package com.example.feander.Location;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,8 +29,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     private List<LocationModel> locationModelList;
     private List<LocationModel> locationModelListFull;
     private OnLocationListener onLocationListener;
+    private Activity callingActivity;
 
-    public LocationAdapter(Context context, List<LocationModel> locationModelList,OnLocationListener onLocationListener) {
+    public LocationAdapter(Context context, List<LocationModel> locationModelList, OnLocationListener onLocationListener) {
         this.context = context;
         this.locationModelList = locationModelList;
         this.locationModelListFull = locationModelList;
@@ -52,16 +56,19 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         return new LocationHolder(view, onLocationListener);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onBindViewHolder(@NonNull LocationHolder holder, int position) {
         LocationModel model = locationModelList.get(position);
         holder.list_name.setText(model.getName());
         holder.location.setText(model.getLocation());
         holder.distance.setText((int) model.getDistance() + "m");
-        Glide.with(holder.img.getContext())
-                .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
-                .load(model.getImage())
-                .into(holder.img);
+        if (!callingActivity.isDestroyed()) {
+            Glide.with(holder.img.getContext())
+                    .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
+                    .load(model.getImage())
+                    .into(holder.img);
+        }
     }
 
     @Override
@@ -69,7 +76,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         return locationModelList.size();
     }
 
-    class LocationHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public void setCallingActivity(Activity callingActivity) {
+        this.callingActivity = callingActivity;
+    }
+
+    class LocationHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView list_name;
         TextView location;
         TextView distance;
@@ -81,7 +92,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
             list_name = itemView.findViewById(R.id.location_name);
             location = itemView.findViewById(R.id.location_address);
             distance = itemView.findViewById(R.id.location_distance);
-            img =  itemView.findViewById(R.id.location_image);
+            img = itemView.findViewById(R.id.location_image);
             this.onLocationListener = onLocationListener;
 
             itemView.setOnClickListener(this);
@@ -94,9 +105,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     }
 
 
-    public Filter getTeaShopFilter(){
-        return  TeaShop_Filter;
+    public Filter getTeaShopFilter() {
+        return TeaShop_Filter;
     }
+
     private Filter TeaShop_Filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -104,9 +116,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
 
             if (constraint == null || constraint.length() == 0) {
                 results.values = locationModelListFull;
-            }
-            else {
-                String filterPattern = Normalizer.normalize(constraint.toString().toLowerCase(), Normalizer.Form.NFD) ;
+            } else {
+                String filterPattern = Normalizer.normalize(constraint.toString().toLowerCase(), Normalizer.Form.NFD);
                 List<LocationModel> filteredList = new ArrayList<>();
                 for (LocationModel item : locationModelListFull) {
                     String tea_shop = Normalizer.normalize(item.isSeller().toLowerCase().trim(), Normalizer.Form.NFD);
@@ -123,7 +134,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         protected void publishResults(CharSequence constraint, FilterResults results) {
             locationModelList = (List<LocationModel>) results.values;
             notifyDataSetChanged();
-            if (locationModelList.isEmpty()){
+            if (locationModelList.isEmpty()) {
                 CharSequence text = "Không có kết quả phù hợp";
                 int duration = Toast.LENGTH_SHORT;
 
@@ -137,6 +148,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     public Filter getFilter() {
         return location_Filter;
     }
+
     private Filter location_Filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -144,14 +156,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
 
             if (constraint == null || constraint.length() == 0) {
                 results.values = locationModelListFull;
-            }
-            else {
-                String filterPattern = Normalizer.normalize(constraint.toString().toLowerCase(), Normalizer.Form.NFD) ;
+            } else {
+                String filterPattern = Normalizer.normalize(constraint.toString().toLowerCase(), Normalizer.Form.NFD);
                 List<LocationModel> filteredList = new ArrayList<>();
                 for (LocationModel item : locationModelListFull) {
                     String name = Normalizer.normalize(item.getName().toLowerCase().trim(), Normalizer.Form.NFD);
                     String location = Normalizer.normalize(item.getLocation().toLowerCase().trim(), Normalizer.Form.NFD);
-                    if (name.contains(filterPattern)||location.contains(filterPattern)) {
+                    if (name.contains(filterPattern) || location.contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
@@ -159,11 +170,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
             }
             return results;
         }
+
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             locationModelList = (List<LocationModel>) results.values;
             notifyDataSetChanged();
-            if (locationModelList.isEmpty()){
+            if (locationModelList.isEmpty()) {
                 CharSequence text = "Không có kết quả phù hợp";
                 int duration = Toast.LENGTH_SHORT;
 
@@ -173,7 +185,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         }
     };
 
-    public interface OnLocationListener{
+    public interface OnLocationListener {
         void onLocationClick(int position);
     }
 }

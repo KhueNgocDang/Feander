@@ -136,9 +136,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openMainIntent(String userIntents, String userID) {
+    private void openMainIntent(String userName, String userID) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("userName", userIntents);
+        intent.putExtra("userName", userName);
         intent.putExtra("id", userID);
         startActivity(intent);
     }

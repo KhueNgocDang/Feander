@@ -152,7 +152,7 @@ public class DetailedActivity extends AppCompatActivity {
     }
 
     public void saveLocation(View view) {
-        new DataSource().writeData("users" + "/" + getIntent().getStringExtra("id") + "/" + "savedLocation"
+        new DataSource().writeData("users" + "/" + getIntent().getStringExtra("userId") + "/" + "savedLocation"
                 , new String[]{"locationId"}, new String[]{locationId}).observe(this, new Observer<Result>() {
             @Override
             public void onChanged(Result result) {

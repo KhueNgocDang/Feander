@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.example.feander.Location.LocationModel;
 import com.example.feander.User.data.model.LoggedInUser;
 import com.example.feander.User.data.model.UncorrectException;
 import com.example.feander.User.data.model.UserNameExistException;
@@ -21,7 +22,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //import static com.firebase.ui.auth.AuthUI.getApplicationContext;
@@ -188,7 +192,7 @@ public class DataSource {
 //                    }
 //                });
 
-        final MutableLiveData<QuerySnapshot> querySnapshotMutableLiveData = getUserData(userName);
+        final MutableLiveData<QuerySnapshot> querySnapshotMutableLiveData = findData("users", "userNames", new String[]{userName});
         querySnapshotMutableLiveData.observeForever(new Observer<QuerySnapshot>() {
             @Override
             public void onChanged(QuerySnapshot querySnapshot) {
@@ -217,17 +221,18 @@ public class DataSource {
         return resultLive;
     }
 
-    public MutableLiveData<Result> updateUserData(String userName, final String phoneNumber) {
-        final MutableLiveData<QuerySnapshot> querySnapshotMutableLive = getUserData(userName);
-        querySnapshotMutableLive.observeForever(new Observer<QuerySnapshot>() {
-            @Override
-            public void onChanged(QuerySnapshot querySnapshot) {
-                if (querySnapshot != null) {
-                    updateInFirreStore(phoneNumber, querySnapshot.getDocuments().get(0).getId(), "phoneNumbers");
-                    querySnapshotMutableLive.removeObserver(this);
-                }
-            }
-        });
+    public MutableLiveData<Result> updateUserData(String userId, String phoneNumber) {
+//        final MutableLiveData<QuerySnapshot> querySnapshotMutableLive = findData(userName);
+//        querySnapshotMutableLive.observeForever(new Observer<QuerySnapshot>() {
+//            @Override
+//            public void onChanged(QuerySnapshot querySnapshot) {
+//                if (querySnapshot != null) {
+//                    updateInFirreStore(phoneNumber, querySnapshot.getDocuments().get(0).getId(), "phoneNumbers");
+//                    querySnapshotMutableLive.removeObserver(this);
+//                }
+//            }
+//        });
+        updateInFirreStore(phoneNumber, userId, "phoneNumbers");
         return resultLive;
     }
 
@@ -275,7 +280,7 @@ public class DataSource {
     }
 
     public MutableLiveData<String> getUserPhoneNumber(String username) {
-        final MutableLiveData<QuerySnapshot> querySnapshotLive = getUserData(username);
+        final MutableLiveData<QuerySnapshot> querySnapshotLive = findData("users", "userNames", new String[]{username});
         final MutableLiveData<String> phoneNumberLive = new MutableLiveData<>();
         querySnapshotLive.observeForever(new Observer<QuerySnapshot>() {
             @Override
@@ -291,9 +296,9 @@ public class DataSource {
         return phoneNumberLive;
     }
 
-    private MutableLiveData<QuerySnapshot> getUserData(String username) {
+    private MutableLiveData<QuerySnapshot> findData(String collection, String field, String[] info) {
         final MutableLiveData<QuerySnapshot> querySnapshotMutableLiveData = new MutableLiveData<>();
-        dataSource.collection("users").whereEqualTo("userNames", username)
+        dataSource.collection(collection).whereIn(field, Arrays.asList(info))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -303,11 +308,70 @@ public class DataSource {
                             Log.d("so ban ghi", Integer.toString(task.getResult().size()));
                         } else {
                             Log.w("PassWord", "Lỗi khi đọc các bản ghi", task.getException());
-                            resultLive.setValue(new Result.Error(new Exception("Lỗi khi đăng nhập", task.getException())));
+                            resultLive.setValue(new Result.Error(new Exception("Lỗi khi đọc các bản ghi", task.getException())));
                         }
                     }
                 });
         return querySnapshotMutableLiveData;
+    }
+
+    public MutableLiveData<QuerySnapshot> getAllIdData(String collection) {
+        final MutableLiveData<QuerySnapshot> listLive = new MutableLiveData<>();
+        dataSource.collection(collection)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if ((task.isSuccessful())) {
+                            listLive.setValue(task.getResult());
+                        } else {
+                            Log.w("PassWord", "Lỗi khi đọc các bản ghi", task.getException());
+                            resultLive.setValue(new Result.Error(new Exception("Lỗi khi đọc các bản ghi", task.getException())));
+                        }
+                    }
+                });
+
+        return listLive;
+    }
+
+    public MutableLiveData<ArrayList<LocationModel>> getSavedLocation(String userId) {
+        final ArrayList<LocationModel> listLocation = new ArrayList<>();
+        final MutableLiveData<ArrayList<LocationModel>> listLocationLive = new MutableLiveData<>();
+        final ArrayList<String> listId = new ArrayList<>();
+        final MutableLiveData<QuerySnapshot> listLive = getAllIdData("users" + "/" + userId + "/" + "savedLocation");
+        listLive.observeForever(new Observer<QuerySnapshot>() {
+            @Override
+            public void onChanged(QuerySnapshot queryDocumentSnapshotId) {
+                if (queryDocumentSnapshotId.size() > 0) {
+                    listLive.removeObserver(this);
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshotId) {
+                        listId.add(document.get("locationId").toString().trim());
+                    }
+                    final MutableLiveData<QuerySnapshot> listLive1 = getAllIdData("Location");
+                    listLive1.observeForever(new Observer<QuerySnapshot>() {
+                        @Override
+                        public void onChanged(QuerySnapshot queryDocumentSnapshots) {
+                            if (queryDocumentSnapshots.size() > 0) {
+                                listLive1.removeObserver(this);
+                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                    if (listId.contains(document.getId())) {
+                                        listLocation.add(document.toObject(LocationModel.class));
+                                    }
+                                }
+                                listLocationLive.setValue(listLocation);
+                                Log.d("danh sach ", listLocation.toString());
+
+                            }
+
+                        }
+                    });
+
+                }else {
+                    listLocationLive.setValue(listLocation);
+                }
+            }
+        });
+        return listLocationLive;
     }
 
 }
