@@ -355,7 +355,9 @@ public class DataSource {
                                 listLive1.removeObserver(this);
                                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                     if (listId.contains(document.getId())) {
-                                        listLocation.add(document.toObject(LocationModel.class));
+                                        LocationModel locationModel = document.toObject(LocationModel.class);
+                                        locationModel.setLocationId(document.getId());
+                                        listLocation.add(locationModel);
                                     }
                                 }
                                 listLocationLive.setValue(listLocation);
