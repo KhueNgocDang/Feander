@@ -27,7 +27,9 @@
                 android:id="@+id/location_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:layout_margin="10dp"
+                />
 
             <GridLayout
                 android:id="@+id/GridLayout1"
@@ -45,19 +47,25 @@
                     android:id="@+id/SubImageView1"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:layout_margin="10dp"
+                    />
 
                 <ImageView
                     android:id="@+id/SubImageView2"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:layout_margin="10dp"
+                    />
 
                 <ImageView
                     android:id="@+id/SubImageView3"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:layout_margin="10dp"
+                    />
 
             </GridLayout>
 
@@ -65,7 +73,9 @@
                 android:id="@+id/location_text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:layout_margin="10dp"
+                />
 
             <androidx.gridlayout.widget.GridLayout
                 android:layout_width="380dp"
@@ -82,19 +92,25 @@
                     android:id="@+id/SubImageView4"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:layout_margin="10dp"
+                    />
 
                 <ImageView
                     android:id="@+id/SubImageView5"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:layout_margin="10dp"
+                    />
 
                 <ImageView
                     android:id="@+id/SubImageView6"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:layout_margin="10dp"
+                    />
             </androidx.gridlayout.widget.GridLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

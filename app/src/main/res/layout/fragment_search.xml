@@ -9,6 +9,12 @@
     tools:context="ui.MainActivityFragment.SearchFragment"
     tools:visibility="visible">
 
+    <androidx.gridlayout.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.gridlayout.widget.GridLayout>
+
     <SearchView
         android:id="@+id/SearchViewSearchFrag"
         android:layout_width="239dp"
