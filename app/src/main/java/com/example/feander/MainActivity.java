@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         repository.setContext(getApplicationContext());
         repository.logOut();
         startActivity(new Intent(this, LoginActivity.class));
-        onDestroy();
+        finish();
     }
 
     public void showSavedLocation(View view) {
