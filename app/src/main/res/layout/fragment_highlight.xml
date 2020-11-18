@@ -33,7 +33,7 @@
 
             <GridLayout
                 android:id="@+id/GridLayout1"
-                android:layout_width="355dp"
+                android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="40dp"
@@ -70,7 +70,7 @@
                 android:text="TextView" />
 
             <androidx.gridlayout.widget.GridLayout
-                android:layout_width="355dp"
+                android:layout_width="380dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="40dp"

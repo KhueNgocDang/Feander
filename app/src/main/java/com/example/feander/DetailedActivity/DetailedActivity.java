@@ -141,9 +141,9 @@ public class DetailedActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         DetailedPagerAdapter adapter = new DetailedPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        adapter.addFrag(detailed_desc, "Info");
-        adapter.addFrag(detailed_high_light, "Highlight");
-        adapter.addFrag(detailed_info, "On Map");
+        adapter.addFrag(detailed_desc, "Thông tin");
+        adapter.addFrag(detailed_high_light, "Ảnh");
+        adapter.addFrag(detailed_info, "Trên bản đồ");
         viewPager.setAdapter(adapter);
     }
 

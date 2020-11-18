@@ -85,12 +85,12 @@ public class DetailedDescriptionFragment extends Fragment {
         if(mParam1.getStart_hour()!=mParam1.getEnd_hour()){
             if(mParam1.getStart_hour()<=hour&&hour<=mParam1.getEnd_hour())
             {
-                status = "Đang mở: "+" Từ: "+mParam1.getStart_hour()+" Cho tới: "+ mParam1.getEnd_hour();
+                status = "Đang mở: "+" Từ: "+mParam1.getStart_hour()/100+" giờ"+" Cho tới: "+ mParam1.getEnd_hour()/100+" giờ";
             }
             //if (mParam1.getStart_hour()>hour||hour>mParam1.getEnd_hour())
             else
             {
-                status = "Đang đóng "+" Từ: "+mParam1.getStart_hour() + " Cho tới: "+ mParam1.getEnd_hour();
+                status = "Đang đóng "+" Từ: "+mParam1.getStart_hour()/100+" giờ" + " Cho tới: "+ mParam1.getEnd_hour()/100+" giờ";
             }
         }
         else {status="Luôn mở";}
