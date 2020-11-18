@@ -7,21 +7,14 @@
     tools:context=".User.ui.user.SavedLocationActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@id/text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -31,7 +24,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Danh sách các cửa hàng đã lưu"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

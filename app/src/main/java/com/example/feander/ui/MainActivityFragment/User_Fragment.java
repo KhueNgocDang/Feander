@@ -77,17 +77,19 @@ public class User_Fragment extends Fragment {
         TextView userNameView = view.findViewById(R.id.username);
         userNameView.setText(userName);
         final TextView phoneNumberView = view.findViewById(R.id.phone_number);
-        new DataSource().getUserPhoneNumber(userName).observeForever(new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                if (s != null) {
-                   phoneNumberView.setText(s);
+        if (userName != null) {
+            new DataSource().getUserPhoneNumber(userName).observeForever(new Observer<String>() {
+                @Override
+                public void onChanged(String s) {
+                    if (s != null) {
+                        phoneNumberView.setText(s);
+                    }
+                    if (s.equals("")) {
+                        phoneNumberView.setText("Chưa có thông tin");
+                    }
                 }
-                if(s.equals("")){
-                    phoneNumberView.setText("Chưa có thông tin");
-                }
-            }
-        });
+            });
+        }
         return view;
     }
 }
