@@ -60,8 +60,8 @@ public class DetailedActivity extends AppCompatActivity {
         buttonParams.setMargins((int) (displayMetrics.widthPixels*0.8), (int) (displayMetrics.heightPixels*0.8),buttonParams.rightMargin, buttonParams.bottomMargin);
         saveButton.setLayoutParams(buttonParams);
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        double latitude = 0;
-        double longitude = 0;
+        double latitude = 21.028511;
+        double longitude = 105.804817;
         boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if (network_enabled) {
