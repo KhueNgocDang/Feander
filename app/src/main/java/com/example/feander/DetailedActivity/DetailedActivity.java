@@ -18,7 +18,6 @@ import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,10 +33,9 @@ import com.example.feander.Location.LocationModel;
 import com.example.feander.R;
 import com.example.feander.User.data.DataSource;
 import com.example.feander.User.data.Result;
-import com.example.feander.User.data.model.LoggedInUser;
+import com.example.feander.ViewPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class DetailedActivity extends AppCompatActivity {
@@ -145,7 +143,7 @@ public class DetailedActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        DetailedPagerAdapter adapter = new DetailedPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         adapter.addFrag(detailed_desc, "Thông tin");
         adapter.addFrag(detailed_high_light, "Ảnh");
         adapter.addFrag(detailed_info, "Trên bản đồ");

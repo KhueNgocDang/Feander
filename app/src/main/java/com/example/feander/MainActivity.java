@@ -8,7 +8,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -17,6 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.feander.User.data.Repository;
 import com.example.feander.User.ui.user.LoginActivity;
@@ -28,19 +30,26 @@ import com.example.feander.ui.MainActivityFragment.User_Fragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     LatLng latLng;
     Location location;
     private String userName, userId;
+    private final List<Fragment> mFragmentList  = new ArrayList<>();
+    LocationFragment locationFragment;
+    SearchFragment searchFragment;
+    User_Fragment user_fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        double latitude = 0;
-        double longitude = 0;
+        double latitude = 21.028511;
+        double longitude = 105.804817;
         boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         userName = getIntent().getStringExtra("userName");
         userId = getIntent().getStringExtra("id");
@@ -62,57 +71,67 @@ public class MainActivity extends AppCompatActivity {
             latLng = new LatLng(latitude, longitude);
         }
 
-        final LocationFragment locationFragment = LocationFragment.newInstance(latitude, longitude);
+        locationFragment = LocationFragment.newInstance(latitude, longitude);
         locationFragment.setUserId(userId);
         locationFragment.setCallingActivty(this);
-        final SearchFragment searchFragment = SearchFragment.newInstance(latitude, longitude);
-        final User_Fragment user_fragment = new User_Fragment(userName);
+        searchFragment = SearchFragment.newInstance(latitude, longitude);
+        user_fragment = new User_Fragment(userName);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, locationFragment)
-                .commit();
-        getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, searchFragment)
-                .commit();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, user_fragment)
-                .commit();
-        getSupportFragmentManager().beginTransaction().detach(user_fragment).commit();
+        final ViewPager viewPager = findViewById(R.id.fragment_container);
+        setupViewPager(viewPager);
 
         final Intent map_intent = new Intent(this, MapsActivity.class);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_bar);
+        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_bar);
         BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new
                 BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.location_info:
-                                getSupportFragmentManager().beginTransaction().detach(searchFragment).commit();
-                                getSupportFragmentManager().beginTransaction().attach(locationFragment).commit();
-                                getSupportFragmentManager().beginTransaction().detach(user_fragment).commit();
-
+                                viewPager.setCurrentItem(1);
+                                break;
+                            case R.id.action_search:
+                                viewPager.setCurrentItem(0);
+                                break;
+                            case R.id.user:
+                                viewPager.setCurrentItem(2);
                                 break;
                             case R.id.map_location:
                                 startActivity(map_intent);
-                                break;
-                            case R.id.action_search:
-                                getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
-                                getSupportFragmentManager().beginTransaction().attach(searchFragment).commit();
-                                getSupportFragmentManager().beginTransaction().detach(user_fragment).commit();
-                                break;
-                            case R.id.user:
-                                getSupportFragmentManager().beginTransaction().detach(searchFragment).commit();
-                                getSupportFragmentManager().beginTransaction().detach(locationFragment).commit();
-                                getSupportFragmentManager().beginTransaction().attach(user_fragment).commit();
                                 break;
                         }
                         return true;
                     }
                 };
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        bottomNavigationView.getMenu().findItem(R.id.location_info).setChecked(true);
+                        break;
+                    case 1:
+                        bottomNavigationView.getMenu().findItem(R.id.action_search).setChecked(true);
+                        break;
+                    case 2:
+                        bottomNavigationView.getMenu().findItem(R.id.user).setChecked(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     public void updateUser(View view) {
@@ -144,12 +163,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    public void logOut(MenuItem item) {
-//        Repository repository = new Repository();
-//        repository.setContext(getApplicationContext());
-//        repository.logOut();
-//        startActivity(new Intent(this, LoginActivity.class));
-//        finish();
-//    }
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        adapter.addFrag(searchFragment, "Tìm kiếm");
+        adapter.addFrag(locationFragment, "Danh sách");
+        adapter.addFrag(user_fragment , "Người dùng");
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(adapter);
+    }
 }
