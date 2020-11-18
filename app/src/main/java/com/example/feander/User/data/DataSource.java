@@ -22,6 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -295,7 +296,7 @@ public class DataSource {
         return phoneNumberLive;
     }
 
-    private MutableLiveData<QuerySnapshot> findData(String collection, String field, String[] info) {
+    public MutableLiveData<QuerySnapshot> findData(String collection, String field, String[] info) {
         final MutableLiveData<QuerySnapshot> querySnapshotMutableLiveData = new MutableLiveData<>();
         dataSource.collection(collection).whereIn(field, Arrays.asList(info))
                 .get()
@@ -371,6 +372,25 @@ public class DataSource {
             }
         });
         return listLocationLive;
+    }
+    public MutableLiveData<Boolean> deleteDocument(String collection, String idDocument){
+        final MutableLiveData<Boolean> delSuccess = new MutableLiveData<>();
+        dataSource.collection(collection).document(idDocument)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        delSuccess.setValue(true);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        delSuccess.setValue(false);
+                    }
+                });
+        return delSuccess;
+
     }
 
 }

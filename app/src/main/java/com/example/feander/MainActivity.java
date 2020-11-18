@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         if (userName != null) {
             startActivity(new Intent(this, UpdateActivity.class).putExtra("userName", userName).putExtra("userId", userId));
         } else {
-            Toast.makeText(this, "Bạn đang xem với tư cách khách", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Bạn đang xem với tư cách khách", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         if (userName != null)
             startActivity(new Intent(this, SavedLocationActivity.class).putExtra("userId", userId));
         else
-            Toast.makeText(this, "Bạn đang xem với tư cách khách", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Bạn đang xem với tư cách khách", Toast.LENGTH_LONG).show();
 
     }
 

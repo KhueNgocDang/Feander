@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
@@ -35,6 +36,7 @@ import com.example.feander.User.data.model.LoggedInUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class DetailedActivity extends AppCompatActivity {
 
@@ -43,14 +45,16 @@ public class DetailedActivity extends AppCompatActivity {
     DetailedHighlightFragment detailed_high_light;
     DetailedInfoFragment detailed_info;
     FloatingActionButton saveButton;
-    String locationId, userId;
+    String locationId, userId, idDocument;
+    boolean isSaved = false;
+    MutableLiveData<Boolean> isSave = new MutableLiveData<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
-
+        saveButton = findViewById(R.id.save_location_button);
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         double latitude = 0;
         double longitude = 0;
@@ -80,6 +84,8 @@ public class DetailedActivity extends AppCompatActivity {
         detailed_info = DetailedInfoFragment.newInstance(locationModel, latitude, longitude);
         locationId = intent.getStringExtra("locationId");
         userId = intent.getStringExtra("userId");
+        isSave.setValue(false);
+        checkSave(userId, locationId);
         final ViewPager viewPager = findViewById(R.id.DetailedViewpager);
         setupViewPager(viewPager);
 
@@ -130,7 +136,7 @@ public class DetailedActivity extends AppCompatActivity {
             }
         });
 
-
+        traceSaved();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -153,23 +159,68 @@ public class DetailedActivity extends AppCompatActivity {
     }
 
     public void saveLocation(View view) {
-        new DataSource().writeData("users" + "/" + getIntent().getStringExtra("userId") + "/" + "savedLocation"
-                , new String[]{"locationId"}, new String[]{locationId}).observe(this, new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result instanceof Result.Success) {
-                    showResult("Lưu thành công");
-                } else if (result instanceof Result.Error) {
-                    showResult("Lưu thất bại");
+        if (userId != null) {
+            if(!isSave.getValue())
+            new DataSource().writeData("users" + "/" + getIntent().getStringExtra("userId") + "/" + "savedLocation"
+                    , new String[]{"locationId"}, new String[]{locationId}).observe(this, new Observer<Result>() {
+                @Override
+                public void onChanged(Result result) {
+                    if (result instanceof Result.Success) {
+                        showResult("Lưu thành công");
+                        isSave.setValue(true);
+                    } else if (result instanceof Result.Error) {
+                        showResult("Lưu thất bại");
+                    }
                 }
-            }
-        });
+            });
+            else new DataSource().deleteDocument("users" + "/" + getIntent().getStringExtra("userId") + "/" + "savedLocation", idDocument).observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    if(aBoolean){
+                        showResult("Bỏ lưu thành công");
+                        isSave.setValue(false);
+                    }else {
+                        showResult("Bỏ lưu thất bại");
+                    }
+                }
+            });
+        } else showResult("Bạn đang xem với tư cách khách");
     }
-    private void checkSave(String userId, String locationId){
 
+
+    private void checkSave(String userId, String locationId) {
+        if (userId != null) {
+            new DataSource().findData("users" + "/" + getIntent().getStringExtra("userId") + "/" + "savedLocation", "locationId", new String[]{locationId}).observe(this,
+                    new Observer<QuerySnapshot>() {
+                        @Override
+                        public void onChanged(QuerySnapshot queryDocumentSnapshots) {
+                            if (queryDocumentSnapshots != null) {
+                                if (queryDocumentSnapshots.size() > 0) {
+                                    isSave.setValue(true);
+                                    idDocument = queryDocumentSnapshots.getDocuments().get(0).getId();
+                                } else {
+                                    isSave.setValue(false);
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     private void showResult(String string) {
         Toast.makeText(this, string, Toast.LENGTH_LONG).show();
+    }
+
+    private void traceSaved() {
+        isSave.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    saveButton.setImageResource(R.drawable.tick_icon);
+                } else {
+                    saveButton.setImageResource(R.drawable.save_icon);
+                }
+            }
+        });
     }
 }
