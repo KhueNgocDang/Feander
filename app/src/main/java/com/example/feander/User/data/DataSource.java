@@ -37,7 +37,6 @@ public class DataSource {
     private FirebaseFirestore dataSource = FirebaseFirestore.getInstance();
     private MutableLiveData<Result> resultLive = new MutableLiveData<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public MutableLiveData<Result> login(String username, String password) {
         try {
 //            if (checkUsers(username, password)) {
