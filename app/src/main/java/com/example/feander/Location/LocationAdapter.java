@@ -67,13 +67,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
             holder.distance.setText((int) model.getDistance() + "m");
         else holder.distance.setText("");
         holder.status.setText(getStatus(model));
-        Glide.with(holder.img.getContext())
+        try {
+            Glide.with(holder.img.getContext())
                 .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
                 .load(model.getImage())
                 .into(holder.img);
-        /*if (!callingActivity.isDestroyed()) {
-
-        }*/
+        }catch (Exception e) { e.printStackTrace(); }
     }
 
     @Override
