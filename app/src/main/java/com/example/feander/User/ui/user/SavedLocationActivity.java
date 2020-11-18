@@ -15,6 +15,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.feander.DetailedActivity.DetailedActivity;
@@ -32,6 +33,7 @@ public class SavedLocationActivity extends AppCompatActivity implements Location
     LocationAdapter adapter;
     ArrayList<LocationModel> locationList = new ArrayList<>();
     MutableLiveData<LocationAdapter> adapterLive = new MutableLiveData<>();
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class SavedLocationActivity extends AppCompatActivity implements Location
         setContentView(R.layout.activity_saved_location);
         userId = getIntent().getStringExtra("userId");
         progressBar = findViewById(R.id.progressBar);
+        textView = findViewById(R.id.text1);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getAllSavedLocation(userId);
@@ -48,6 +51,7 @@ public class SavedLocationActivity extends AppCompatActivity implements Location
             @Override
             public void onChanged(ArrayList<LocationModel> locationModels) {
                 if (locationModels.size() > 0) {
+                    textView.setVisibility(View.GONE);
                     locationList = locationModels;
                     adapter = new LocationAdapter(getThisClass(), locationList, getThisClass());
                     adapterLive.setValue(adapter);
@@ -55,8 +59,8 @@ public class SavedLocationActivity extends AppCompatActivity implements Location
                     recyclerView.setAdapter(adapter);
                     Log.d("list loaction", locationModels.toString());
                 } else {
-                    Toast.makeText(getApplicationContext(), "Chưa lưu cửa hàng nào", Toast.LENGTH_LONG).show();
-                    finish();
+                    recyclerView.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
                 }
                 progressBar.setVisibility(View.GONE);
             }
