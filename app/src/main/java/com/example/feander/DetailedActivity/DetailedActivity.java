@@ -43,7 +43,7 @@ public class DetailedActivity extends AppCompatActivity {
     DetailedHighlightFragment detailed_high_light;
     DetailedInfoFragment detailed_info;
     FloatingActionButton saveButton;
-    String locationId;
+    String locationId, userId;
 
 
     @Override
@@ -79,6 +79,7 @@ public class DetailedActivity extends AppCompatActivity {
         detailed_high_light = DetailedHighlightFragment.newInstance(locationModel);
         detailed_info = DetailedInfoFragment.newInstance(locationModel, latitude, longitude);
         locationId = intent.getStringExtra("locationId");
+        userId = intent.getStringExtra("userId");
         final ViewPager viewPager = findViewById(R.id.DetailedViewpager);
         setupViewPager(viewPager);
 
@@ -163,6 +164,9 @@ public class DetailedActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void checkSave(String userId, String locationId){
+
     }
 
     private void showResult(String string) {

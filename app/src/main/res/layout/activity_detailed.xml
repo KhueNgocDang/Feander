@@ -70,11 +70,12 @@
         android:id="@+id/save_location_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_tea"
-        android:onClick="saveLocation"
         android:layout_gravity="bottom|right"
+        android:clickable="true"
+
+        android:onClick="saveLocation"
         app:layout_anchorGravity="bottom|right|end"
+        app:srcCompat="@drawable/save_icon"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
