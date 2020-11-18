@@ -165,7 +165,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
                             locationModel.setDistance(current_location);
                             locationModel.setLocationId(queryDocumentSnapshot.getId());
                             locationList.add(locationModel);
-                            Log.d("TAG", "onSuccess" + locationModel.getName());
+                            //Log.d("TAG", "onSuccess" + locationModel.getName());
                         }
                         Collections.sort(locationList, new Comparator<LocationModel>() {
                             @Override
@@ -182,7 +182,7 @@ public class LocationFragment extends Fragment implements LocationAdapter.OnLoca
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("TAG", "onFailure" + e.getMessage());
+                        //Log.d("TAG", "onFailure" + e.getMessage());
                     }
                 });
     }

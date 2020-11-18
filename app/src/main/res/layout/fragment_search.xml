@@ -5,7 +5,9 @@
     android:id="@+id/fragment_search_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.MainActivityFragment.SearchFragment">
+    android:background="@android:color/transparent"
+    tools:context="ui.MainActivityFragment.SearchFragment"
+    tools:visibility="visible">
 
     <SearchView
         android:id="@+id/SearchViewSearchFrag"
@@ -45,7 +47,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="200dp"
-        android:text="Tea room"
+        android:text="Quán trà"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/retailer"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +63,7 @@
         android:layout_marginEnd="85dp"
         android:layout_marginRight="85dp"
         android:layout_marginBottom="200dp"
-        android:text="Retailer"
+        android:text="Cửa hàng trà"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tearoom"
@@ -76,7 +78,7 @@
         android:layout_marginEnd="160dp"
         android:layout_marginRight="160dp"
         android:layout_marginBottom="56dp"
-        android:text="Opening"
+        android:text="Đang mở"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.916"

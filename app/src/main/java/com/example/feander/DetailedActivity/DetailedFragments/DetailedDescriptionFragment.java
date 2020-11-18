@@ -81,22 +81,22 @@ public class DetailedDescriptionFragment extends Fragment {
 
         Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY)*100;
-        String status = "unknow";
+        String status ;
         if(mParam1.getStart_hour()!=mParam1.getEnd_hour()){
             if(mParam1.getStart_hour()<=hour&&hour<=mParam1.getEnd_hour())
             {
-                status = "Openning: "+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();
+                status = "Đang mở: "+" Từ: "+mParam1.getStart_hour()+" Cho tới: "+ mParam1.getEnd_hour();
             }
             //if (mParam1.getStart_hour()>hour||hour>mParam1.getEnd_hour())
             else
             {
-                status = "Closed "+"From: "+mParam1.getStart_hour()+" To: "+ mParam1.getEnd_hour();
+                status = "Đang đóng "+" Từ: "+mParam1.getStart_hour() + " Cho tới: "+ mParam1.getEnd_hour();
             }
         }
-        else {status="Alway Open";}
+        else {status="Luôn mở";}
         time.setText(status+'\n');
 
-        webs.setText(mParam1.getWebsite());
+        webs.setText(mParam1.getWebsite()+'\n');
         webs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -107,11 +107,11 @@ public class DetailedDescriptionFragment extends Fragment {
 
         });
 
-        phone.setText('\n'+'\n'+mParam1.getPhone());
+        phone.setText(mParam1.getPhone());
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browser= new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+mParam1.getPhone()));
+                Intent browser= new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + mParam1.getPhone()));
                 startActivity(browser);
             }
         });

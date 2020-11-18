@@ -36,7 +36,7 @@ public class Splash_Activity extends AppCompatActivity {
                 if (userName != null) {
                     Intent intent = new Intent(Splash_Activity.this, MainActivity.class);
                     intent.putExtra("userName", userName.trim());
-                    intent.putExtra("id", userId.trim());
+                    intent.putExtra("id", userId);//.trim()
                     Toast.makeText(getApplicationContext(), "Xin chao " + userName, Toast.LENGTH_LONG).show();
                     finish();
                     startActivity(intent);
