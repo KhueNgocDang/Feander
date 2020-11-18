@@ -131,7 +131,9 @@ public class MainActivity extends AppCompatActivity {
         repository.setContext(getApplicationContext());
         repository.logOut();
         startActivity(new Intent(this, LoginActivity.class));
-        finish();
+        if (android.os.Build.VERSION.SDK_INT < 28 )
+            finish();
+        else onDestroy();
     }
 
     public void showSavedLocation(View view) {
