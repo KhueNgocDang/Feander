@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         boolean network_enabled = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         userName = getIntent().getStringExtra("userName");
         userId = getIntent().getStringExtra("id");
-        Log.d("userId", userId);
+//        Log.d("userId", userId);
 
         if (network_enabled) {
 
@@ -115,7 +116,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateUser(View view) {
-        startActivity(new Intent(this, UpdateActivity.class).putExtra("userName", userName).putExtra("userId", userId));
+        if (userName != null) {
+            startActivity(new Intent(this, UpdateActivity.class).putExtra("userName", userName).putExtra("userId", userId));
+        } else {
+            Toast.makeText(this, "Bạn đang xem với tư cách khách", Toast.LENGTH_LONG);
+        }
+
     }
 
 
@@ -129,7 +135,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showSavedLocation(View view) {
-        startActivity(new Intent(this, SavedLocationActivity.class).putExtra("userId", userId));
+        if (userName != null)
+            startActivity(new Intent(this, SavedLocationActivity.class).putExtra("userId", userId));
+        else
+            Toast.makeText(this, "Bạn đang xem với tư cách khách", Toast.LENGTH_LONG);
+
     }
 
 //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
