@@ -49,7 +49,7 @@ public class SavedLocationActivity extends AppCompatActivity implements Location
                     recyclerView.setAdapter(adapter);
                     Log.d("list loaction", locationModels.toString());
                 } else {
-                    Toast.makeText(getApplicationContext(), "Chua luu cua hang nao", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Chưa lưu cửa hàng nào", Toast.LENGTH_LONG).show();
                     finish();
                 }
                 progressBar.setVisibility(View.GONE);
