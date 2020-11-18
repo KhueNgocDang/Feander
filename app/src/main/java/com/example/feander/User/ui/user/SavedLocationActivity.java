@@ -25,14 +25,13 @@ import com.example.feander.User.data.DataSource;
 
 import java.util.ArrayList;
 
-public class SavedLocationActivity extends AppCompatActivity implements LocationAdapter.OnLocationListener, GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+public class SavedLocationActivity extends AppCompatActivity implements LocationAdapter.OnLocationListener {
     private String userId;
     ProgressBar progressBar;
     RecyclerView recyclerView;
     LocationAdapter adapter;
     ArrayList<LocationModel> locationList = new ArrayList<>();
     MutableLiveData<LocationAdapter> adapterLive = new MutableLiveData<>();
-    private GestureDetectorCompat mDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +42,6 @@ public class SavedLocationActivity extends AppCompatActivity implements Location
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getAllSavedLocation(userId);
-        mDetector = new GestureDetectorCompat(this,this);
-        mDetector.setOnDoubleTapListener(this);
     }
     private void getAllSavedLocation(String userId) {
         new DataSource().getSavedLocation(userId).observe(this, new Observer<ArrayList<LocationModel>>() {
@@ -71,7 +68,6 @@ public class SavedLocationActivity extends AppCompatActivity implements Location
         return this;
     }
 
-
     @Override
     public void onLocationClick(int position) {
         locationList.get(position);
@@ -82,51 +78,8 @@ public class SavedLocationActivity extends AppCompatActivity implements Location
         startActivity(intent);
     }
 
-    @Override
-    public boolean onDown(MotionEvent e) {
+    public void refresh(View view) {
         progressBar.setVisibility(View.VISIBLE);
         getAllSavedLocation(userId);
-        Toast.makeText(getApplicationContext(), "Đã cập nhật danh sách", Toast.LENGTH_LONG).show();
-        return true;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        return false;
-    }
-
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent e) {
-        return true;
-    }
-
-    @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent e) {
-        return false;
     }
 }

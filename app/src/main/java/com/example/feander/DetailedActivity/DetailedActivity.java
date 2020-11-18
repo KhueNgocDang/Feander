@@ -10,12 +10,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -46,7 +48,6 @@ public class DetailedActivity extends AppCompatActivity {
     DetailedInfoFragment detailed_info;
     FloatingActionButton saveButton;
     String locationId, userId, idDocument;
-    boolean isSaved = false;
     MutableLiveData<Boolean> isSave = new MutableLiveData<>();
 
 
@@ -55,6 +56,11 @@ public class DetailedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
         saveButton = findViewById(R.id.save_location_button);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        CoordinatorLayout.LayoutParams buttonParams = (CoordinatorLayout.LayoutParams) saveButton.getLayoutParams();
+        buttonParams.setMargins((int) (displayMetrics.widthPixels*0.8), (int) (displayMetrics.heightPixels*0.8),buttonParams.rightMargin, buttonParams.bottomMargin);
+        saveButton.setLayoutParams(buttonParams);
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         double latitude = 0;
         double longitude = 0;
@@ -135,7 +141,6 @@ public class DetailedActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-
         traceSaved();
     }
 
