@@ -63,7 +63,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         LocationModel model = locationModelList.get(position);
         holder.list_name.setText(model.getName());
         holder.location.setText(model.getLocation());
-        holder.distance.setText((int) model.getDistance() + "m");
+        if (model.getDistance() > 0)
+            holder.distance.setText((int) model.getDistance() + "m");
+        else holder.distance.setText("");
         holder.status.setText(getStatus(model));
         Glide.with(holder.img.getContext())
                 .applyDefaultRequestOptions(RequestOptions.placeholderOf(R.drawable.ic_tea).error(R.drawable.ic_tea))
@@ -193,22 +195,21 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         void onLocationClick(int position);
     }
 
-    public String getStatus(LocationModel mParam1){
+    public String getStatus(LocationModel mParam1) {
         Calendar rightNow = Calendar.getInstance();
-        int hour = rightNow.get(Calendar.HOUR_OF_DAY)*100;
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY) * 100;
         String status = "unknow";
-        if(mParam1.getStart_hour()!=mParam1.getEnd_hour()){
-            if(mParam1.getStart_hour()<=hour&&hour<=mParam1.getEnd_hour())
-            {
-                status = "Openning: "+"From: "+mParam1.getStart_hour()+"To: "+ mParam1.getEnd_hour();
+        if (mParam1.getStart_hour() != mParam1.getEnd_hour()) {
+            if (mParam1.getStart_hour() <= hour && hour <= mParam1.getEnd_hour()) {
+                status = "Openning: " + "From: " + mParam1.getStart_hour() + "To: " + mParam1.getEnd_hour();
             }
             //if (mParam1.getStart_hour()>hour||hour>mParam1.getEnd_hour())
-            else
-                {
-                    status = "Closed "+"From: "+mParam1.getStart_hour()+" To: "+ mParam1.getEnd_hour();
-                }
+            else {
+                status = "Closed " + "From: " + mParam1.getStart_hour() + " To: " + mParam1.getEnd_hour();
+            }
+        } else {
+            status = "Alway Open";
         }
-        else {status="Alway Open";}
 
         return status;
     }
